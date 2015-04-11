@@ -10,9 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class DummyService {
-	@RequestMapping(value = "dummy")
+	@RequestMapping("dummy")
 	public void doDummyStuff(final HttpServletRequest request,
 			final HttpServletResponse response) throws IOException {
 		response.getWriter().write("Hi, i'm a dummy servlet!");
+	}
+
+	@RequestMapping("notdummy")
+	public void doNotDummyStuff(final HttpServletRequest request,
+			final HttpServletResponse response) throws IOException {
+		response.getWriter().write("Hi, i'm not a dummy servlet!");
 	}
 }
