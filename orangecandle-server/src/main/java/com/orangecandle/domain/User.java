@@ -10,7 +10,6 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@XmlRootElement
 public class User {
 	
 	private @Id int id;
