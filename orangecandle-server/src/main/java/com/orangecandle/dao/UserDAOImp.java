@@ -63,5 +63,12 @@ public class UserDAOImp implements UserDAO {
 		}
 			logger.info("User deleted successfully, adding user is "+u);		
 	}
+	@Override
+	public void addUser(String p) {
+		Session session=this.sessionFactory.getCurrentSession();
+		session.persist(p);
+		logger.info("User saved successfully, adding User is "+p);
+
+	}
 
 }

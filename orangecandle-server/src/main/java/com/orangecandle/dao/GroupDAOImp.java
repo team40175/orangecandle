@@ -27,7 +27,9 @@ public class GroupDAOImp implements GroupDAO {
 		session.persist(p);
 		logger.info("Group saved successfully, adding group is "+p);
 	}
-
+	public Group getGroup(int id){
+		return null;
+	}
 	@Override
 	public void updateGroup(Group p) {
 		Session session = this.sessionFactory.getCurrentSession();

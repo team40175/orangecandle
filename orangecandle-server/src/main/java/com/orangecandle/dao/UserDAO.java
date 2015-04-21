@@ -6,6 +6,7 @@ import com.orangecandle.domain.User;
 
 public interface UserDAO {
 	public void addUser(User p);
+	public void addUser(String p);
     public void updateUser(User p);
     public List<User> listUsers();
     public User getUserById(int id);
