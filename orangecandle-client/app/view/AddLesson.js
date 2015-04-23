@@ -3,30 +3,24 @@ Ext.define('OrangeCandle.view.AddLesson', {
 	alias : "widget.addlesson",
 	requires : [ 'Ext.form.FieldSet' ],
 	config : {
-		title : 'Lesson crecedentials:',
+		title : 'Insert a new lecture',
+		instructions : 'Insert the details of the lecture:',
 		items : [ {
 			xtype : 'fieldset',
-			title : 'Lesson',
 			items : [ {
 				xtype : 'textfield',
-				placeHolder : 'lessonName',
-				itemId : 'lessonNameTextField',
-				name : 'lessonNameTextField',
+				placeHolder : 'Code of the lecture',
+				name : 'code',
 				required : true
-			},{
+			}, {
 				xtype : 'textfield',
-				placeHolder : 'lessonInformation',
-				itemId : 'lessonInfoTextField',
-				name : 'lessonInfoTextField',
+				placeHolder : 'Name of the lecture',
+				name : 'name',
 				required : true
-			},{
-				xtype : 'textfield',
-				placeHolder : 'lessonRoom',
-				itemId : 'lessonRoomTextField',
-				name : 'lessonRoomTextField',
-				required : true
-			} 
-			]
+			} ]
+		}, {
+			xtype : 'button',
+			text : 'submit'
 		} ]
 	}
 })
