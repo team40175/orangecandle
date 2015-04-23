@@ -27,7 +27,7 @@ public class GroupController {
 	public void addGroup(@RequestParam String groupName,
 			HttpServletResponse response) throws IOException {
 		try (Writer w = response.getWriter()) {
-			if (null != groupRep.findOne(groupName)) {
+			if (null == groupRep.findOne(groupName)) {
 				groupRep.saveAndFlush(new Group(groupName));
 				w.write("Group with name " + groupName + " is added");
 			} else {
