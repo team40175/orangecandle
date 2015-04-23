@@ -1,20 +1,24 @@
-Ext.define('OrangeCandle.view.AddLesson', {
+Ext.define('OrangeCandle.view.AddClassroom', {
 	extend : 'Ext.form.Panel',
-	alias : "widget.addlesson",
+	alias : "widget.addclassroom",
 	requires : [ 'Ext.form.FieldSet' ],
 	config : {
-		title : 'Insert a new lecture',
-		instructions : 'Insert the details of the lecture:',
+		title : 'Classroom Information:',
 		items : [ {
 			xtype : 'fieldset',
 			items : [ {
 				xtype : 'textfield',
-				placeHolder : 'Code of the lecture',
+				placeHolder : 'Name of the Classroom',
 				name : 'code',
 				required : true
 			}, {
 				xtype : 'textfield',
-				placeHolder : 'Name of the lecture',
+				placeHolder : 'Building of the Classroom',
+				name : 'name',
+				required : true
+			},{
+				xtype : 'textfield',
+				placeHolder : 'Department of the Classroom',
 				name : 'name',
 				required : true
 			} ]

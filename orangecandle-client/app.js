@@ -16,7 +16,7 @@ Ext
 
 			requires : [ 'Ext.MessageBox' ],
 
-			views : [ 'Login', 'Main' ,'AddGroups','AddAccount','AddLesson'],
+			views : [ 'Login', 'Main' ,'AddGroups','AddAccount','AddLesson','AddConstraints','AddClassroom','AddSchool'],
 			controllers : [ 'Login' ],
 			icon : {
 				'57' : 'resources/icons/Icon.png',
