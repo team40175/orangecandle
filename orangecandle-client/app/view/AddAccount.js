@@ -8,7 +8,6 @@ Ext.define('OrangeCandle.view.AddAccount', {
 		title : 'Account Adding:',
 		items : [ {
 			xtype : 'fieldset',
-			title : 'Account Information:',
 			flex : 1,
 			items : [ {
 				xtype : 'textfield',
