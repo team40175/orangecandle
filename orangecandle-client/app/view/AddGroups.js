@@ -29,6 +29,11 @@ Ext.define('OrangeCandle.view.AddGroups', {
 				text : 'Administrator'
 			} ]
 
+		}, {
+			xtype : 'button',
+			text : 'Submit',
+			itemId : 'groupSubmitButton',
+			
 		} ]
 
 	}

@@ -28,7 +28,9 @@ Ext.define('OrangeCandle.view.AddAccount', {
 			}, {
 				text : 'Administrator'
 			} ]
-		} ]
+		} ,
+		]
+			
 
 	}
 })
