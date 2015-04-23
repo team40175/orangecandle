@@ -1,55 +1,54 @@
 package com.orangecandle.controller;
 
-import java.util.List;
+import java.io.IOException;
+import java.io.Writer;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.gson.Gson;
 import com.orangecandle.domain.Group;
-import com.orangecandle.service.GroupService;
-@Transactional
-@Repository  // Spring DAO
+import com.orangecandle.domain.Role;
+import com.orangecandle.domain.User;
+
 @RequestMapping(GroupController.URL)
-@Controller// Spring MVC Controller
+@Controller
 public class GroupController {
 	static final String URL = "/group";
-	private GroupService groupService;
-	@RequestMapping(value="/add", method=RequestMethod.GET)
-	 public ModelAndView addGroupPage() {
-	  ModelAndView modelAndView = new ModelAndView("Group-add");
-	  modelAndView.addObject("Group", new Group());
-	  return modelAndView;
-	 }
-	@RequestMapping(value="/add", method=RequestMethod.POST)
-	 public ModelAndView addingGroup(@ModelAttribute Group group) {
-	  ModelAndView modelAndView = new ModelAndView("home");
-	  groupService.addGroup(group);
-	  String message = "Group was successfully added.";
-	  modelAndView.addObject("message", message);
-	  return modelAndView;
-	 }
-	 
-	 @RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
-	 public ModelAndView edditingGroup(@ModelAttribute Group Group, @PathVariable Integer id) {
-	  ModelAndView modelAndView = new ModelAndView("home");
-	  groupService.updateGroup(Group);
-	  String message = "Group was successfully edited.";
-	  modelAndView.addObject("message", message);
-	  return modelAndView;
-	 }
-	  
-	 @RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
-	 public ModelAndView deleteGroup(@PathVariable Integer id) {
-	  ModelAndView modelAndView = new ModelAndView("home");
-	  groupService.removeGroup(id);
-	  String message = "Group was successfully deleted.";
-	  modelAndView.addObject("message", message);
-	  return modelAndView;
-	 }
+	private @Autowired com.orangecandle.repository.Group groupRep;
+	private @Autowired com.orangecandle.repository.User userRep;
+
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public void addGroup(@RequestParam String groupName,
+			HttpServletResponse response) throws IOException {
+		try (Writer w = response.getWriter()) {
+			if (null != groupRep.findOne(groupName)) {
+				groupRep.saveAndFlush(new Group(groupName));
+				w.write("Group with name " + groupName + " is added");
+			} else {
+				w.write("Group already exists");
+			}
+		}
+	}
+
+	@RequestMapping(value = "/addUser", method = RequestMethod.GET)
+	public void addUser(@RequestParam String userName,
+			@RequestParam String groupName, HttpServletResponse response)
+			throws IOException {
+		Group g = groupRep.findOne(groupName);
+		User u = userRep.findOne(userName);
+		g.addUser(u);
+		groupRep.save(g);
+		response.getWriter().write("something");
+	}
+
+	@RequestMapping(value = "/../getRoles")
+	public void getRoles(HttpServletResponse response) throws IOException {
+		response.getWriter().write(new Gson().toJson(Role.values()));
+	}
 }
