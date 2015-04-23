@@ -3,23 +3,21 @@ Ext.define('OrangeCandle.view.AddAccount', {
 	alias : "widget.addaccount",
 	requires : [ 'Ext.form.FieldSet' ],
 	config : {
-		fullscreen : true,
+		// fullscreen : true,
 		layout : 'vbox',
 		title : 'Account Adding:',
+		scrollable : false,
 		items : [ {
 			xtype : 'fieldset',
-			title : 'Account Information:',
-			flex : 1,
 			items : [ {
 				xtype : 'textfield',
-				placeHolder : 'accountName',
-				itemId : 'accountNameTextField',
-				name : 'accountNameTextField',
+				placeHolder : 'username',
+				name : 'name',
 				required : true
 			} ]
 		}, {
 			xtype : 'list',
-			flex : 2,
+			flex : 1,
 			mode : 'multi',
 			itemTpl : '{text}',
 			data : [ {

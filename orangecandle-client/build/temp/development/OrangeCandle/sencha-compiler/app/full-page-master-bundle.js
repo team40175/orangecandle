@@ -1,2 +1,2 @@
 // @tag full-page
-// @require C:\Workspace\OrangeCandleClient\app.js
+// @require /home/bunya/git/orangecandle/orangecandle-client/app.js
