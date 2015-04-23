@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.gson.Gson;
 import com.orangecandle.domain.User;
 
 @Controller
@@ -30,5 +31,10 @@ public class UserController {
 				w.write("User already exists");
 			}
 		}
+	}
+
+	@RequestMapping(value = "/findAll")
+	public void findAllUsers(HttpServletResponse response) throws IOException {
+		response.getWriter().write(new Gson().toJson(repo.findAll()));
 	}
 }

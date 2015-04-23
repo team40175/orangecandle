@@ -14,6 +14,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
@@ -78,5 +79,12 @@ public class WebConfig // extends WebMvcConfigurerAdapter
 		dataSource.setPassword(env
 				.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
 		return dataSource;
+	}
+
+	@Bean
+	public DispatcherServlet dispatcherServlet() {
+		DispatcherServlet servlet = new DispatcherServlet();
+		servlet.setDispatchOptionsRequest(true);
+		return servlet;
 	}
 }

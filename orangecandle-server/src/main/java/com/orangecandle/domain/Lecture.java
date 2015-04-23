@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "lecture")
 public class Lecture {
-	private @Id @Column(name = "code") String lectureCode;
+	private @Id @Column(name = "code") String code;
 	private @Column(name = "name") String name;
 	private @ManyToMany List<User> lecturers;
 	private @OneToMany List<Constraint> constraints;
@@ -21,6 +21,6 @@ public class Lecture {
 	}
 
 	public Lecture(String code) {
-		lectureCode = code;
+		this.code = code;
 	}
 }

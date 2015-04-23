@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "constraint")
+@Table(name = "xconstraint")
 public class Constraint {
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
 	private @ManyToOne Lecture lecture;

@@ -40,7 +40,7 @@ Ext.define('OrangeCandle.view.Main',
 						}
 					}, {
 						xtype : 'button',
-						text : 'Add Lessons',
+						text : 'Add a Lesson',
 						itemId : 'LessontButton',
 						flex : 1,
 						handler : function() {
@@ -48,7 +48,47 @@ Ext.define('OrangeCandle.view.Main',
 								xtype : 'addlesson',
 							})
 						}
-					} ]
+					} ,{
+						xtype : 'button',
+						text : 'Add a Classroom',
+						itemId : 'ClassroomButton',
+						flex : 1,
+						handler : function() {
+							Ext.ComponentQuery.query('mainmenuview')[0].push({
+								xtype : 'addclassroom',
+							})
+						}
+					},{
+						xtype : 'button',
+						text : 'Add Constraints',
+						itemId : 'constraintsButton',
+						flex : 1,
+						handler : function() {
+							Ext.ComponentQuery.query('mainmenuview')[0].push({
+								xtype : 'addconstraints',
+							})
+						}
+					},{
+						xtype : 'button',
+						text : 'Add a School',
+						itemId : 'schoolButton',
+						flex : 1,
+						handler : function() {
+							Ext.ComponentQuery.query('mainmenuview')[0].push({
+								xtype : 'addschool',
+							})
+						}
+					},{
+						xtype : 'button',
+						text : 'Add a Classroom',
+						itemId : 'classroomButton',
+						flex : 1,
+						handler : function() {
+							Ext.ComponentQuery.query('mainmenuview')[0].push({
+								xtype : 'addclassroom',
+							})
+						}
+					}]
 				} ],
 				listeners : [ {
 					delegate : '#logOffButton',
