@@ -20,17 +20,27 @@ public class UserController {
 	@Autowired
 	private com.orangecandle.repository.User repo;
 
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/add", method = { RequestMethod.GET,
+			RequestMethod.POST })
 	public void addingUser(@RequestParam String userName,
 			HttpServletResponse response) throws IOException {
-		try (Writer w = response.getWriter()) {
-			if (null == repo.findOne(userName)) {
-				repo.saveAndFlush(new User(userName));
-				w.write("User with username " + userName + " is added");
-			} else {
-				w.write("User already exists");
-			}
+		Writer w = response.getWriter();
+		if (null == repo.findOne(userName)) {
+			repo.saveAndFlush(new User(userName));
+			w.write("User with username " + userName + " is added");
+		} else {
+			w.write("User already exists");
 		}
+		w.write("amk");
+
+		response.getWriter().write("amk");
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.OPTIONS)
+	public void add(HttpServletResponse response) throws IOException {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Headers",
+				"Origin, X-Requested-With, Content-Type, Accept");
 	}
 
 	@RequestMapping(value = "/findAll")

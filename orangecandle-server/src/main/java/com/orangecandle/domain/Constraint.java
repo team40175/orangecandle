@@ -20,37 +20,55 @@ public class Constraint {
 	private @ManyToMany List<User> users;
 	private @ManyToMany List<Room> rooms;
 	private @Column(name = "eval") String evaluationString;
-	
-	public Integer getId(){
+
+	public Constraint() {
+	}
+
+	public Constraint(String text) {
+		evaluationString = text;
+	}
+
+	public Integer getId() {
 		return this.id;
 	}
-	public void setId(Integer i){
-		this.id=i;
+
+	public void setId(Integer i) {
+		this.id = i;
 	}
-	public String getEvaluationString(){
+
+	public String getEvaluationString() {
 		return this.evaluationString;
 	}
-	public void setEvaluationString(String ide){
-		this.evaluationString=ide;
+
+	public void setEvaluationString(String ide) {
+		this.evaluationString = ide;
 	}
-	public Lecture getLectures(){
+
+	public Lecture getLectures() {
 		return this.lecture;
 	}
-	public void setLecture(Lecture lec){
-		this.lecture=lec;;
+
+	public void setLecture(Lecture lec) {
+		this.lecture = lec;
 	}
-	public void addRoom(Room r){
-		if(rooms.isEmpty()) rooms=new ArrayList<Room>();
+
+	public void addRoom(Room r) {
+		if (rooms == null)
+			rooms = new ArrayList<Room>();
 		rooms.add(r);
 	}
-	public List<Room> getRooms(){
+
+	public List<Room> getRooms() {
 		return this.rooms;
 	}
-	public List<User> getUsers(){
+
+	public List<User> getUsers() {
 		return this.users;
 	}
-	public void addUser(User user){
-		if(this.users.isEmpty()) this.users= new ArrayList<User>();
+
+	public void addUser(User user) {
+		if (this.users == null)
+			this.users = new ArrayList<User>();
 		this.users.add(user);
 	}
 }

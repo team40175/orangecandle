@@ -23,7 +23,8 @@ public class GroupController {
 	private @Autowired com.orangecandle.repository.Group groupRep;
 	private @Autowired com.orangecandle.repository.User userRep;
 
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/add", method = { RequestMethod.GET,
+			RequestMethod.POST })
 	public void addGroup(@RequestParam String groupName,
 			HttpServletResponse response) throws IOException {
 		try (Writer w = response.getWriter()) {
@@ -34,6 +35,13 @@ public class GroupController {
 				w.write("Group already exists");
 			}
 		}
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.OPTIONS)
+	public void add(HttpServletResponse response) throws IOException {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Headers",
+				"Origin, X-Requested-With, Content-Type, Accept");
 	}
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.GET)

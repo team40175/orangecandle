@@ -6,7 +6,6 @@ import java.io.Writer;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,5 +34,12 @@ public class LectureController {
 				w.write("Lecture with code " + lectureCode + " already exists");
 			}
 		}
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.OPTIONS)
+	public void add(HttpServletResponse response) throws IOException {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Headers",
+				"Origin, X-Requested-With, Content-Type, Accept");
 	}
 }
