@@ -57,6 +57,14 @@ public class Department {
 		this.groups.add(lec);
 	}
 	
+	public List<Room> getRoom(){
+		return this.rooms;
+	}
+	public void addRoom(Room lec){
+		if(this.rooms.isEmpty()) this.rooms= new ArrayList<Room>();
+		this.rooms.add(lec);
+	}
+	
 	
 	
 }

@@ -43,4 +43,14 @@ public class Constraint {
 		if(rooms.isEmpty()) rooms=new ArrayList<Room>();
 		rooms.add(r);
 	}
+	public List<Room> getRooms(){
+		return this.rooms;
+	}
+	public List<User> getUsers(){
+		return this.users;
+	}
+	public void addUser(User user){
+		if(this.users.isEmpty()) this.users= new ArrayList<User>();
+		this.users.add(user);
+	}
 }
