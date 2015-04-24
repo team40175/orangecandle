@@ -15,7 +15,7 @@ Ext.application({
 
 	requires : [ 'Ext.MessageBox' ],
 
-	views : [ 'Login', 'Main', 'AddGroups', 'AddAccount', 'AddLesson' ],
+	views : [ 'Login', 'Main', 'AddGroups', 'AddAccount', 'AddLesson','AddSchool','AddConstraints','AddClassroom' ],
 	controllers : [ 'Login' ],
 	models : [ 'Group' ],
 	stores : [ 'Group' ],

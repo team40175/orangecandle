@@ -78,16 +78,6 @@ Ext.define('OrangeCandle.view.Main',
 								xtype : 'addschool',
 							})
 						}
-					},{
-						xtype : 'button',
-						text : 'Add a Classroom',
-						itemId : 'classroomButton',
-						flex : 1,
-						handler : function() {
-							Ext.ComponentQuery.query('mainmenuview')[0].push({
-								xtype : 'addclassroom',
-							})
-						}
 					}]
 				} ],
 				listeners : [ {

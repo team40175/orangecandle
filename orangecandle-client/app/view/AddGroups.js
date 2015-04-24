@@ -20,21 +20,16 @@ Ext.define('OrangeCandle.view.AddGroups', {
 			xtype : 'list',
 			flex : 2,
 			mode : 'multi',
+			itemId:'grouplist',
 			itemTpl : '{text}',
-			data : [ {
-				text : 'Student'
-			}, {
-				text : 'Teacher'
-			}, {
-				text : 'Administrator'
-			} ]
+			store:'Role',
 
 		}, {
 			xtype : 'button',
 			text : 'Submit',
-			itemId : 'groupSubmitButton',
-			
+			itemId : 'groupSubmitButton'
+				
 		} ]
-
+//		submit(this,)
 	}
 })
