@@ -7,7 +7,7 @@ Ext.define('OrangeCandle.store.Group', {
 			url : OrangeCandle.util.Scalability.getApplicationServer("group/findAll"),
 			reader : {
 				type : "json",
-				rootProperty: "data"
+//				rootProperty: "data"
 			}
 		},
 		autoLoad : true
