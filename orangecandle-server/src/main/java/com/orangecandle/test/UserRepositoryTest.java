@@ -17,8 +17,6 @@ import com.orangecandle.domain.Group;
 import com.orangecandle.domain.Role;
 import com.orangecandle.domain.User;
 
-//2 şy eksik
-//1-burda usercontroller'ı da unutma onu da buna ekle
 public class UserRepositoryTest {
 	@PersistenceContext private EntityManager em;
 
@@ -166,12 +164,6 @@ public class UserRepositoryTest {
 
 	}
 	
-	@Test
-	//2-is firstgroup exist first people?
-	public void testGroupHasAUser() {
-		flushTestUsers();
-		List<User> result=repository.findAll();
-	}
 	
 	
 
