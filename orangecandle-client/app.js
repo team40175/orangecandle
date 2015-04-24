@@ -13,9 +13,10 @@
 Ext.application({
 	name : 'OrangeCandle',
 
-	requires : [ 'Ext.MessageBox' ],
+	requires : [ 'Ext.MessageBox', 'OrangeCandle.util.Scalability' ],
 
-	views : [ 'Login', 'Main', 'AddGroups', 'AddAccount', 'AddLesson' ],
+	views : [ 'Login', 'Main', 'AddGroups', 'AddAccount', 'AddLesson',
+			'AddSchool', 'AddConstraints', 'AddClassroom' ],
 	controllers : [ 'Login' ],
 	models : [ 'Group' ],
 	stores : [ 'Group' ],
