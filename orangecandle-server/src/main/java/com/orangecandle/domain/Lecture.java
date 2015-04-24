@@ -31,7 +31,7 @@ public class Lecture {
 		this.name=name;
 	}
 	public String getLectureCode(){
-		return lectureCode;
+		return code;
 	}
 	public void addLecturer(User lecturer){
 		if(lecturers.isEmpty()) lecturers=new ArrayList<User>();
