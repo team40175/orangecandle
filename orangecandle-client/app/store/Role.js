@@ -6,7 +6,8 @@ Ext.define('OrangeCandle.store.Role', {
 			type : 'ajax',
 			url : "http://localhost:8080/group/getRoles",
 			reader : {
-				type : "json"
+				type : "json",
+				rootProperty: "data"
 			}
 		},
 		autoLoad : true

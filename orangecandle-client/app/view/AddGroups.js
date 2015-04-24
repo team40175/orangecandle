@@ -24,6 +24,16 @@ Ext.define('OrangeCandle.view.AddGroups', {
 			itemId : 'grouplist',
 			itemTpl : '{text}',
 			store : 'Role',
+//			data:[{
+//				item1:'Student'
+//			},{
+//				item2:'Teacher'
+//			},{
+//				item3:'Advisor'
+//			},{
+//				item:'Administrator'
+//			}
+//			      ]
 
 		}, {
 			xtype : 'button',
@@ -31,7 +41,10 @@ Ext.define('OrangeCandle.view.AddGroups', {
 			itemId : 'groupSubmitButton',
 			handler : function() {
 				Ext.ComponentQuery.query('#groupPanel')[0].submit({
-					url : "25.52.208.233:8080/group/add",
+					url : OrangeCandle.util.Scalability.getApplicationServer("group/add"),
+					params:{
+						groupName : Ext.ComponentQuery.query('#groupNameTextField')[0].getValue()
+					},
 					method : 'POST',
 					success : function() {
 						Ext.Msg.alert("success");
