@@ -1,5 +1,6 @@
 package com.orangecandle.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,8 +23,18 @@ public class User {
 	public User(String userName) {
 		this.userName = userName;
 	}
+	public void setGroups(Group g){
+		if(groups.isEmpty()) groups=new ArrayList<Group>();
+		groups.add(g);
+	}
 
 	public List<Group> getGroups() {
 		return groups;
+	}
+	public void setUserName(String name){
+		this.userName=name;
+	}
+	public String getUserName(){
+		return this.userName;
 	}
 }

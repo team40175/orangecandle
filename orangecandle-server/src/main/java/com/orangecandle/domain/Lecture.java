@@ -1,5 +1,6 @@
 package com.orangecandle.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,5 +23,21 @@ public class Lecture {
 
 	public Lecture(String code) {
 		this.code = code;
+	}
+	public String getLectureName(){
+		return name;
+	}
+	public void setLectureName(String name){
+		this.name=name;
+	}
+	public String getLectureCode(){
+		return lectureCode;
+	}
+	public void addLecturer(User lecturer){
+		if(lecturers.isEmpty()) lecturers=new ArrayList<User>();
+		lecturers.add(lecturer);
+	}
+	public List<User> getLecturers(){
+		return lecturers;
 	}
 }

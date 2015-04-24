@@ -32,6 +32,12 @@ public class Group {
 	public List<User> getUsers() {
 		return users;
 	}
+	public void setGroupName(String name){
+		this.name=name;
+	}
+	public String getGroupName(){
+		return this.name;
+	}
 
 	public void addUser(User user) {
 		users.add(user);
