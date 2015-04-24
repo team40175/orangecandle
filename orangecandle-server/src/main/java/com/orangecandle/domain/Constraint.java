@@ -1,5 +1,6 @@
 package com.orangecandle.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -19,4 +20,27 @@ public class Constraint {
 	private @ManyToMany List<User> users;
 	private @ManyToMany List<Room> rooms;
 	private @Column(name = "eval") String evaluationString;
+	
+	public Integer getId(){
+		return this.id;
+	}
+	public void setId(Integer i){
+		this.id=i;
+	}
+	public String getEvaluationString(){
+		return this.evaluationString;
+	}
+	public void setEvaluationString(String ide){
+		this.evaluationString=ide;
+	}
+	public Lecture getLectures(){
+		return this.lecture;
+	}
+	public void setLecture(Lecture lec){
+		this.lecture=lec;;
+	}
+	public void addRoom(Room r){
+		if(rooms.isEmpty()) rooms=new ArrayList<Room>();
+		rooms.add(r);
+	}
 }
