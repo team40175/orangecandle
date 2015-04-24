@@ -21,23 +21,30 @@ public class Lecture {
 	public Lecture() {
 	}
 
-	public Lecture(String code) {
+	public Lecture(String code, String name) {
 		this.code = code;
+		this.name = name;
 	}
-	public String getLectureName(){
+
+	public String getLectureName() {
 		return name;
 	}
-	public void setLectureName(String name){
-		this.name=name;
+
+	public void setLectureName(String name) {
+		this.name = name;
 	}
-	public String getLectureCode(){
+
+	public String getLectureCode() {
 		return code;
 	}
-	public void addLecturer(User lecturer){
-		if(lecturers.isEmpty()) lecturers=new ArrayList<User>();
+
+	public void addLecturer(User lecturer) {
+		if (lecturers.isEmpty())
+			lecturers = new ArrayList<User>();
 		lecturers.add(lecturer);
 	}
-	public List<User> getLecturers(){
+
+	public List<User> getLecturers() {
 		return lecturers;
 	}
 }
