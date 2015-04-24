@@ -13,7 +13,7 @@
 Ext.application({
 	name : 'OrangeCandle',
 
-	requires : [ 'Ext.MessageBox', 'OrangeCandle.util.Scalability' ],
+	requires : [ 'OrangeCandle.util.Scalability' ],
 
 	views : [ 'Login', 'Main', 'AddGroups', 'AddAccount', 'AddLesson',
 			'AddSchool', 'AddConstraints', 'AddClassroom' ],
