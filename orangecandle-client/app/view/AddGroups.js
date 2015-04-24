@@ -5,6 +5,7 @@ Ext.define('OrangeCandle.view.AddGroups', {
 	config : {
 		layout : 'vbox',
 		title : 'Group Adding:',
+		itemId: 'groupPanel',
 		items : [ {
 			xtype : 'fieldset',
 			flex : 1,
@@ -20,16 +21,23 @@ Ext.define('OrangeCandle.view.AddGroups', {
 			xtype : 'list',
 			flex : 2,
 			mode : 'multi',
-			itemId:'grouplist',
+			itemId : 'grouplist',
 			itemTpl : '{text}',
-			store:'Role',
+			store : 'Role',
 
 		}, {
 			xtype : 'button',
 			text : 'Submit',
-			itemId : 'groupSubmitButton'
-				
+			itemId : 'groupSubmitButton',
+			handler : function() {
+				Ext.ComponentQuery.query('#groupPanel')[0].submit({
+					url : "25.52.208.233:8080/group/add",
+					method : 'POST',
+					success : function() {
+						Ext.Msg.alert("success");
+					}
+				});
+			}
 		} ]
-//		submit(this,)
 	}
 })
