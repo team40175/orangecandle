@@ -24,25 +24,15 @@ public class LectureController {
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public void add(@RequestParam String lectureCode,
-			HttpServletResponse response) throws IOException {
+			@RequestParam String name, HttpServletResponse response)
+			throws IOException {
 		try (Writer w = response.getWriter()) {
-			boolean success = false;
-			try {
-				repo.save(new Lecture(lectureCode));
-				success = true;
-			} catch (DataIntegrityViolationException e) {
-				e.printStackTrace();
-				w.write("Lecture with code " + lectureCode
-						+ " cannot be added because");
-				if (e.getMessage().contains("pkey")) {
-					w.write(" such user exists");
-				} else {
-					w.write("of an unknown cause");
-				}
-			} finally {
-				if (success) {
-					w.write("Lecture with code " + lectureCode + " is added");
-				}
+			if (null == repo.findOne(lectureCode)) {
+				repo.save(new Lecture(lectureCode, name));
+				w.write("Lecture with code " + lectureCode + " and name "
+						+ name + " is added");
+			} else {
+				w.write("Lecture with code " + lectureCode + " already exists");
 			}
 		}
 	}

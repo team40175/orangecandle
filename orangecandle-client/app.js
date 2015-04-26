@@ -19,7 +19,7 @@ Ext.application({
 			'AddSchool', 'AddConstraints', 'AddClassroom' ],
 	controllers : [ 'Login' ],
 	models : [ 'Group' ],
-	stores : [ 'Group' ],
+	stores : [ 'Group','Role'],
 	icon : {
 		'57' : 'resources/icons/Icon.png',
 		'72' : 'resources/icons/Icon~ipad.png',

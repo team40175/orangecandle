@@ -4,28 +4,38 @@ Ext.define('OrangeCandle.view.AddClassroom', {
 	requires : [ 'Ext.form.FieldSet' ],
 	config : {
 		title : 'Classroom Information:',
-		items : [ {
-			xtype : 'fieldset',
-			items : [ {
-				xtype : 'textfield',
-				placeHolder : 'Name of the Classroom',
-				name : 'code',
-				required : true
-			}, {
-				xtype : 'textfield',
-				placeHolder : 'Building of the Classroom',
-				name : 'name',
-				required : true
-			},{
-				xtype : 'textfield',
-				placeHolder : 'Department of the Classroom',
-				name : 'name',
-				required : true
-			} ]
-		}, 
-		{
-			xtype : 'button',
-			text : 'submit'
-		} ]
+		itemId : 'classroomPanel',
+		items : [
+				{
+					xtype : 'fieldset',
+					items : [ {
+						xtype : 'textfield',
+						itemId : 'classroomName',
+						placeHolder : 'Name of the Classroom',
+						name : 'roomName',
+						required : true
+					}, {
+						xtype : 'textfield',
+						placeHolder : 'Building of the Classroom',
+						itemId : 'classroomBuilding',
+						name : 'buildingName',
+						required : true
+					}, ]
+				},
+				{
+					xtype : 'button',
+					text : 'submit',
+					handler : function() {
+						Ext.ComponentQuery.query('#classroomPanel')[0].submit({
+							url : OrangeCandle.util.Scalability
+									.getApplicationServer("room/add"),
+
+							method : 'POST',
+							success : function() {
+								Ext.Msg.alert("success");
+							}
+						});
+					}
+				} ]
 	}
 })

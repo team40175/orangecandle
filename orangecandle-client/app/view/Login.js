@@ -4,7 +4,7 @@ Ext
 				{
 					extend : 'Ext.form.Panel',
 					alias : "widget.loginview",
-					requires: ['Ext.form.FieldSet', 'Ext.form.Password', 'Ext.Label', 'Ext.Img', 'Ext.util.DelayedTask'],
+					requires: ['Ext.form.FieldSet', 'Ext.form.Password', 'Ext.Label', 'Ext.Img', 'Ext.util.DelayedTask','Ext.MessageBox'],
 					config : {
 						title : 'Login',
 						items : [

@@ -4,9 +4,10 @@ Ext.define('OrangeCandle.store.Group', {
 		model : 'OrangeCandle.model.Group',
 		proxy : {
 			type : 'ajax',
-			url : "http://localhost:8080/group/findAll",
+			url : OrangeCandle.util.Scalability.getApplicationServer("group/findAll"),
 			reader : {
-				type : "json"
+				type : "json",
+//				rootProperty: "data"
 			}
 		},
 		autoLoad : true

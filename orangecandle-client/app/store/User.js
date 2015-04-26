@@ -6,7 +6,8 @@ Ext.define('OrangeCandle.store.User', {
 			type : 'ajax',
 			url : "http://localhost:8080/user/findAll",
 			reader : {
-				type : "json"
+				type : "json",
+//				rootProperty: "data"
 			}
 		},
 		autoLoad : true
