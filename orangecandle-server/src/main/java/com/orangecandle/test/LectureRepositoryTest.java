@@ -36,15 +36,10 @@ public class LectureRepositoryTest {
 	
 	@Before
 	public void setup(){
-		lectureOne=new Lecture("CENG316");
-		lectureTwo=new Lecture("MAN206");
-		lectureThree=new Lecture("CHEM203");
+		lectureOne=new Lecture("CENG316","Software Engineering");
+		lectureTwo=new Lecture("MAN206","Business and Workplace");
+		lectureThree=new Lecture("CHEM203","Organic Chemistry II");
 		lectureFour=new Lecture();
-		
-		lectureOne.setLectureName("Software Engineering");
-		lectureTwo.setLectureName("Business and Workplace");
-		lectureThree.setLectureName("Organic Chemistry II");
-		lectureFour.setLectureName("");
 		
 		first.setUserName("kasım");
 		second.setUserName("ayşe");

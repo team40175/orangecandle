@@ -4,10 +4,10 @@ Ext.define('OrangeCandle.store.Role', {
 //		model : 'OrangeCandle.model.Role',
 		proxy : {
 			type : 'ajax',
-			url : "http://localhost:8080/group/getRoles",
+			url : OrangeCandle.util.Scalability.getApplicationServer("Group/findRoles"),
 			reader : {
 				type : "json",
-				rootProperty: "data"
+//				rootProperty: "data"
 			}
 		},
 		autoLoad : true
