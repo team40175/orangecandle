@@ -25,7 +25,7 @@ Ext.define('OrangeCandle.view.Main',
 								itemId : 'groupButton',
 								flex : 1,
 								handler : function() {
-									Ext.data.StoreManager.lookup('Role').load,
+									Ext.data.StoreManager.lookup('Role').load(),
 											Ext.ComponentQuery
 													.query('mainmenuview')[0]
 													.push({
@@ -39,7 +39,7 @@ Ext.define('OrangeCandle.view.Main',
 								itemId : 'accountButton',
 								flex : 1,
 								handler : function() {
-									Ext.data.StoreManager.lookup('Group').load,
+									Ext.data.StoreManager.lookup('Group').load(),
 											Ext.ComponentQuery
 													.query('mainmenuview')[0]
 													.push({

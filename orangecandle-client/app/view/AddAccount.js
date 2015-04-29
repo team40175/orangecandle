@@ -21,6 +21,7 @@ Ext.define('OrangeCandle.view.AddAccount', {
 				{
 					xtype : 'list',
 					flex : 1,
+					itemId : 'groupList', 
 					mode : 'multi',
 					itemTpl : '{name}',
 					store : 'Group'
