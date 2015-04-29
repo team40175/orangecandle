@@ -31,8 +31,13 @@ Ext.define('OrangeCandle.view.AddClassroom', {
 									.getApplicationServer("room/add"),
 
 							method : 'POST',
-							success : function() {
-								Ext.Msg.alert("success");
+							success : function(form, result) {
+								Ext.Msg.alert('', result.message, function() {
+									OrangeCandle.util.Scalability.pop()
+								});
+							},
+							failure : function(form, result) {
+								Ext.Msg.alert(result.message);
 							}
 						});
 					}
