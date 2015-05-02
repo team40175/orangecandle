@@ -1,34 +1,18 @@
-/*
-    This file is generated and updated by Sencha Cmd. You can edit this file as
-    needed for your application, but these edits will have to be merged by
-    Sencha Cmd when it performs code generation tasks such as generating new
-    models, controllers or views and when running "sencha app upgrade".
-
-    Ideally changes to this file would be limited and most work would be done
-    in other places (such as Controllers). If Sencha Cmd cannot merge your
-    changes and its generated code, it will produce a "merge conflict" that you
-    will need to resolve manually.
- */
-
 Ext.application({
 	name : 'OrangeCandle',
-
 	requires : [ 'OrangeCandle.util.Scalability' ],
-
 	views : [ 'Login', 'Main', 'AddGroups', 'AddAccount', 'AddLesson',
-			'AddSchool', 'AddConstraints', 'AddClassroom' ],
-	controllers : [ 'Login' ],
+			'AddSchool', 'AddConstraints', 'AddClassroom', 'template.List' ],
+	controllers : [ 'Login', 'Button' ],
 	models : [ 'Group' ],
-	stores : [ 'Group','Role'],
+	stores : [ 'Group', 'Role' ],
 	icon : {
 		'57' : 'resources/icons/Icon.png',
 		'72' : 'resources/icons/Icon~ipad.png',
 		'114' : 'resources/icons/Icon@2x.png',
 		'144' : 'resources/icons/Icon~ipad@2x.png'
 	},
-
 	isIconPrecomposed : true,
-
 	startupImage : {
 		'320x460' : 'resources/startup/320x460.jpg',
 		'640x920' : 'resources/startup/640x920.png',
@@ -37,9 +21,7 @@ Ext.application({
 		'1536x2008' : 'resources/startup/1536x2008.png',
 		'1496x2048' : 'resources/startup/1496x2048.png'
 	},
-
 	launch : function() {
-		// Initialize the main view
 		Ext.Viewport.add([ {
 			xtype : 'loginview',
 			fullscreen : true,
@@ -47,11 +29,6 @@ Ext.application({
 
 		}, {
 			xtype : 'mainmenuview',
-		}, {
-			xtype : '',
 		} ]);
-	},
-	onLogOffButtonTap : function() {
-		this.fireEvent('onSignOffCommand');
 	}
 });

@@ -1,10 +1,10 @@
 Ext.define('OrangeCandle.store.User', {
 	extend : 'Ext.data.Store',
 	config : {
-		model : 'OrangeCandle.model.User',
+		model : 'OrangeCandle.model.Group',
 		proxy : {
 			type : 'ajax',
-			url : "http://localhost:8080/user/findAll",
+			url : OrangeCandle.util.Scalability.getApplicationServer("/user/findAll"),
 			reader : {
 				type : "json",
 //				rootProperty: "data"
