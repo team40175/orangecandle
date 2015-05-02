@@ -1,6 +1,5 @@
 package com.orangecandle.test;
 
-
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertEquals;
@@ -19,32 +18,35 @@ import com.orangecandle.domain.User;
 
 public class UserControllerTest {
 
-	@Autowired com.orangecandle.repository.User repository;
-	@Autowired HttpServletResponse res;
+	@Autowired
+	com.orangecandle.repository.User repository;
+	@Autowired
+	HttpServletResponse res;
 	UserController controller;
-	private User user,userTwo,userThree,userFour;
+	private User user, userTwo, userThree, userFour;
+
 	@Before
 	public void before() {
-		controller=new UserController();
+		controller = new UserController();
 		user.setUserName("ay");
 		userTwo.setUserName("ay");
 		userThree.setUserName("aydın");
 		userFour.setUserName("serenay");
-		
+
 	}
-	
- 
+
 	@Test
 	public void testAddingUser() throws IOException {
-		UserController controller2=new UserController();
-		
-		controller.addingUser(user.getUserName(), res);
-		controller2.addingUser(userTwo.getUserName(), res);
+		UserController controller2 = new UserController();
+
+		controller.add(user.getUserName(), "", res);
+		controller2.add(userTwo.getUserName(), "", res);
 		assertNull(controller);
-		assertEquals(controller,controller2);
+		assertEquals(controller, controller2);
 	}
+
 	@Test
-	public void testFindAllUsers() throws IOException{
+	public void testFindAllUsers() throws IOException {
 		//
 	}
 

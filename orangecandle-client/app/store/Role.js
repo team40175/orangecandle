@@ -1,15 +1,16 @@
 Ext.define('OrangeCandle.store.Role', {
 	extend : 'Ext.data.Store',
 	config : {
-//		model : 'OrangeCandle.model.Role',
+		model : 'OrangeCandle.model.Role',
 		proxy : {
 			type : 'ajax',
-			url : OrangeCandle.util.Scalability.getApplicationServer("group/getRoles"),
+			url : OrangeCandle.util.Scalability
+					.getApplicationServer("group/getRoles"),
 			reader : {
 				type : "json",
-//				rootProperty: "data"
+			// rootProperty: "data"
 			}
 		},
-		autoLoad : true
+		autoLoad : false
 	}
 });

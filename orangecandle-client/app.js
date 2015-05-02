@@ -4,8 +4,8 @@ Ext.application({
 	views : [ 'Login', 'Main', 'AddGroups', 'AddAccount', 'AddLesson',
 			'AddSchool', 'AddConstraints', 'AddClassroom', 'template.List' ],
 	controllers : [ 'Login', 'Button' ],
-	models : [ 'Group' ],
-	stores : [ 'Group', 'Role' ],
+	models : [ 'User', 'Group', 'Role' ],
+	stores : [ 'User', 'Group', 'Role' ],
 	icon : {
 		'57' : 'resources/icons/Icon.png',
 		'72' : 'resources/icons/Icon~ipad.png',

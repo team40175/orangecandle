@@ -16,22 +16,10 @@ Ext.define('OrangeCandle.view.Main', {
 			xtype : 'panel',
 			items : [ {
 				xtype : 'button',
-				text : 'Add a Group',
-				ref : {
-					xtype : 'addgroups',
-				},
-				handler : function() {
-					Ext.data.StoreManager.lookup('Role').load()
-				}
-			}, {
-				xtype : 'button',
 				text : 'Add an Account',
 				ref : {
 					xtype : 'addaccount',
 				},
-				handler : function() {
-					Ext.data.StoreManager.lookup('Group').load()
-				}
 			}, {
 				xtype : 'button',
 				text : 'Add a Lesson',
@@ -73,6 +61,19 @@ Ext.define('OrangeCandle.view.Main', {
 					mode : 'multi',
 					itemTpl : '{name}',
 					store : 'Group'
+				},
+				form : {
+					xtype : 'addgroups',
+				}
+			}, {
+				xtype : 'button',
+				text : 'Roles',
+				ref : {
+					xtype : 'list',
+					indelible : true,
+					mode : 'multi',
+					itemTpl : '{name}',
+					store : 'Role'
 				}
 			} ]
 		} ]

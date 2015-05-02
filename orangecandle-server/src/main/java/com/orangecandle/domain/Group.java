@@ -1,5 +1,6 @@
 package com.orangecandle.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,10 +15,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "xgroup")
-public class Group {
+public class Group implements Serializable {
+	private static final long serialVersionUID = -7552509806260167080L;
+
 	private @Id @Column(name = "name") String name;
 
-	private @ManyToMany(fetch = FetchType.EAGER) List<User> users;
+	private @ManyToMany(fetch = FetchType.LAZY) List<User> users;
 
 	@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
 	private @Enumerated(EnumType.STRING) List<Role> roles;
@@ -32,14 +35,21 @@ public class Group {
 	public List<User> getUsers() {
 		return users;
 	}
-	public void setGroupName(String name){
-		this.name=name;
+
+	public void setGroupName(String name) {
+		this.name = name;
 	}
-	public String getGroupName(){
+
+	public String getGroupName() {
 		return this.name;
 	}
 
 	public void addUser(User user) {
 		users.add(user);
+	}
+
+	@Override
+	public String toString() {
+		return "{\"name\":\"" + name + "\"}";
 	}
 }

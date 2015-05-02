@@ -3,7 +3,7 @@ Ext.define('OrangeCandle.util.Scalability', {
 	getApplicationServer : function(target) {
 		return "http://25.52.208.233:8080/" + target;
 	},
-	pop : function() {
+	pop : function() {// this shouldn't be there
 		Ext.ComponentQuery.query('mainmenuview')[0].pop();
 	}
 });

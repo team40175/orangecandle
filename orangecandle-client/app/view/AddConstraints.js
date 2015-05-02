@@ -40,9 +40,8 @@ Ext
 								{
 									xtype : 'button',
 									text : 'submit',
-									handler : function() {
-										Ext.ComponentQuery
-												.query('#constraintPanel')[0]
+									handler : function(button) {
+										button.up('panel')[0]
 												.submit({
 													url : OrangeCandle.util.Scalability
 															.getApplicationServer("constraint/add"),

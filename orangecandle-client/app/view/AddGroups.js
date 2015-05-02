@@ -4,7 +4,6 @@ Ext.define('OrangeCandle.view.AddGroups', {
 	requires : [ 'Ext.form.Panel', 'Ext.form.FieldSet' ],
 	config : {
 		layout : 'vbox',
-		title : 'Group Adding:',
 		itemId : 'groupPanel',
 		items : [
 				{
@@ -23,7 +22,7 @@ Ext.define('OrangeCandle.view.AddGroups', {
 					flex : 2,
 					mode : 'multi',
 					itemId : 'grouplist',
-					itemTpl : '{text}',
+					itemTpl : '{value}',
 					store : 'Role',
 
 				},

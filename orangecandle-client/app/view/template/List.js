@@ -1,5 +1,10 @@
 Ext.define('OrangeCandle.view.template.List', {
-	extend : 'Ext.dataview.List',
+	extend : 'Ext.Panel',
 	xtype : 'remotelist',
-// store : 'User'
+	items : [ {
+		xtype : 'list',
+		itemTpl : this.itemTpl,
+		mode : this.mode,
+		store : this.store
+	} ]
 });

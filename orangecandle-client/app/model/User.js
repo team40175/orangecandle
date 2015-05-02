@@ -1,4 +1,4 @@
-Ext.define('OrangeCandle.model.User', {
+Ext.define('User', {
 	extend : 'Ext.data.Model',
 	config : {
 		fields : [ {

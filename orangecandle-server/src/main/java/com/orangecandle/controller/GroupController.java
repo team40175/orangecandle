@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.google.gson.Gson;
 import com.orangecandle.domain.Group;
 import com.orangecandle.domain.Role;
 import com.orangecandle.domain.User;
+import com.orangecandle.service.JsonService;
 
 @RequestMapping(GroupController.URL)
 @Controller
@@ -27,12 +27,16 @@ public class GroupController {
 			RequestMethod.POST })
 	public void addGroup(@RequestParam String groupName,
 			HttpServletResponse response) throws IOException {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Headers",
+				"Origin, X-Requested-With, Content-Type, Accept");
 		try (Writer w = response.getWriter()) {
 			if (null == groupRep.findOne(groupName)) {
 				groupRep.saveAndFlush(new Group(groupName));
-				w.write("Group with name " + groupName + " is added");
+				w.write(JsonService.toExtJSON(true, "Group with name "
+						+ groupName + " is added"));
 			} else {
-				w.write("Group already exists");
+				w.write(JsonService.toExtJSON(false, "Group already exists"));
 			}
 		}
 	}
@@ -52,20 +56,24 @@ public class GroupController {
 		User u = userRep.findOne(userName);
 		g.addUser(u);
 		groupRep.save(g);
-		response.getWriter().write("something");
 	}
 
 	@RequestMapping(value = "/findAll", method = { RequestMethod.GET,
 			RequestMethod.OPTIONS })
-	public void findAllUsers(HttpServletResponse response) throws IOException {
+	public void findAll(HttpServletResponse response) throws IOException {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Allow-Headers",
 				"Origin, X-Requested-With, Content-Type, Accept");
-		response.getWriter().write(new Gson().toJson(groupRep.findAll()));
+		response.getWriter().write(
+				JsonService.toExtJSON(true, "", groupRep.findAll()));
 	}
 
 	@RequestMapping(value = "/getRoles")
 	public void getRoles(HttpServletResponse response) throws IOException {
-		response.getWriter().write(new Gson().toJson(Role.values()));
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Headers",
+				"Origin, X-Requested-With, Content-Type, Accept");
+		response.getWriter().write(
+				JsonService.toExtJSON(true, "", (Object[]) Role.values()));
 	}
 }
