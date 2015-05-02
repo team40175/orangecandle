@@ -9,7 +9,6 @@ Ext.define('OrangeCandle.view.AddGroups', {
 		items : [
 				{
 					xtype : 'fieldset',
-					flex : 1,
 					items : [ {
 						xtype : 'textfield',
 						placeHolder : 'GroupName',
@@ -38,8 +37,13 @@ Ext.define('OrangeCandle.view.AddGroups', {
 									.getApplicationServer("group/add"),
 
 							method : 'POST',
-							success : function() {
-								Ext.Msg.alert("success");
+							success : function(form, result) {
+								Ext.Msg.alert('', result.message, function() {
+									OrangeCandle.util.Scalability.pop()
+								});
+							},
+							failure : function(form, result) {
+								Ext.Msg.alert(result.message);
 							}
 						});
 					}
