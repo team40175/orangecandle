@@ -10,9 +10,11 @@ Ext.define('OrangeCandle.view.Login', {
 			items : [ {
 				xtype : 'textfield',
 				placeHolder : 'Username',
+				name:'username'
 			}, {
 				xtype : 'passwordfield',
 				placeHolder : 'Password',
+				name:'password'
 			} ]
 		}, {
 			xtype : 'button',

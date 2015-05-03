@@ -14,34 +14,57 @@ Ext.define('OrangeCandle.view.Main', {
 		},
 		items : [ {
 			xtype : 'panel',
-			items : [ {
+			items : [
+			{
 				xtype : 'button',
-				text : 'Add an Account',
+				text : 'Lessons',
 				ref : {
-					xtype : 'addaccount',
+					xtype : 'list',
+					mode : 'multi',
+					itemTpl : '{name}',
+					store : 'Lecture',
+//					extraStore : 'Group'
 				},
-			}, {
-				xtype : 'button',
-				text : 'Add a Lesson',
-				ref : {
+				form : {
 					xtype : 'addlesson',
 				}
 			}, {
 				xtype : 'button',
-				text : 'Add a Classroom',
+				text : 'Classrooms',
 				ref : {
+					xtype : 'list',
+					mode : 'multi',
+					itemTpl : '{name}',
+					store : 'Room',
+//					extraStore : 'Group'
+				},
+				form : {
 					xtype : 'addclassroom',
 				}
 			}, {
 				xtype : 'button',
-				text : 'Add Constraints',
+				text : 'Constraints',
 				ref : {
+					xtype : 'list',
+					mode : 'multi',
+					itemTpl : '{name}',
+					store : 'Constraint',
+//					extraStore : 'Group'
+				},
+				form : {
 					xtype : 'addconstraints',
 				}
 			}, {
 				xtype : 'button',
-				text : 'Add a School',
+				text : 'Schools',
 				ref : {
+					xtype : 'list',
+					mode : 'multi',
+					itemTpl : '{name}',
+					store : 'School',
+//					extraStore : 'Group'
+				},
+				form : {
 					xtype : 'addschool',
 				}
 			}, {
@@ -51,7 +74,12 @@ Ext.define('OrangeCandle.view.Main', {
 					xtype : 'list',
 					mode : 'multi',
 					itemTpl : '{name}',
-					store : 'User'
+					store : 'xUser',
+					alias : 'User',
+					extraStore : 'Group'
+				},
+				form : {
+					xtype : 'addaccount',
 				}
 			}, {
 				xtype : 'button',
@@ -60,7 +88,8 @@ Ext.define('OrangeCandle.view.Main', {
 					xtype : 'list',
 					mode : 'multi',
 					itemTpl : '{name}',
-					store : 'Group'
+					store : 'Group',
+					extraStore : 'Role'
 				},
 				form : {
 					xtype : 'addgroups',

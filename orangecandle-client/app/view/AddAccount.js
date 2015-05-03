@@ -13,7 +13,7 @@ Ext.define('OrangeCandle.view.AddAccount', {
 					items : [ {
 						xtype : 'textfield',
 						itemId : 'userName',
-						placeHolder : 'username',
+						placeHolder : 'UserName',
 						name : 'userName',
 						required : true
 					} ]

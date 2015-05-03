@@ -17,12 +17,25 @@ Ext.define('OrangeCandle.controller.Login', {
 			loginView.showSignInFailedMessage('You need to enter something');
 			return;
 		}
+		view.submit({
+			url : OrangeCandle.util.Scalability.getApplicationServer("/login"),
+			method : 'POST',
+			success : function(form, result) {
+				Ext.Msg.alert('', result.message, function() {
+					me.signInSuccess();
+				});
+			},
+			failure : function(form, result) {
+				me.signInFailure();
+			}
+		});
 
 		loginView.setMasked({
 			xtype : 'loadmask',
 			message : 'Signing In...'
 		});
-		me.signInSuccess();
+
+		 me.signInSuccess();
 	},
 	signInSuccess : function() {
 		var loginView = this.getLoginView();

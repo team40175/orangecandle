@@ -22,7 +22,7 @@ Ext.define('OrangeCandle.view.AddGroups', {
 					flex : 2,
 					mode : 'multi',
 					itemId : 'grouplist',
-					itemTpl : '{value}',
+					itemTpl : '{name}',
 					store : 'Role',
 
 				},
