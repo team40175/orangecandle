@@ -39,7 +39,6 @@ public class WebConfig // extends WebMvcConfigurerAdapter
 	private Environment env;
 
 	// @Bean
-	// Injectible Transaction Manager Bean
 	public HibernateTransactionManager createTransactionManager() {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
 		transactionManager.setSessionFactory(createSessionFactoryBean()
@@ -48,7 +47,6 @@ public class WebConfig // extends WebMvcConfigurerAdapter
 	}
 
 	@Bean
-	// Injectible Hibernate SessionFactory Bean
 	public LocalSessionFactoryBean createSessionFactoryBean() {
 		LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
 		localSessionFactoryBean.setDataSource(dataSource());
@@ -81,7 +79,7 @@ public class WebConfig // extends WebMvcConfigurerAdapter
 		return dataSource;
 	}
 
-	@Bean
+	// @Bean
 	public DispatcherServlet dispatcherServlet() {
 		DispatcherServlet servlet = new DispatcherServlet();
 		servlet.setDispatchOptionsRequest(true);
