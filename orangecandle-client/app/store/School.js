@@ -1,7 +1,7 @@
 Ext.define('OrangeCandle.store.School', {
 	extend : 'Ext.data.Store',
 	config : {
-		model : 'OrangeCandle.model.,School',
+		model : 'OrangeCandle.model.School',
 		proxy : {
 			type : 'ajax',
 			url : OrangeCandle.util.Scalability

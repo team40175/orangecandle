@@ -22,7 +22,7 @@ Ext.define('OrangeCandle.view.Main', {
 					xtype : 'list',
 					mode : 'multi',
 					itemTpl : '{name}',
-					store : 'Lesson',
+					store : 'Lecture',
 //					extraStore : 'Group'
 				},
 				form : {
@@ -48,7 +48,7 @@ Ext.define('OrangeCandle.view.Main', {
 					xtype : 'list',
 					mode : 'multi',
 					itemTpl : '{name}',
-					store : 'Constraints',
+					store : 'Constraint',
 //					extraStore : 'Group'
 				},
 				form : {
