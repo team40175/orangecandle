@@ -12,20 +12,17 @@ Ext.define('OrangeCandle.view.AddLesson', {
 					items : [ {
 						xtype : 'textfield',
 						placeHolder : 'Code of the lecture',
-						itemId : 'lessonCode',
 						name : 'lectureCode',
 						required : true
 					}, {
 						xtype : 'textfield',
 						placeHolder : 'Name of the lecture',
-						itemId : 'lessonUserName',
-						name : 'lectureName',
+						name : 'name',
 						required : true
 					}, {
 						xtype : 'textfield',
-						placeHolder : 'Classroom of the lecture',
-						itemId : 'lessonRoom',
-						name : 'RoomName',
+						placeHolder : 'Description',
+						name : 'desc',
 						required : true
 					} ]
 				},
@@ -36,7 +33,6 @@ Ext.define('OrangeCandle.view.AddLesson', {
 						Ext.ComponentQuery.query('#lessonPanel')[0].submit({
 							url : OrangeCandle.util.Scalability
 									.getApplicationServer("lecture/add"),
-
 							method : 'POST',
 							success : function(form, result) {
 								Ext.Msg.alert('', result.message, function() {

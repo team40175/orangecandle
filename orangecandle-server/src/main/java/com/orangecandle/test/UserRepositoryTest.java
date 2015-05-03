@@ -18,26 +18,28 @@ import com.orangecandle.domain.Role;
 import com.orangecandle.domain.User;
 
 public class UserRepositoryTest {
-	@PersistenceContext private EntityManager em;
+	@PersistenceContext
+	private EntityManager em;
 
-	private User first,second,third,fourth;
-	private Group gfirst,gsecond,gthird,gfourth;
+	private User first, second, third, fourth;
+	private Group gfirst, gsecond, gthird, gfourth;
 	private Role adminRole;
 	private String id;
-	@Autowired private com.orangecandle.repository.User repository;
-	
+	@Autowired
+	private com.orangecandle.repository.User repository;
+
 	@Before
-	public void setup(){
+	public void setup() {
 		first.setUserName("abdullah");
 		second.setUserName("hatun");
 		third.setUserName("ömer");
 		fourth.setUserName("kuyruksallayangillersizleştiricileştiriveremeyebileceklerimizdenmişsinizcesine");
-		
+
 		gfirst.setGroupName("java");
 		gsecond.setGroupName("tennis");
 		gthird.setGroupName("paintpall");
 		gfourth.setGroupName("bicycle");
-		
+
 		gfirst.addUser(first);
 		gsecond.addUser(first);
 		gsecond.addUser(second);
@@ -45,11 +47,12 @@ public class UserRepositoryTest {
 		gsecond.addUser(fourth);
 		gthird.addUser(second);
 		gthird.addUser(fourth);
-		//fourth group is empty
+		// fourth group is empty
 
-		adminRole=Role.ADMINISTRATOR;
+		adminRole = Role.Administrator;
 	}
-	//user has a name and user is added in database
+
+	// user has a name and user is added in database
 	private void flushTestUsers() {
 
 		em.persist(adminRole);
@@ -62,14 +65,14 @@ public class UserRepositoryTest {
 		repository.flush();
 
 		id = first.getUserName();
-		
-		//is user name not null?
+
+		// is user name not null?
 		assertThat(id, is(notNullValue()));
 		assertThat(second.getUserName(), is(notNullValue()));
 		assertThat(third.getUserName(), is(notNullValue()));
 		assertThat(fourth.getUserName(), is(notNullValue()));
-		
-		//is user added in repository?
+
+		// is user added in repository?
 		assertThat(repository.exists(id), is(true));
 		assertThat(repository.exists(second.getUserName()), is(true));
 		assertThat(repository.exists(third.getUserName()), is(true));
@@ -82,38 +85,42 @@ public class UserRepositoryTest {
 		Long before = (Long) countQuery.getSingleResult();
 
 		flushTestUsers();
-		//does database have 4 user?
+		// does database have 4 user?
 		assertThat((Long) countQuery.getSingleResult(), is(before + 4));
 	}
+
 	@Test
-	public void testCreationRead(){
+	public void testCreationRead() {
 		flushTestUsers();
-		User foundUser=repository.findOne(id);
-		
-		assertThat(first.getUserName(),is(foundUser.getUserName()));
+		User foundUser = repository.findOne(id);
+
+		assertThat(first.getUserName(), is(foundUser.getUserName()));
 	}
+
 	@Test
 	public void testReadByIdReturnsNullForNotFoundEntities() {
 
 		flushTestUsers();
-		//Is accept to be not found entity?
+		// Is accept to be not found entity?
 		assertThat(repository.findOne("küçük"), is(nullValue()));
 	}
-	
+
 	@Test
 	public void savesCollectionCorrectly() throws Exception {
 
-		List<User> result = repository.save(Arrays.asList(first, second, third));
-		//without flushTestUsers function,Is saved user with collection?
+		List<User> result = repository
+				.save(Arrays.asList(first, second, third));
+		// without flushTestUsers function,Is saved user with collection?
 		assertThat(result, is(notNullValue()));
 		assertThat(result.size(), is(3));
 		assertThat(result, hasItems(first, second, third));
 	}
+
 	@Test
 	public void savingNullCollectionIsNoOp() throws Exception {
 
 		List<User> result = repository.save((Collection<User>) null);
-		//Is saved null collection? 
+		// Is saved null collection?
 		assertThat(result, is(notNullValue()));
 		assertThat(result.isEmpty(), is(true));
 	}
@@ -122,10 +129,11 @@ public class UserRepositoryTest {
 	public void savingEmptyCollectionIsNoOp() throws Exception {
 
 		List<User> result = repository.save(new ArrayList<User>());
-		//is saved empty collection?
+		// is saved empty collection?
 		assertThat(result, is(notNullValue()));
 		assertThat(result.isEmpty(), is(true));
 	}
+
 	@Test
 	public void testUpdate() {
 
@@ -135,15 +143,17 @@ public class UserRepositoryTest {
 		foundPerson.setUserName("Schlicht");
 
 		User updatedPerson = repository.findOne(id);
-		//update user name?
+		// update user name?
 		assertThat(updatedPerson.getUserName(), is(foundPerson.getUserName()));
 	}
+
 	@Test
 	public void returnsAllSortedCorrectly() throws Exception {
 
 		flushTestUsers();
-		List<User> result = repository.findAll(new Sort(Sort.Direction.ASC, "name"));
-		//is correctly sorted
+		List<User> result = repository.findAll(new Sort(Sort.Direction.ASC,
+				"name"));
+		// is correctly sorted
 		assertThat(result, is(notNullValue()));
 		assertThat(result.size(), is(4));
 		assertThat(result.get(0), is(first));
@@ -155,16 +165,13 @@ public class UserRepositoryTest {
 	@Test
 	public void testUserHasAGroup() {
 		flushTestUsers();
-		//IS exist group?
-		assertThat(repository.exists(gfirst.getGroupName()),is(true));
-		assertThat(repository.exists(gsecond.getGroupName()),is(true));
-		assertThat(repository.exists(gthird.getGroupName()),is(true));
-		assertThat(repository.exists(gfourth.getGroupName()),is(true));
-		assertThat(repository.exists("kuantum"),is(false));
+		// IS exist group?
+		assertThat(repository.exists(gfirst.getGroupName()), is(true));
+		assertThat(repository.exists(gsecond.getGroupName()), is(true));
+		assertThat(repository.exists(gthird.getGroupName()), is(true));
+		assertThat(repository.exists(gfourth.getGroupName()), is(true));
+		assertThat(repository.exists("kuantum"), is(false));
 
 	}
-	
-	
-	
 
 }

@@ -15,6 +15,7 @@ import javax.persistence.Table;
 public class Lecture {
 	private @Id @Column(name = "code") String code;
 	private @Column(name = "name") String name;
+	private @Column String description;
 	private @ManyToMany List<User> lecturers;
 	private @OneToMany List<Constraint> constraints;
 
@@ -24,6 +25,12 @@ public class Lecture {
 	public Lecture(String code, String name) {
 		this.code = code;
 		this.name = name;
+	}
+
+	public Lecture(String code, String name, String description) {
+		this.code = code;
+		this.name = name;
+		this.description = description;
 	}
 
 	public String getLectureName() {

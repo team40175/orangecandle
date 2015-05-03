@@ -8,7 +8,7 @@ Ext.define('OrangeCandle.store.Role', {
 					.getApplicationServer("group/getRoles"),
 			reader : {
 				type : "json",
-			// rootProperty: "data"
+				rootProperty : "data"
 			}
 		},
 		autoLoad : false

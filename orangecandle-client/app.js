@@ -2,7 +2,7 @@ Ext.application({
 	name : 'OrangeCandle',
 	requires : [ 'OrangeCandle.util.Scalability' ],
 	views : [ 'Login', 'Main', 'AddGroups', 'AddAccount', 'AddLesson',
-			'AddSchool', 'AddConstraints', 'AddClassroom', 'template.List' ],
+			'AddSchool', 'AddConstraints', 'AddClassroom' ],
 	controllers : [ 'Login', 'Button' ],
 	models : [ 'User', 'Group', 'Role' ],
 	stores : [ 'User', 'Group', 'Role' ],

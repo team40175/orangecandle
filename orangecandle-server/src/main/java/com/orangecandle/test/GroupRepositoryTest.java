@@ -25,26 +25,28 @@ import com.orangecandle.domain.Role;
 import com.orangecandle.domain.User;
 
 public class GroupRepositoryTest {
-	@PersistenceContext private EntityManager em;
+	@PersistenceContext
+	private EntityManager em;
 
-	private User first,second,third,fourth;
-	private Group gfirst,gsecond,gthird,gfourth;
+	private User first, second, third, fourth;
+	private Group gfirst, gsecond, gthird, gfourth;
 	private Role adminRole;
 	private String id;
-	@Autowired private com.orangecandle.repository.Group repository;
-	
+	@Autowired
+	private com.orangecandle.repository.Group repository;
+
 	@Before
-	public void setup(){
+	public void setup() {
 		first.setUserName("sadullah");
 		second.setUserName("eyvah");
 		third.setUserName("vakvak");
 		fourth.setUserName("Muvaffakiyetsizleştiricileştiriveremeyebileceklerimizdenmişsinizcesine");
-		
+
 		gfirst.setGroupName("android");
 		gsecond.setGroupName("tetris");
 		gthird.setGroupName("ileri paintpall");
 		gfourth.setGroupName("mountain bike");
-		
+
 		gfirst.addUser(first);
 		gsecond.addUser(first);
 		gsecond.addUser(second);
@@ -52,10 +54,11 @@ public class GroupRepositoryTest {
 		gsecond.addUser(fourth);
 		gthird.addUser(second);
 		gthird.addUser(fourth);
-		//fourth group is empty
+		// fourth group is empty
 
-		adminRole=Role.ADMINISTRATOR;
+		adminRole = Role.Administrator;
 	}
+
 	private void flushTestGroup() {
 		em.persist(adminRole);
 		gfirst = repository.save(gfirst);
@@ -66,57 +69,62 @@ public class GroupRepositoryTest {
 		repository.flush();
 
 		id = gfirst.getGroupName();
-		
-		//is getGroupName name not null?
+
+		// is getGroupName name not null?
 		assertThat(id, is(notNullValue()));
 		assertThat(gsecond.getGroupName(), is(notNullValue()));
 		assertThat(gthird.getGroupName(), is(notNullValue()));
 		assertThat(gfourth.getGroupName(), is(notNullValue()));
-		
-		//is Group added in repository?
+
+		// is Group added in repository?
 		assertThat(repository.exists(id), is(true));
 		assertThat(repository.exists(gsecond.getGroupName()), is(true));
 		assertThat(repository.exists(gthird.getGroupName()), is(true));
 		assertThat(repository.exists(gfourth.getGroupName()), is(true));
 	}
+
 	@Test
 	public void testCreation() {
 		Query countQuery = em.createQuery("select count(u) from User u");
 		Long before = (Long) countQuery.getSingleResult();
 
 		flushTestGroup();
-		//does database have 4 user?
+		// does database have 4 user?
 		assertThat((Long) countQuery.getSingleResult(), is(before + 4));
 	}
+
 	@Test
-	public void testCreationRead(){
+	public void testCreationRead() {
 		flushTestGroup();
-		Group foundGroup=repository.findOne(id);
-		
-		assertThat(gfirst.getGroupName(),is(foundGroup.getGroupName()));
+		Group foundGroup = repository.findOne(id);
+
+		assertThat(gfirst.getGroupName(), is(foundGroup.getGroupName()));
 	}
+
 	@Test
 	public void testReadByIdReturnsNullForNotFoundEntities() {
 
 		flushTestGroup();
-		//Is accept to be not found entity?
+		// Is accept to be not found entity?
 		assertThat(repository.findOne("küçük"), is(nullValue()));
 	}
-	
+
 	@Test
 	public void savesCollectionCorrectly() throws Exception {
 
-		List<Group> result = repository.save(Arrays.asList(gfirst, gsecond, gthird));
-		//without flushTestGroup function,Is saved Group with collection?
+		List<Group> result = repository.save(Arrays.asList(gfirst, gsecond,
+				gthird));
+		// without flushTestGroup function,Is saved Group with collection?
 		assertThat(result, is(notNullValue()));
 		assertThat(result.size(), is(3));
 		assertThat(result, hasItems(gfirst, gsecond, gthird));
 	}
+
 	@Test
 	public void savingNullCollectionIsNoOp() throws Exception {
 
 		List<Group> result = repository.save((Collection<Group>) null);
-		//Is saved null collection? 
+		// Is saved null collection?
 		assertThat(result, is(notNullValue()));
 		assertThat(result.isEmpty(), is(true));
 	}
@@ -125,10 +133,11 @@ public class GroupRepositoryTest {
 	public void savingEmptyCollectionIsNoOp() throws Exception {
 
 		List<Group> result = repository.save(new ArrayList<Group>());
-		//is saved empty collection?
+		// is saved empty collection?
 		assertThat(result, is(notNullValue()));
 		assertThat(result.isEmpty(), is(true));
 	}
+
 	@Test
 	public void testUpdate() {
 
@@ -138,15 +147,17 @@ public class GroupRepositoryTest {
 		foundGroup.setGroupName("Schlicht");
 
 		Group updatedGroup = repository.findOne(id);
-		//update Group name?
+		// update Group name?
 		assertThat(updatedGroup.getGroupName(), is(foundGroup.getGroupName()));
 	}
+
 	@Test
 	public void returnsAllSortedCorrectly() throws Exception {
 
 		flushTestGroup();
-		List<Group> result = repository.findAll(new Sort(Sort.Direction.ASC, "name"));
-		//is correctly sorted
+		List<Group> result = repository.findAll(new Sort(Sort.Direction.ASC,
+				"name"));
+		// is correctly sorted
 		assertThat(result, is(notNullValue()));
 		assertThat(result.size(), is(4));
 		assertThat(result.get(0), is(first));
@@ -158,12 +169,12 @@ public class GroupRepositoryTest {
 	@Test
 	public void testUserHasAGroup() {
 		flushTestGroup();
-		//IS exist group?
-		assertThat(repository.exists(gfirst.getGroupName()),is(true));
-		assertThat(repository.exists(gsecond.getGroupName()),is(true));
-		assertThat(repository.exists(gthird.getGroupName()),is(true));
-		assertThat(repository.exists(gfourth.getGroupName()),is(true));
-		assertThat(repository.exists("kuantum"),is(false));
+		// IS exist group?
+		assertThat(repository.exists(gfirst.getGroupName()), is(true));
+		assertThat(repository.exists(gsecond.getGroupName()), is(true));
+		assertThat(repository.exists(gthird.getGroupName()), is(true));
+		assertThat(repository.exists(gfourth.getGroupName()), is(true));
+		assertThat(repository.exists("kuantum"), is(false));
 
 	}
 }
