@@ -33,9 +33,5 @@ Ext.define('OrangeCandle.view.Login', {
 		this.fireEvent('signInCommand', this,
 				this.down('textfield').getValue(), this.down('passwordfield')
 						.getValue());
-	},
-	showSignInFailedMessage : function(message) {
-		Ext.Msg.alert("", "Sign in failed", Ext.emptyFn);
 	}
-
 });

@@ -17,6 +17,10 @@ Ext.define('OrangeCandle.controller.Login', {
 			loginView.showSignInFailedMessage('You need to enter something');
 			return;
 		}
+		loginView.setMasked({
+			xtype : 'loadmask',
+			message : 'Signing In...'
+		});
 		view.submit({
 			headers : {
 				Authorization : 'Basic ' + btoa(username + ':' + password)
@@ -32,23 +36,13 @@ Ext.define('OrangeCandle.controller.Login', {
 				me.signInFailure();
 			}
 		});
-
-		loginView.setMasked({
-			xtype : 'loadmask',
-			message : 'Signing In...'
-		});
-
-		me.signInSuccess();
 	},
 	signInSuccess : function() {
-		var loginView = this.getLoginView();
-		mainMenuView = this.getMainMenuView();
-		loginView.setMasked(false);
-		Ext.Viewport.setActiveItem(mainMenuView);
+		var loginView = this.getLoginView().setMasked(false);
+		Ext.Viewport.setActiveItem(this.getMainMenuView());
 	},
 	signInFailure : function(message) {
-		var loginView = this.getLoginView();
-		loginView.showSignInFailedMessage(message);
-		loginView.setMasked(false);
+		this.getLoginView().setMasked(false);
+		Ext.Msg.alert("", "Sign in failed", Ext.emptyFn);
 	}
 });
