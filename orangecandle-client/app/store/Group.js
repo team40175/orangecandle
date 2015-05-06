@@ -3,10 +3,10 @@ Ext.define('OrangeCandle.store.Group', {
 	config : {
 		model : 'OrangeCandle.model.Group',
 		proxy : {
-			type : 'ajax',
 			headers : {
-				//Authorization : 'Basic YTph'
+				Authorization : OrangeCandle.util.Auth.get()
 			},
+			type : 'ajax',
 			url : OrangeCandle.util.Scalability
 					.getApplicationServer("group/findAll"),
 			reader : {

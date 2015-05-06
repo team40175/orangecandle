@@ -3,6 +3,9 @@ Ext.define('OrangeCandle.store.Constraint', {
 	config : {
 		model : 'OrangeCandle.model.Constraint',
 		proxy : {
+			headers : {
+				Authorization : OrangeCandle.util.Auth.get()
+			},
 			type : 'ajax',
 			url : OrangeCandle.util.Scalability
 					.getApplicationServer("constraint/findAll"),

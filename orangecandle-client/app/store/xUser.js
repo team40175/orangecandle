@@ -3,6 +3,9 @@ Ext.define('OrangeCandle.store.xUser', {
 	config : {
 		model : 'OrangeCandle.model.xUser',
 		proxy : {
+			headers : {
+				Authorization : OrangeCandle.util.Auth.get()
+			},
 			type : 'ajax',
 			url : OrangeCandle.util.Scalability
 					.getApplicationServer("user/findAll"),

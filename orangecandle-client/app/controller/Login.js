@@ -21,9 +21,10 @@ Ext.define('OrangeCandle.controller.Login', {
 			xtype : 'loadmask',
 			message : 'Signing In...'
 		});
+		OrangeCandle.util.Auth.set(username, password);
 		view.submit({
 			headers : {
-				Authorization : 'Basic ' + btoa(username + ':' + password)
+				Authorization : OrangeCandle.util.Auth.get()
 			},
 			url : OrangeCandle.util.Scalability.getApplicationServer("login"),
 			method : 'POST',

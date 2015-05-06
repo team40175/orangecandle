@@ -3,6 +3,9 @@ Ext.define('OrangeCandle.store.Role', {
 	config : {
 		model : 'OrangeCandle.model.Role',
 		proxy : {
+			headers : {
+				Authorization : OrangeCandle.util.Auth.get()
+			},
 			type : 'ajax',
 			url : OrangeCandle.util.Scalability
 					.getApplicationServer("group/getRoles"),

@@ -3,35 +3,19 @@ Ext.define('OrangeCandle.view.AddSchool', {
 	alias : "widget.addschool",
 	requires : [ 'Ext.form.FieldSet' ],
 	config : {
-		items : [
-				{
-					xtype : 'fieldset',
-					items : [ {
-						xtype : 'textfield',
-						placeHolder : 'Name of the School',
-						itemId : 'schoolName',
-						name : 'name',
-						required : true
-					} ]
-				},
-				{
-					xtype : 'button',
-					text : 'submit',
-					handler : function() {
-						Ext.ComponentQuery.query('#schoolPanel')[0].submit({
-							url : OrangeCandle.util.Scalability
-									.getApplicationServer("school/add"),
-							method : 'POST',
-							success : function(form, result) {
-								Ext.Msg.alert('', result.message, function() {
-									OrangeCandle.util.Scalability.pop()
-								});
-							},
-							failure : function(form, result) {
-								Ext.Msg.alert(result.message);
-							}
-						});
-					}
-				} ]
+		items : [ {
+			xtype : 'fieldset',
+			items : [ {
+				xtype : 'textfield',
+				placeHolder : 'Name of the School',
+				itemId : 'schoolName',
+				name : 'name',
+				required : true
+			} ]
+		}, {
+			xtype : 'button',
+			text : 'submit',
+			target : "school/add"
+		} ]
 	}
 })

@@ -3,6 +3,9 @@ Ext.define('OrangeCandle.store.Room', {
 	config : {
 		model : 'OrangeCandle.model.Room',
 		proxy : {
+			headers : {
+				Authorization : OrangeCandle.util.Auth.get()
+			},
 			type : 'ajax',
 			url : OrangeCandle.util.Scalability
 					.getApplicationServer("room/findAll"),
