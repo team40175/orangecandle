@@ -4,7 +4,6 @@ Ext.define('OrangeCandle.view.AddAccount', {
 	requires : [ 'Ext.form.FieldSet' ],
 	config : {
 		layout : 'vbox',
-		itemId : 'accountPanel',
 		title : 'Insert Account',
 		scrollable : false,
 		items : [ {

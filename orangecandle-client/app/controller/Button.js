@@ -58,7 +58,23 @@ Ext
 														{
 															iconCls : 'compose',
 															hidden : !button.form,
-															flex : 1
+															flex : 1,
+															handler : function() {
+																
+																if(this.up('panel').down('list').hasSelection() === false )
+																{
+																	Ext.Msg.alert("Please select a record to edit.");
+																}
+																else{
+																var ref = button.ref;
+																var name = ref.alias !== undefined ? ref.alias
+																		: ref.store;
+																button.form.title = "Insert "
+																		+ name;
+																mainView
+																		.push(button.form);
+																}
+															}
 														},
 														{
 															iconCls : 'delete',

@@ -3,6 +3,7 @@ Ext.define('OrangeCandle.view.AddClassroom', {
 	alias : "widget.addclassroom",
 	requires : [ 'Ext.form.FieldSet' ],
 	config : {
+		scrollable:'false',
 		items : [ {
 			xtype : 'fieldset',
 			items : [ {

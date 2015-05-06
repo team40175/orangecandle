@@ -3,9 +3,9 @@ Ext.define('OrangeCandle.view.AddLesson', {
 	alias : "widget.addlesson",
 	requires : [ 'Ext.form.FieldSet' ],
 	config : {
+		scrollable:'false',
 		title : 'Insert a new lecture',
 		instructions : 'Insert the details of the lecture:',
-		itemId : 'lessonPanel',
 		items : [ {
 			xtype : 'fieldset',
 			items : [ {
