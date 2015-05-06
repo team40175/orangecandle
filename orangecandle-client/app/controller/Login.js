@@ -18,13 +18,10 @@ Ext.define('OrangeCandle.controller.Login', {
 			return;
 		}
 		view.submit({
-
 			headers : {
 				Authorization : 'Basic ' + btoa(username + ':' + password)
 			},
-
-			url : OrangeCandle.util.Scalability
-					.getApplicationServer("loginRequest"),
+			url : OrangeCandle.util.Scalability.getApplicationServer("login"),
 			method : 'POST',
 			success : function(form, result) {
 				Ext.Msg.alert('', result.message, function() {

@@ -5,7 +5,7 @@ Ext.define('OrangeCandle.store.Group', {
 		proxy : {
 			type : 'ajax',
 			headers : {
-				Authorization : 'Basic YTph'
+				//Authorization : 'Basic YTph'
 			},
 			url : OrangeCandle.util.Scalability
 					.getApplicationServer("group/findAll"),
