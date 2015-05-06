@@ -22,8 +22,8 @@ public class SchoolController {
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void addingUser(@RequestParam String name,
-			HttpServletResponse response) throws IOException {
+	public void add(@RequestParam String name, HttpServletResponse response)
+			throws IOException {
 		// Writer w = response.getWriter();
 		// if (null == repo.find(name)) {
 		// repo.saveAndFlush(new School(name));

@@ -12,7 +12,9 @@ Ext.define('OrangeCandle.controller.Login', {
 		}
 	},
 	onSignInCommand : function(view, username, password) {
+		var me = this;
 		var loginView = this.getLoginView();
+		var main = this.getMainMenuView();
 		if (username.length === 0 || password.length === 0) {
 			loginView.showSignInFailedMessage('You need to enter something');
 			return;
@@ -30,10 +32,10 @@ Ext.define('OrangeCandle.controller.Login', {
 			method : 'POST',
 			success : function(form, result) {
 				loginView.setMasked(false);
-				Ext.Viewport.setActiveItem(this.getMainMenuView());
+				Ext.Viewport.setActiveItem(main);
 			},
 			failure : function(form, result) {
-				this.getLoginView().setMasked(false);
+				loginView.setMasked(false);
 				Ext.Msg.alert("", "Sign in failed", Ext.emptyFn);
 			}
 		});

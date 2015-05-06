@@ -26,11 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http
+
+		.authorizeRequests().anyRequest().authenticated();
 		// .addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class)
-		.authorizeRequests().anyRequest().authenticated()
 		// .antMatchers(HttpMethod.OPTIONS, "*").permitAll()
-				.and()
-				// .formLogin().loginProcessingUrl("loginRequest")
-				.httpBasic().and().csrf().disable();
+		// .formLogin().loginProcessingUrl("loginRequest")
+		http.httpBasic().and().csrf().disable();
+		// http.sessionManagement().sessionCreationPolicy(
+		//			SessionCreationPolicy.STATELESS);
 	}
 }
