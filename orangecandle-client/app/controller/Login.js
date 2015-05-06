@@ -18,7 +18,13 @@ Ext.define('OrangeCandle.controller.Login', {
 			return;
 		}
 		view.submit({
-			url : OrangeCandle.util.Scalability.getApplicationServer("/login"),
+
+			headers : {
+				Authorization : 'Basic ' + btoa(username + ':' + password)
+			},
+
+			url : OrangeCandle.util.Scalability
+					.getApplicationServer("loginRequest"),
 			method : 'POST',
 			success : function(form, result) {
 				Ext.Msg.alert('', result.message, function() {
@@ -35,7 +41,7 @@ Ext.define('OrangeCandle.controller.Login', {
 			message : 'Signing In...'
 		});
 
-		 me.signInSuccess();
+		me.signInSuccess();
 	},
 	signInSuccess : function() {
 		var loginView = this.getLoginView();

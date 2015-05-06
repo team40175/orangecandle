@@ -10,11 +10,11 @@ Ext.define('OrangeCandle.view.Login', {
 			items : [ {
 				xtype : 'textfield',
 				placeHolder : 'Username',
-				name:'username'
+				name : 'username'
 			}, {
 				xtype : 'passwordfield',
 				placeHolder : 'Password',
-				name:'password'
+				name : 'password'
 			} ]
 		}, {
 			xtype : 'button',
@@ -30,11 +30,9 @@ Ext.define('OrangeCandle.view.Login', {
 		} ],
 	},
 	onLogInButtonTap : function() {
-		var usernameField = this.down('textfield');
-		var passwordField = this.down('passwordfield');
-		var username = usernameField.getValue();
-		password = passwordField.getValue();
-		this.fireEvent('signInCommand', this, username, password);
+		this.fireEvent('signInCommand', this,
+				this.down('textfield').getValue(), this.down('passwordfield')
+						.getValue());
 	},
 	showSignInFailedMessage : function(message) {
 		Ext.Msg.alert("", "Sign in failed", Ext.emptyFn);
