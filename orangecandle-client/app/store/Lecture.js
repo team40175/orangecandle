@@ -3,6 +3,9 @@ Ext.define('OrangeCandle.store.Lecture', {
 	config : {
 		model : 'OrangeCandle.model.Lecture',
 		proxy : {
+			headers : {
+				Authorization : OrangeCandle.util.Auth.get()
+			},
 			type : 'ajax',
 			url : OrangeCandle.util.Scalability
 					.getApplicationServer("lecture/findAll"),
