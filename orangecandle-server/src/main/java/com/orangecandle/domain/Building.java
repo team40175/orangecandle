@@ -38,14 +38,14 @@ public class Building {
 		return this.departments;
 	}
 	public void addDepartment(Department name){
-		if(departments.isEmpty()) departments=new ArrayList<Department>();
+		if(departments==null) departments=new ArrayList<Department>();
 		this.departments.add(name);
 	}
 	public List<Lecture> getLectures(){
 		return this.lectures;
 	}
 	public void addLecture(Lecture lec){
-		if(this.lectures.isEmpty()) this.lectures= new ArrayList<Lecture>();
+		if(this.lectures==null) this.lectures= new ArrayList<Lecture>();
 		this.lectures.add(lec);
 	}
 	
@@ -53,7 +53,7 @@ public class Building {
 		return this.rooms;
 	}
 	public void addRoom(Room lec){
-		if(this.rooms.isEmpty()) this.rooms= new ArrayList<Room>();
+		if(this.rooms==null) this.rooms= new ArrayList<Room>();
 		this.rooms.add(lec);
 	}
 	

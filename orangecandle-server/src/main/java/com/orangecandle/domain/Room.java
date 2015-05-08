@@ -37,7 +37,7 @@ public class Room {
 	}
 
 	public void addLecture(Lecture lec) {
-		if (this.lecture.isEmpty())
+		if (this.lecture==null)
 			this.lecture = new ArrayList<Lecture>();
 		this.lecture.add(lec);
 	}

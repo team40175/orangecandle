@@ -1,6 +1,7 @@
 package com.orangecandle.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -45,6 +46,7 @@ public class Group implements Serializable {
 	}
 
 	public void addUser(User user) {
+		if(users==null) users= new ArrayList<User>();
 		users.add(user);
 	}
 

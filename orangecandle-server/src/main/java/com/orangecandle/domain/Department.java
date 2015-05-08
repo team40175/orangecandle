@@ -46,14 +46,14 @@ public class Department {
 		return this.users;
 	}
 	public void addUser(User user){
-		if(this.users.isEmpty()) this.users= new ArrayList<User>();
+		if(this.users==null) this.users= new ArrayList<User>();
 		this.users.add(user);
 	}
 	public List<Group> getGroup(){
 		return this.groups;
 	}
 	public void addGroup(Group lec){
-		if(this.groups.isEmpty()) this.groups= new ArrayList<Group>();
+		if(this.groups==null) this.groups= new ArrayList<Group>();
 		this.groups.add(lec);
 	}
 	
@@ -61,7 +61,7 @@ public class Department {
 		return this.rooms;
 	}
 	public void addRoom(Room lec){
-		if(this.rooms.isEmpty()) this.rooms= new ArrayList<Room>();
+		if(this.rooms==null) this.rooms= new ArrayList<Room>();
 		this.rooms.add(lec);
 	}
 	

@@ -46,7 +46,7 @@ public class Lecture {
 	}
 
 	public void addLecturer(User lecturer) {
-		if (lecturers.isEmpty())
+		if (lecturers==null)
 			lecturers = new ArrayList<User>();
 		lecturers.add(lecturer);
 	}

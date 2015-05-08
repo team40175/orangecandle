@@ -32,7 +32,7 @@ public class School {
 	}
 
 	public void addFaculty(Faculty fac) {
-		if (faculties.isEmpty())
+		if (faculties==null)
 			faculties = new ArrayList<Faculty>();
 		this.faculties.add(fac);
 	}

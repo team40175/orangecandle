@@ -23,8 +23,17 @@ public class User {
 	public User(String userName) {
 		this.userName = userName;
 	}
+	public void addConstraint(Constraint c) {
+		if(constraints==null) constraints=new ArrayList<Constraint>();
+		constraints.add(c);
+	}
+
+	public List<Constraint> getConstraints() {
+		return constraints;
+	}
 
 	public void addGroup(Group g) {
+		if(groups==null) groups=new ArrayList<Group>();
 		groups.add(g);
 	}
 

@@ -29,7 +29,7 @@ public class Faculty {
 		this.name=name;
 	}
 	public void addDepartment(Department dep){
-		if(departments.isEmpty()) departments=new ArrayList<Department>();
+		if(departments==null) departments=new ArrayList<Department>();
 		departments.add(dep);
 	}
 	public List<Department> getDepartments(){
