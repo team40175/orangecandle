@@ -66,13 +66,17 @@ Ext
 																	Ext.Msg.alert("Please select a record to edit.");
 																}
 																else{
-																var ref = button.ref;
-																var name = ref.alias !== undefined ? ref.alias
-																		: ref.store;
-																button.form.title = "Insert "
-																		+ name;
-																mainView
-																		.push(button.form);
+																	var recordId = this.up('panel').down('list')
+																						.getSelection()[0].getData().id;
+																	var ref = button.ref;
+																	var name = ref.alias !== undefined ? ref.alias
+																			: ref.store;
+																	button.form.title = "Insert "
+																			+ name;
+																	var record=this.up('panel').down('list').getSelection()[0];
+																	button.form.setRecord = record;
+																	mainView
+																			.push(button.form);
 																}
 															}
 														},
