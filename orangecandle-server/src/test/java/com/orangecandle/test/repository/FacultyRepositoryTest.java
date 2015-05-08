@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+@CustomTestAnnotation
 
 public class FacultyRepositoryTest {
 	@PersistenceContext private EntityManager em;

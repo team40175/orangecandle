@@ -4,20 +4,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+
 import com.orangecandle.domain.Group;
 import com.orangecandle.domain.Role;
 import com.orangecandle.domain.User;
 
+@CustomTestAnnotation
 public class UserRepositoryTest {
+	
 	@PersistenceContext
 	private EntityManager em;
 
@@ -25,11 +31,23 @@ public class UserRepositoryTest {
 	private Group gfirst, gsecond, gthird, gfourth;
 	private Role adminRole;
 	private String id;
+	
 	@Autowired
 	private com.orangecandle.repository.User repository;
-
+	
+	
 	@Before
 	public void setup() {
+		first=new User();
+		second=new User();
+		third=new User();
+		fourth=new User();
+		
+		gfirst=new Group();
+		gsecond=new Group();
+		gthird=new Group();
+		gfourth=new Group();
+		
 		first.setUserName("abdullah");
 		second.setUserName("hatun");
 		third.setUserName("ömer");
@@ -48,9 +66,10 @@ public class UserRepositoryTest {
 		gthird.addUser(second);
 		gthird.addUser(fourth);
 		// fourth group is empty
-
+		
 		adminRole = Role.Administrator;
 	}
+	
 
 	// user has a name and user is added in database
 	private void flushTestUsers() {

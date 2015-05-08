@@ -23,7 +23,7 @@ import org.springframework.data.domain.Sort;
 import com.orangecandle.domain.Lecture;
 import com.orangecandle.domain.Role;
 import com.orangecandle.domain.User;
-
+@CustomTestAnnotation
 public class LectureRepositoryTest {
 	private @PersistenceContext EntityManager em;
 
@@ -40,6 +40,10 @@ public class LectureRepositoryTest {
 		lectureTwo = new Lecture("MAN206", "Business and Workplace");
 		lectureThree = new Lecture("CHEM203", "Organic Chemistry II");
 		lectureFour = new Lecture();
+		first=new User();
+		second=new User();
+		third=new User();
+		fourth=new User();
 
 		first.setUserName("kasım");
 		second.setUserName("ayşe");

@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.orangecandle.domain.Faculty;
-
+@CustomTestAnnotation
 public class SchoolRepositoryTest {
 	@PersistenceContext private EntityManager em;
 	@Autowired private com.orangecandle.repository.School repository;

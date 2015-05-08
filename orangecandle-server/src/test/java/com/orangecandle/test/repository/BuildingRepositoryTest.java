@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
+@CustomTestAnnotation
 public class BuildingRepositoryTest {
 	@PersistenceContext private EntityManager em;
 	@Autowired private com.orangecandle.repository.Building repository;

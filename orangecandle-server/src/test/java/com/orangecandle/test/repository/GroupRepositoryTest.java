@@ -23,6 +23,7 @@ import org.springframework.data.domain.Sort;
 import com.orangecandle.domain.Group;
 import com.orangecandle.domain.Role;
 import com.orangecandle.domain.User;
+@CustomTestAnnotation
 
 public class GroupRepositoryTest {
 	@PersistenceContext
