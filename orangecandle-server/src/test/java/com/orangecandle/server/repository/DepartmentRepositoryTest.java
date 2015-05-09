@@ -1,4 +1,4 @@
-package com.orangecandle.test.repository;
+package com.orangecandle.server.repository;
 
 import static org.junit.Assert.*;
 
@@ -13,16 +13,16 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 @CustomTestAnnotation
 
-public class ConstraintRepositoryTest {
+public class DepartmentRepositoryTest {
 	@Mock private EntityManager em;
-	@InjectMocks private com.orangecandle.repository.Constraint repository;
+	@InjectMocks private com.orangecandle.repository.Department repository;
 	
 	@Before
 	public void setup(){
 		em=Mockito.mock(EntityManager.class);
-		repository=Mockito.mock(com.orangecandle.repository.Constraint.class);
+		repository=Mockito.mock(com.orangecandle.repository.Department.class);
 	}
-	private void flushTestConstraint() {
+	private void flushTestDepartment() {
 		
 	}
 	@Test

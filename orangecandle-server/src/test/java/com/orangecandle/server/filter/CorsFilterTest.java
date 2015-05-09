@@ -1,4 +1,4 @@
-package com.orangecandle.test.filter;
+package com.orangecandle.server.filter;
 
 import static org.junit.Assert.fail;
 

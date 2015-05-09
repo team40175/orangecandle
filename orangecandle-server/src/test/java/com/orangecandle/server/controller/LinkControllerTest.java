@@ -1,4 +1,4 @@
-package com.orangecandle.test.controller;
+package com.orangecandle.server.controller;
 
 import static org.junit.Assert.*;
 

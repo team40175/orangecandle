@@ -1,4 +1,4 @@
-package com.orangecandle.test.repository;
+package com.orangecandle.server.repository;
 
 import static org.junit.Assert.*;
 

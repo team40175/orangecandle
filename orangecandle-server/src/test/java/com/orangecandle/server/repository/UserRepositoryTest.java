@@ -1,4 +1,4 @@
-package com.orangecandle.test.repository;
+package com.orangecandle.server.repository;
 
 import java.util.ArrayList;
 import java.util.Arrays;

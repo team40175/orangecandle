@@ -1,4 +1,4 @@
-package com.orangecandle.test.repository;
+package com.orangecandle.server.repository;
 
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
