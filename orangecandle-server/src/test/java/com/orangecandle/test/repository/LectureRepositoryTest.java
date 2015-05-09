@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,29 +18,38 @@ import javax.persistence.Query;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mockito;
+import org.mockito.Mock;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.NoRepositoryBean;
 
 import com.orangecandle.domain.Lecture;
 import com.orangecandle.domain.Role;
 import com.orangecandle.domain.User;
 @CustomTestAnnotation
 public class LectureRepositoryTest {
-	private @PersistenceContext EntityManager em;
+	@Mock 
+	@PersistenceContext
+	private EntityManager em;
 
 	private Role adminRole;
 
-	private @Autowired com.orangecandle.repository.Lecture repository;
+	private @InjectMocks com.orangecandle.repository.Lecture repository;
 
 	private User first, second, third, fourth;
 	private Lecture lectureOne, lectureTwo, lectureThree, lectureFour;
 
 	@Before
 	public void setup() {
-		lectureOne = new Lecture("CENG316", "Software Engineering");
-		lectureTwo = new Lecture("MAN206", "Business and Workplace");
-		lectureThree = new Lecture("CHEM203", "Organic Chemistry II");
-		lectureFour = new Lecture();
+		em=Mockito.mock(EntityManager.class);
+		repository=Mockito.mock(com.orangecandle.repository.Lecture.class);
+		
+		lectureOne =Mockito.mock(Lecture.class);
+		lectureTwo =Mockito.mock(Lecture.class);
+		lectureThree = Mockito.mock(Lecture.class);
+		lectureFour =Mockito.mock(Lecture.class);
+		
 		first=new User();
 		second=new User();
 		third=new User();
@@ -60,13 +70,12 @@ public class LectureRepositoryTest {
 
 	private void flushTestLecture() {
 		em.persist(adminRole);
-
-		lectureOne = repository.save(lectureOne);
-		lectureTwo = repository.save(lectureTwo);
-		lectureThree = repository.save(lectureThree);
-		lectureFour = repository.save(lectureFour);
-
-		repository.flush();
+		
+		when(repository.save(lectureOne)).thenReturn(lectureOne);
+		when(repository.save(lectureTwo)).thenReturn(lectureTwo);
+		when(repository.save(lectureThree)).thenReturn(lectureThree);
+		when(repository.saveAndFlush(lectureFour)).thenReturn(lectureFour);
+		
 		// is lecture not null?
 		assertThat(lectureOne, is(notNullValue()));
 		assertThat(lectureTwo, is(notNullValue()));
@@ -74,20 +83,25 @@ public class LectureRepositoryTest {
 		assertThat(lectureFour, is(notNullValue()));
 
 		// is lecture added in repository?
-		assertThat(repository.exists(lectureOne.getLectureCode()), is(true));
-		assertThat(repository.exists(lectureTwo.getLectureCode()), is(true));
-		assertThat(repository.exists(lectureThree.getLectureCode()), is(true));
-		assertThat(repository.exists(lectureFour.getLectureCode()), is(false));
+		assertThat(repository.exists(lectureOne.getLectureName()), is(true));
+		assertThat(repository.exists(lectureTwo.getLectureName()), is(true));
+		assertThat(repository.exists(lectureThree.getLectureName()), is(true));
+		assertThat(repository.exists(lectureFour.getLectureName()), is(true));
 	}
 
 	@Test
 	public void testCreationLecture() {
-		Query countQuery = em.createQuery("select count(u) from lecture u");
-		Long before = (Long) countQuery.getSingleResult();
+		Query countQuery=Mockito.mock(Query.class);
+		when(em.createQuery("select count(u) from lecture u")).thenReturn(countQuery);
+		Long before = (long) 0;
+		when(countQuery.getSingleResult()).thenReturn(before);
 
 		flushTestLecture();
+		Long d3=null;
+		when(countQuery.getSingleResult()).thenReturn(d3);
+
 		// does database have 4 lecture?
-		assertThat((Long) countQuery.getSingleResult(), is(before + 4));
+		assertThat(d3, is(before + 4));
 	}
 
 	@Test
@@ -109,8 +123,13 @@ public class LectureRepositoryTest {
 	@Test
 	public void savesCollectionCorrectly() throws Exception {
 
-		List<Lecture> result = repository.save(Arrays.asList(lectureOne,
-				lectureTwo, lectureThree));
+		List<Lecture> result =new ArrayList<Lecture> ();
+		result.add(lectureOne);
+		result.add(lectureTwo);
+		result.add(lectureThree);
+
+		when(repository.save(result)).thenReturn(result);
+
 		// without flushTestLecture function,Is saved Lecture with collection?
 		assertThat(result, is(notNullValue()));
 		assertThat(result.size(), is(3));
@@ -140,7 +159,8 @@ public class LectureRepositoryTest {
 
 		flushTestLecture();
 		String strr = lectureOne.getLectureCode();
-		Lecture foundLecture = repository.findOne(strr);
+		Lecture foundLecture = Mockito.mock(Lecture.class);
+		when(repository.findOne(strr)).thenReturn(foundLecture);
 		foundLecture.setLectureName("Schlicht");
 
 		Lecture updatedLecture = repository.findOne(strr);
@@ -149,12 +169,14 @@ public class LectureRepositoryTest {
 				is(foundLecture.getLectureName()));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void returnsAllSortedCorrectly() throws Exception {
 
 		flushTestLecture();
-		List<Lecture> result = repository.findAll(new Sort(Sort.Direction.ASC,
-				"name"));
+		List<Lecture> result =Mockito.mock(List.class);
+		when(repository.findAll(new Sort(Sort.Direction.ASC,
+				"lecture.name"))).thenReturn(result);
 		// is correctly sorted
 		assertThat(result, is(notNullValue()));
 		assertThat(result.size(), is(4));

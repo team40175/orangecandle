@@ -7,16 +7,20 @@ import javax.persistence.PersistenceContext;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 @CustomTestAnnotation
 
 public class FacultyRepositoryTest {
-	@PersistenceContext private EntityManager em;
-	@Autowired private com.orangecandle.repository.Faculty repository;
+	@Mock private EntityManager em;
+	@InjectMocks private com.orangecandle.repository.Faculty repository;
 	
 	@Before
 	public void setup(){
-		
+		em=Mockito.mock(EntityManager.class);
+		repository=Mockito.mock(com.orangecandle.repository.Faculty.class);
 	}
 	private void flushTestFaculty() {
 		

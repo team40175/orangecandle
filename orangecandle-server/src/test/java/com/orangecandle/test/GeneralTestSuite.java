@@ -3,11 +3,9 @@ package com.orangecandle.test;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
 
 import com.orangecandle.test.controller.LinkControllerTest;
 import com.orangecandle.test.controller.UserControllerTest;
-import com.orangecandle.test.domain.UserTest;
 import com.orangecandle.test.filter.CorsFilterTest;
 import com.orangecandle.test.repository.BuildingRepositoryTest;
 import com.orangecandle.test.repository.ConstraintRepositoryTest;
@@ -34,8 +32,7 @@ import com.orangecandle.test.repository.UserRepositoryTest;
 	LectureRepositoryTest.class,
 	RoomRepositoryTest.class,
 	SchoolRepositoryTest.class,
-	UserRepositoryTest.class,
-	UserTest.class
+	UserRepositoryTest.class
 
 })
 public class GeneralTestSuite {

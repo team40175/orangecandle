@@ -4,7 +4,9 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matcher.*;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,42 +14,45 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.data.domain.Sort;
 
 import com.orangecandle.domain.Group;
+import com.orangecandle.domain.Lecture;
 import com.orangecandle.domain.Role;
 import com.orangecandle.domain.User;
 @CustomTestAnnotation
-
 public class GroupRepositoryTest {
-	@PersistenceContext
+	
+	@Mock
 	private EntityManager em;
 
 	private User first, second, third, fourth;
 	private Group gfirst, gsecond, gthird, gfourth;
 	private Role adminRole;
-	private String id;
 	
-	@Autowired
+	@InjectMocks
 	private com.orangecandle.repository.Group repository;
 
 	@Before
-	public void setup() {	
+	public void setup() {
+		em=Mockito.mock(EntityManager.class);
+		repository=Mockito.mock(com.orangecandle.repository.Group.class);
 		first=new User();
 		second=new User();
 		third=new User();
 		fourth=new User();
 		
-		gfirst=new Group();
-		gsecond=new Group();
-		gthird=new Group();
-		gfourth=new Group();
+		gfirst=Mockito.mock(Group.class);
+		gsecond=Mockito.mock(Group.class);
+		gthird=Mockito.mock(Group.class);
+		gfourth=Mockito.mock(Group.class);
 		
 		first.setUserName("sadullah");
 		second.setUserName("eyvah");
@@ -72,45 +77,49 @@ public class GroupRepositoryTest {
 	}
 
 	private void flushTestGroup() {
-			em.persist(adminRole);
-		gfirst = repository.save(gfirst);
-		gsecond = repository.save(gsecond);
-		gthird = repository.save(gthird);
-		gfourth = repository.save(gfourth);
+		em.persist(adminRole);
+		when(repository.save(gfirst)).thenReturn(gfirst);
+		when(repository.save(gsecond)).thenReturn(gsecond);
+		when(repository.save(gthird)).thenReturn(gthird);
+		when(repository.saveAndFlush(gfourth)).thenReturn(gfourth);
+		repository.saveAndFlush(gfirst);
 
-		repository.flush();
-
-		id = gfirst.getGroupName();
-
+		
 		// is getGroupName name not null?
-		assertThat(id, is(notNullValue()));
-		assertThat(gsecond.getGroupName(), is(notNullValue()));
-		assertThat(gthird.getGroupName(), is(notNullValue()));
-		assertThat(gfourth.getGroupName(), is(notNullValue()));
-
+		assertThat(gfirst, is(notNullValue()));
+		assertThat(gsecond, is(notNullValue()));
+		assertThat(gthird, is(notNullValue()));
+		assertThat(gfourth, is(notNullValue()));
+//System.out.println(repository.count());
 		// is Group added in repository?
-		assertThat(repository.exists(id), is(true));
+		assertThat(repository.exists(gfirst.getGroupName()), is(true));
 		assertThat(repository.exists(gsecond.getGroupName()), is(true));
 		assertThat(repository.exists(gthird.getGroupName()), is(true));
 		assertThat(repository.exists(gfourth.getGroupName()), is(true));
 	}
 
 	@Test
-	public void testCreation() {
-		Query countQuery = em.createQuery("select count(u) from User u");
-		Long before = (Long) countQuery.getSingleResult();
+	public void testCreationGroup() {
+		Query countQuery=Mockito.mock(Query.class);
+		when(em.createQuery(new String("select count(u) from Group u"))).thenReturn(countQuery);
+
+		Long before = (long) 0;
+		when(countQuery.getSingleResult()).thenReturn(before);
 
 		flushTestGroup();
-		// does database have 4 user?
-		assertThat((Long) countQuery.getSingleResult(), is(before + 4));
+		Long d3=null;
+		when(countQuery.getSingleResult()).thenReturn(d3);
+
+		// does database have 4 lecture?
+		assertThat(d3, is(before + 4));
 	}
 
 	@Test
-	public void testCreationRead() {
+	public void testCreationGroupRead() {
 		flushTestGroup();
-		Group foundGroup = repository.findOne(id);
+		Group foundGroup = repository.findOne(gfirst.getGroupName());
 
-		assertThat(gfirst.getGroupName(), is(foundGroup.getGroupName()));
+		assertThat(gfirst.getGroupName(), is(foundGroup));
 	}
 
 	@Test
@@ -124,8 +133,12 @@ public class GroupRepositoryTest {
 	@Test
 	public void savesCollectionCorrectly() throws Exception {
 
-		List<Group> result = repository.save(Arrays.asList(gfirst, gsecond,
-				gthird));
+		List<Group> result = new ArrayList<Group>();
+		result.add(gfirst);
+		result.add(gthird);
+		result.add(gsecond);
+
+		when(repository.save(result)).thenReturn(result);
 		// without flushTestGroup function,Is saved Group with collection?
 		assertThat(result, is(notNullValue()));
 		assertThat(result.size(), is(3));
@@ -154,21 +167,28 @@ public class GroupRepositoryTest {
 	public void testUpdate() {
 
 		flushTestGroup();
-
-		Group foundGroup = repository.findOne(id);
+		String strr = gfirst.getGroupName();
+		Group foundGroup = Mockito.mock(Group.class);
+		when(repository.findOne(strr)).thenReturn(foundGroup);
 		foundGroup.setGroupName("Schlicht");
 
-		Group updatedGroup = repository.findOne(id);
-		// update Group name?
-		assertThat(updatedGroup.getGroupName(), is(foundGroup.getGroupName()));
-	}
+		Group updatedGroup = repository.findOne(strr);
+		// update user name?
+		assertThat(updatedGroup.getGroupName(),
+				is(foundGroup.getGroupName()));
+
+		}
 
 	@Test
 	public void returnsAllSortedCorrectly() throws Exception {
 
+		List<Group> result =new ArrayList<Group>();
+		
 		flushTestGroup();
-		List<Group> result = repository.findAll(new Sort(Sort.Direction.ASC,
-				"name"));
+		
+		when(repository.findAll(new Sort(Sort.Direction.ASC,
+				"name"))).thenReturn(result);
+		
 		// is correctly sorted
 		assertThat(result, is(notNullValue()));
 		assertThat(result.size(), is(4));
@@ -182,7 +202,7 @@ public class GroupRepositoryTest {
 	public void testUserHasAGroup() {
 		flushTestGroup();
 		// IS exist group?
-		assertThat(repository.exists(gfirst.getGroupName()), is(true));
+		assertThat(repository.exists(gfirst.getGroupName()), is(gfirst));
 		assertThat(repository.exists(gsecond.getGroupName()), is(true));
 		assertThat(repository.exists(gthird.getGroupName()), is(true));
 		assertThat(repository.exists(gfourth.getGroupName()), is(true));

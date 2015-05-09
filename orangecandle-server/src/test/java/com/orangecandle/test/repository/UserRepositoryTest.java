@@ -6,42 +6,51 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.data.domain.Sort;
 
 import com.orangecandle.domain.Group;
+import com.orangecandle.domain.Lecture;
 import com.orangecandle.domain.Role;
 import com.orangecandle.domain.User;
 
 @CustomTestAnnotation
 public class UserRepositoryTest {
 	
-	@PersistenceContext
+	@Mock	
 	private EntityManager em;
-
+	@Mock
 	private User first, second, third, fourth;
+	
 	private Group gfirst, gsecond, gthird, gfourth;
 	private Role adminRole;
-	private String id;
 	
-	@Autowired
+	
+	@InjectMocks
 	private com.orangecandle.repository.User repository;
 	
 	
 	@Before
 	public void setup() {
-		first=new User();
-		second=new User();
-		third=new User();
-		fourth=new User();
+
+		em=mock(EntityManager.class);
+		repository=mock(com.orangecandle.repository.User.class);
+		
+		first=mock(User.class);
+		second=mock(User.class);
+		third=mock(User.class);
+		fourth=mock(User.class);
 		
 		gfirst=new Group();
 		gsecond=new Group();
@@ -76,44 +85,47 @@ public class UserRepositoryTest {
 
 		em.persist(adminRole);
 
-		first = repository.save(first);
-		second = repository.save(second);
-		third = repository.save(third);
-		fourth = repository.save(fourth);
-
-		repository.flush();
-
-		id = first.getUserName();
+		//first=repository.save(first);
+		when(repository.save(first)).thenReturn(first);
+		when(repository.save(second)).thenReturn(second);
+		when(repository.save(third)).thenReturn(third);
+		when(repository.saveAndFlush(fourth)).thenReturn(fourth);
 
 		// is user name not null?
-		assertThat(id, is(notNullValue()));
-		assertThat(second.getUserName(), is(notNullValue()));
-		assertThat(third.getUserName(), is(notNullValue()));
-		assertThat(fourth.getUserName(), is(notNullValue()));
+		assertThat(first, is(notNullValue()));
+		assertThat(second, is(notNullValue()));
+		assertThat(third, is(notNullValue()));
+		assertThat(fourth, is(notNullValue()));
 
 		// is user added in repository?
-		assertThat(repository.exists(id), is(true));
+		assertThat(repository.exists(first.getUserName()), is(true));
 		assertThat(repository.exists(second.getUserName()), is(true));
 		assertThat(repository.exists(third.getUserName()), is(true));
 		assertThat(repository.exists(fourth.getUserName()), is(true));
 	}
 
 	@Test
-	public void testCreation() {
-		Query countQuery = em.createQuery("select count(u) from User u");
-		Long before = (Long) countQuery.getSingleResult();
+	public void testCreationUser() {
+		Query countQuery=Mockito.mock(Query.class);
+		when(em.createQuery(new String("select count(u) from User u"))).thenReturn(countQuery);
+		Long before =(long) 0;
+		when(countQuery.getSingleResult()).thenReturn(before);
 
 		flushTestUsers();
+		
 		// does database have 4 user?
-		assertThat((Long) countQuery.getSingleResult(), is(before + 4));
+		Long d5=null;
+		when(countQuery.getSingleResult()).thenReturn(d5);
+
+		assertThat(d5, is(before + 4));
 	}
 
 	@Test
-	public void testCreationRead() {
+	public void testCreationUserRead() {
 		flushTestUsers();
-		User foundUser = repository.findOne(id);
+		User foundUser = repository.findOne(first.getUserName());
 
-		assertThat(first.getUserName(), is(foundUser.getUserName()));
+		assertThat(first.getUserName(), is(foundUser));
 	}
 
 	@Test
@@ -127,8 +139,12 @@ public class UserRepositoryTest {
 	@Test
 	public void savesCollectionCorrectly() throws Exception {
 
-		List<User> result = repository
-				.save(Arrays.asList(first, second, third));
+		List<User> result = new ArrayList<User> ();
+		result.add(first);
+		result.add(third);
+		result.add(second);
+
+		when(repository.save(result)).thenReturn(result);
 		// without flushTestUsers function,Is saved user with collection?
 		assertThat(result, is(notNullValue()));
 		assertThat(result.size(), is(3));
@@ -157,13 +173,16 @@ public class UserRepositoryTest {
 	public void testUpdate() {
 
 		flushTestUsers();
-
-		User foundPerson = repository.findOne(id);
+		
+		String strr = first.getUserName();
+		User foundPerson =Mockito.mock(User.class); 
+		when(repository.findOne(strr)).thenReturn(foundPerson);
 		foundPerson.setUserName("Schlicht");
 
-		User updatedPerson = repository.findOne(id);
+		User updatedPerson = repository.findOne(strr);
 		// update user name?
-		assertThat(updatedPerson.getUserName(), is(foundPerson.getUserName()));
+		assertThat(updatedPerson.getUserName(), 
+				is(foundPerson));
 	}
 
 	@Test

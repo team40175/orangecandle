@@ -1,61 +1,59 @@
 package com.orangecandle.test.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletResponse;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.orangecandle.controller.UserController;
-import com.orangecandle.domain.User;
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { UserController.class })
+@WebAppConfiguration
 public class UserControllerTest {
 
 	@Autowired
-	com.orangecandle.repository.User repository;
-	@Autowired
-	HttpServletResponse res;
-	@Autowired
-	UserController controller;
-	private User user, userTwo, userThree, userFour;
+	private WebApplicationContext wac;
+    private MockHttpServletResponse res;
+    @Mock private com.orangecandle.repository.User repository;
+
+	private MockMvc mockMvc;
 
 	@Before
 	public void before() {
-//		WebMvcTestConfig.initMocks();
-		repository =  Mockito.mock(com.orangecandle.repository.User.class);
-		user=new User();
-		userTwo=new User();
-		userThree=new User();
-		userFour=new User();
-		
-		user.setUserName("ay");
-		userTwo.setUserName("ay");
-		userThree.setUserName("aydın");
-		userFour.setUserName("serenay");
-
-//	    when(repository.getById(0)).thenReturn(user);
-
+		repository=Mockito.mock(com.orangecandle.repository.User.class);
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+        res = new MockHttpServletResponse();
 	}
 
 	@Test
-	public void testAddingUser() throws IOException {
-
+	public void testAddingUserNullRepository() throws Exception {
+		repository=null;
+		String name="jale";
 		
+		
+
 	}
 
-	@Test
-	public void testFindAllUsers() throws IOException {
-		//
-	}
+	
 	
 
 }

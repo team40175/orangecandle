@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -15,7 +16,7 @@ import com.orangecandle.domain.Faculty;
 @CustomTestAnnotation
 public class SchoolRepositoryTest {
 	@PersistenceContext private EntityManager em;
-	@Autowired private com.orangecandle.repository.School repository;
+	@InjectMocks private com.orangecandle.repository.School repository;
 	@Autowired
 	private Faculty[] fac;
 
