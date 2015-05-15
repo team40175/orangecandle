@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface Group extends
-		JpaRepository<com.orangecandle.domain.Group, String> {
+		JpaRepository<com.orangecandle.domain.Group, Long> {
 }
