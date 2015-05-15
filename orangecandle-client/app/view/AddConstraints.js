@@ -3,10 +3,13 @@ Ext.define('OrangeCandle.view.AddConstraints', {
 	alias : "widget.addconstraints",
 	requires : [ 'Ext.form.FieldSet' ],
 	config : {
-		scrollable:'false',
+		scrollable : 'false',
 		items : [ {
 			xtype : 'fieldset',
 			items : [ {
+				xtype : 'hiddenfield',
+				name : 'id'
+			}, {
 				xtype : 'textfield',
 				placeHolder : 'Constraints:',
 				name : 'text',

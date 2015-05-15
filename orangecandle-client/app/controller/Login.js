@@ -16,7 +16,7 @@ Ext.define('OrangeCandle.controller.Login', {
 		var loginView = this.getLoginView();
 		var main = this.getMainMenuView();
 		if (username.length === 0 || password.length === 0) {
-			loginView.showSignInFailedMessage('You need to enter something');
+			Ext.Msg.alert('', 'You need to enter something', Ext.emptyFn);
 			return;
 		}
 		loginView.setMasked({

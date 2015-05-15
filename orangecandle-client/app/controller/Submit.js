@@ -11,6 +11,7 @@ Ext.define('OrangeCandle.controller.Submit', {
 		}
 	},
 	onClick : function(button, event, options) {
+		var mainView = this.getMainView();
 		button.up('panel').submit(
 				{
 					headers : {
@@ -21,7 +22,7 @@ Ext.define('OrangeCandle.controller.Submit', {
 					method : 'POST',
 					success : function(form, result) {
 						Ext.Msg.alert('', result.message, function() {
-							this.getMainView().pop()
+							mainView.pop();
 						});
 					},
 					failure : function(form, result) {

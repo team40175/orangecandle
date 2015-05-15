@@ -4,16 +4,16 @@ Ext.define('OrangeCandle.view.AddGroups', {
 	requires : [ 'Ext.form.Panel', 'Ext.form.FieldSet' ],
 	config : {
 		layout : 'vbox',
-		scrollable:'false',
+		scrollable : 'false',
 		items : [ {
 			xtype : 'fieldset',
 			items : [ {
+				xtype : 'hiddenfield',
+				name : 'oid'
+			}, {
 				xtype : 'textfield',
-				placeHolder : 'GroupName',
-				itemId : 'groupNameTextField',
-				name : 'groupName',
-				required : true,
-
+				placeHolder : 'Group name',
+				name : 'name',
 			} ]
 		}, {
 			xtype : 'list',

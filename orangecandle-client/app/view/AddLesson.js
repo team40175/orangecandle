@@ -3,12 +3,15 @@ Ext.define('OrangeCandle.view.AddLesson', {
 	alias : "widget.addlesson",
 	requires : [ 'Ext.form.FieldSet' ],
 	config : {
-		scrollable:'false',
+		scrollable : 'false',
 		title : 'Insert a new lecture',
 		instructions : 'Insert the details of the lecture:',
 		items : [ {
 			xtype : 'fieldset',
 			items : [ {
+				xtype : 'hiddenfield',
+				name : 'id'
+			}, {
 				xtype : 'textfield',
 				placeHolder : 'Code of the lecture',
 				name : 'lectureCode',
