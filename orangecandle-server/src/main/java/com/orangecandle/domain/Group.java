@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -18,8 +20,8 @@ import javax.persistence.Table;
 @Table(name = "xgroup")
 public class Group implements Serializable {
 	private static final long serialVersionUID = -7552509806260167080L;
-
-	private @Id @Column(name = "name") String name;
+	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="id") Long id;
+	private @Column(name = "name") String name;
 
 	private @ManyToMany(fetch = FetchType.LAZY) List<User> users;
 
@@ -28,7 +30,12 @@ public class Group implements Serializable {
 
 	public Group() {
 	}
-
+	public Long getId(){
+		return this.id;
+	}
+	public void setId(Long id){
+		this.id=id;
+	}
 	public Group(String groupName) {
 		this.name = groupName;
 	}

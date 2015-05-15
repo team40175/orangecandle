@@ -1,22 +1,33 @@
 package com.orangecandle.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "school")
-public class School {
-	private @Id Long id;
+public class School implements Serializable{
+	
+	private static final long serialVersionUID = 2003514288583381509L;
+	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="id") Long id;
 	private @Column(name = "schoolname") String schoolName;
 	private @OneToMany List<Faculty> faculties;
 
 	public School() {
+	}
+	public Long getId(){
+		return this.id;
+	}
+	public void setId(Long id){
+		this.id=id;
 	}
 
 	public School(String name) {

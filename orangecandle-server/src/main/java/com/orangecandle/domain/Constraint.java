@@ -1,5 +1,6 @@
 package com.orangecandle.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "xconstraint")
-public class Constraint {
-	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
+public class Constraint implements Serializable {
+	
+	private static final long serialVersionUID = -6615851401951635459L;
+	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
 	private @ManyToOne Lecture lecture;
 	private @ManyToMany List<User> users;
 	private @ManyToMany List<Room> rooms;
@@ -28,11 +31,11 @@ public class Constraint {
 		evaluationString = text;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer i) {
+	public void setId(Long i) {
 		this.id = i;
 	}
 

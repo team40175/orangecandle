@@ -1,5 +1,6 @@
 package com.orangecandle.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,17 +15,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="xbuilding")
-public class Building {
-	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="id") Integer id;
+public class Building implements Serializable{
+	
+	private static final long serialVersionUID = -5374885970668422346L;
+	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="id") Long id;
 	private @Column(name="buildingname") String buildingName;
 	private @ManyToMany List<Department> departments;
 	private @ManyToMany List<Lecture> lectures;
 	private @OneToMany List<Room> rooms;
 	
-	public Integer getId(){
+	public Long getId(){
 		return this.id;
 	}
-	public void setId(Integer i){
+	public void setId(Long i){
 		this.id=i;
 	}
 	public String getBuildingName(){
