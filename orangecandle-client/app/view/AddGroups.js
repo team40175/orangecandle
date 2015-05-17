@@ -9,7 +9,7 @@ Ext.define('OrangeCandle.view.AddGroups', {
 			xtype : 'fieldset',
 			items : [ {
 				xtype : 'hiddenfield',
-				name : 'oid'
+				name : 'id'
 			}, {
 				xtype : 'textfield',
 				placeHolder : 'Group name',
@@ -19,6 +19,7 @@ Ext.define('OrangeCandle.view.AddGroups', {
 			xtype : 'list',
 			flex : 2,
 			mode : 'multi',
+			name : 'roles',
 			itemId : 'grouplist',
 			itemTpl : '{name}',
 			store : 'Role',
