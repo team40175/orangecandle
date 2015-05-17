@@ -12,22 +12,39 @@ Ext.define('OrangeCandle.controller.Submit', {
 	},
 	onClick : function(button, event, options) {
 		var mainView = this.getMainView();
-		button.up('panel').submit(
-				{
-					headers : {
-						Authorization : OrangeCandle.util.Auth.get()
-					},
-					url : OrangeCandle.util.Scalability
-							.getApplicationServer(button.target),
-					method : 'POST',
-					success : function(form, result) {
-						Ext.Msg.alert('', result.message, function() {
-							mainView.pop();
-						});
-					},
-					failure : function(form, result) {
-						Ext.Msg.alert(result.message);
-					}
+		var formtype = button.up('formpanel').xtype;
+		var lists = Ext.ComponentQuery.query(button.up('formpanel').xtype
+				+ ' list');
+		var submitOpts = {
+			headers : {
+				Authorization : OrangeCandle.util.Auth.get()
+			},
+			params : {},
+			url : OrangeCandle.util.Scalability
+					.getApplicationServer(button.target),
+			method : 'POST',
+			success : function(form, result) {
+				Ext.Msg.alert('', result.message, function() {
+					this.getMainView().pop();
 				});
+			},
+			failure : function(form, result) {
+				Ext.Msg.alert(result.message);
+			}
+		};
+
+		for ( var i in lists) {
+			var selections = lists[i].getSelection();
+			var key = lists[i].name;
+			var values = [];
+			var j = 0;
+			for ( var k in selections) {
+				values[j++] = selections[k].data.id;
+			}
+			eval('submitOpts.params.' + key
+					+ ' = \'[\'+values.toString()+\']\'');
+		}
+
+		button.up('panel').submit(submitOpts);
 	}
-})
+});

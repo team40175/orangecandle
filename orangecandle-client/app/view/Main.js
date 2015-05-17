@@ -63,7 +63,7 @@ Ext.define('OrangeCandle.view.Main', {
 				text : 'Users',
 				ref : {
 					xtype : 'list',
-					itemTpl : '{name}',
+					itemTpl : '{username}',
 					store : 'xUser',
 					alias : 'User',
 					extraStore : 'Group'

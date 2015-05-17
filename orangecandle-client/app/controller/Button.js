@@ -48,7 +48,7 @@ Ext.define('OrangeCandle.controller.Button', {
 							Ext.Msg.alert("Please select a record to edit.");
 						else {
 							mainView.push(generateEditForm(button));
-							var id = list.getSelection()[0].data.oid;
+							var id = list.getSelection()[0].data.id;
 							var url = ref.store.toLowerCase() + '/findAll';
 							loadForm(button.form.xtype, url, id);
 						}
@@ -93,7 +93,14 @@ Ext.define('OrangeCandle.controller.Button', {
 				// it didn't do it automagically, so here we go
 				for ( var key in result.data) {
 					var value = eval('result.data.' + key);
-					form.down('[name=' + key + ']').setValue(value);
+					var field = form.down('[name=' + key + ']');
+					if (!field)
+						continue;
+					if (field.xtype === 'list') {
+						field.select(value);
+					} else {
+						field.setValue(value);
+					}
 				}
 			},
 			failure : function() {
