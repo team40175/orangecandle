@@ -8,8 +8,12 @@ Ext.define('OrangeCandle.view.Main', {
 			items : [ {
 				xtype : 'button',
 				text : 'Log Off',
-				itemId : 'logOffButton',
-				align : 'right'
+				itemId : 'logOff',
+				align : 'right',
+				handler : function() {
+					Ext.ViewPort.setActiveItem(Ext.ComponentQuery
+							.query('loginview')[0]);
+				}
 			} ]
 		},
 		items : [ {

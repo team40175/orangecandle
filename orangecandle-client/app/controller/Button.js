@@ -86,22 +86,34 @@ Ext.define('OrangeCandle.controller.Button', {
 		return button.form;
 	},
 	loadForm : function(xtype, url, id) {
+		var loadSuccess = function(form, result, data) {
+			// it didn't do it automagically, so here we go
+			for ( var key in result.data) {
+				var value = eval('result.data.' + key);
+				var field = form.down('[name=' + key + ']');
+				if (!field)
+					continue;
+				if (field.xtype === 'list') {
+					var values = JSON.parse(eval('result.data.' + key));
+					var data = field.getStore().getData().all;
+					for ( var item in data) {
+						for ( var val in values) {
+							if (values[val] === data[item].data.id) {
+								field.select(item);
+								break;
+							}
+						}
+					}
+				} else {
+					field.setValue(value);
+				}
+			}
+		}
 		Ext.ComponentQuery.query(xtype)[0].load({
 			url : OrangeCandle.util.Scalability.getApplicationServer(url
 					+ '?id=' + id),
 			success : function(form, result, data) {
-				// it didn't do it automagically, so here we go
-				for ( var key in result.data) {
-					var value = eval('result.data.' + key);
-					var field = form.down('[name=' + key + ']');
-					if (!field)
-						continue;
-					if (field.xtype === 'list') {
-						field.select(value);
-					} else {
-						field.setValue(value);
-					}
-				}
+				loadSuccess(form, result, data);
 			},
 			failure : function() {
 				Ext.Msg
@@ -109,5 +121,6 @@ Ext.define('OrangeCandle.controller.Button', {
 								this.getMainView().pop);
 			}
 		});
+
 	}
 });
