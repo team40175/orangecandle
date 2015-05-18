@@ -8,6 +8,9 @@ Ext.define('OrangeCandle.controller.Login', {
 		control : {
 			loginView : {
 				signInCommand : 'onSignInCommand'
+			},
+			'#logOff' : {
+				tap : 'logoff'
 			}
 		}
 	},
@@ -39,5 +42,8 @@ Ext.define('OrangeCandle.controller.Login', {
 				Ext.Msg.alert("", "Sign in failed", Ext.emptyFn);
 			}
 		});
+	},
+	logoff : function() {
+		// Ext.ViewPort.setActiveItem(this.getLoginView());
 	}
 });
