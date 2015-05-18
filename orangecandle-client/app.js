@@ -6,7 +6,7 @@ Ext
 			views : [ 'Login', 'Main', 'AddGroups', 'AddAccount', 'AddLesson',
 					'AddSchool', 'AddConstraints', 'AddClassroom',
 					'template.ListPanel' ],
-			controllers : [ 'Login', 'Button', 'Submit', 'MainMenu' ],
+			controllers : [ 'Login', 'Button', 'Submit'],
 			models : [ 'Group', 'Role', 'xUser', 'Lecture', 'Room', 'School',
 					'Constraint' ],
 			stores : [ 'Group', 'Role', 'xUser', 'Lecture', 'Room', 'School',
