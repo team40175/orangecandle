@@ -1,7 +1,6 @@
 package com.orangecandle.controller;
 
 import java.io.IOException;
-import java.io.Writer;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
-import com.orangecandle.domain.School;
 
 @Controller
 @RequestMapping("/school")
@@ -24,16 +22,7 @@ public class SchoolController {
 			RequestMethod.POST })
 	public void add(@RequestParam String name, HttpServletResponse response)
 			throws IOException {
-		// Writer w = response.getWriter();
-		// if (null == repo.find(name)) {
-		// repo.saveAndFlush(new School(name));
-		// w.write("User with username " + name + " is added");
-		// } else {
-		// w.write("User already exists");
-		// }
-		// w.write("amk");
-
-		response.getWriter().write("amk");
+		// TODO: do stuff
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.OPTIONS)

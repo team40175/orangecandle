@@ -18,34 +18,32 @@ import com.orangecandle.service.JsonService;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	@Autowired
-	private com.orangecandle.repository.User repo;
-	@Autowired
-	private com.orangecandle.repository.Group groupRepo;
+	private @Autowired com.orangecandle.repository.User repo;
+	private @Autowired com.orangecandle.repository.Group groupRepo;
+	private @Autowired JsonService json;
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void add(@RequestParam String userName, @RequestParam String groups,
+	public void add(@RequestParam String username, @RequestParam String groups,
 			HttpServletResponse response) throws IOException {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Allow-Headers",
 				"Origin, X-Requested-With, Content-Type, Accept");
 
 		Writer w = response.getWriter();
-		if (null == repo.findOne(userName)) {
-			User user = new User(userName);
-			for (String groupName : JsonService
-					.fromJson(groups, String[].class)) {
+		if (null == repo.findByUsername(username)) {
+			User user = new User(username);
+			for (Long groupName : json.fromJson(groups, Long[].class)) {
 				Group group = groupRepo.findOne(groupName);
 				group.addUser(user);
 				user.addGroup(group);
 			}
 			repo.saveAndFlush(user);
 
-			w.write(JsonService.toExtJSON(true, "User with username "
-					+ userName + " is added"));
+			json.toExtJSON(w, true, "User with username " + username
+					+ " is added");
 		} else {
-			w.write(JsonService.toExtJSON(false, "User already exists"));
+			json.toExtJSON(w, false, "User already exists");
 		}
 	}
 
@@ -58,7 +56,6 @@ public class UserController {
 
 	@RequestMapping(value = "/findAll")
 	public void findAllUsers(HttpServletResponse response) throws IOException {
-		response.getWriter().write(
-				JsonService.toExtJSON(true, "", repo.findAll()));
+		json.toExtJSON(response.getWriter(), true, "", repo.findAll());
 	}
 }

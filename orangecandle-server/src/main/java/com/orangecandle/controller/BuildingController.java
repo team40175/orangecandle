@@ -16,8 +16,7 @@ import com.orangecandle.domain.Room;
 @Controller
 @RequestMapping("/building")
 public class BuildingController {
-	@Autowired
-	private com.orangecandle.repository.Room repo;
+	private @Autowired com.orangecandle.repository.Room repo;
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })

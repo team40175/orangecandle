@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,12 +20,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "xuser")
 public class User implements UserDetails {
 	private static final long serialVersionUID = 7641630718022679710L;
-	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="id") Long id;
 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private @Id @Column(name = "id") Long id;
 	private @Column(name = "username") String username;
 	private @Column(name = "password") String password;
-	private @ManyToMany(fetch = FetchType.LAZY) List<Group> groups = new ArrayList<Group>();;
-	private @ManyToMany List<Constraint> constraints;
+	private @ManyToMany List<Group> groups;
+	private transient @ManyToMany List<Constraint> constraints;
+	private @ManyToMany List<Lecture> takenLectures;
 
 	public User() {
 	}

@@ -14,50 +14,61 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="xbuilding")
-public class Building implements Serializable{
-	
+@Table(name = "xbuilding")
+public class Building implements Serializable {
+
 	private static final long serialVersionUID = -5374885970668422346L;
-	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="id") Long id;
-	private @Column(name="buildingname") String buildingName;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private @Id @Column(name = "id") Long id;
+	private @Column(name = "buildingname") String buildingName;
 	private @ManyToMany List<Department> departments;
 	private @ManyToMany List<Lecture> lectures;
 	private @OneToMany List<Room> rooms;
-	
-	public Long getId(){
+
+	public Long getId() {
 		return this.id;
 	}
-	public void setId(Long i){
-		this.id=i;
+
+	public void setId(Long i) {
+		this.id = i;
 	}
-	public String getBuildingName(){
+
+	public String getBuildingName() {
 		return this.buildingName;
 	}
-	public void setBuildingName(String i){
-		this.buildingName=i;
+
+	public void setBuildingName(String i) {
+		this.buildingName = i;
 	}
-	
-	public List<Department> getDepartment(){
+
+	public List<Department> getDepartment() {
 		return this.departments;
 	}
-	public void addDepartment(Department name){
-		if(departments==null) departments=new ArrayList<Department>();
+
+	public void addDepartment(Department name) {
+		if (departments == null)
+			departments = new ArrayList<Department>();
 		this.departments.add(name);
 	}
-	public List<Lecture> getLectures(){
+
+	public List<Lecture> getLectures() {
 		return this.lectures;
 	}
-	public void addLecture(Lecture lec){
-		if(this.lectures==null) this.lectures= new ArrayList<Lecture>();
+
+	public void addLecture(Lecture lec) {
+		if (this.lectures == null)
+			this.lectures = new ArrayList<Lecture>();
 		this.lectures.add(lec);
 	}
-	
-	public List<Room> getRoom(){
+
+	public List<Room> getRoom() {
 		return this.rooms;
 	}
-	public void addRoom(Room lec){
-		if(this.rooms==null) this.rooms= new ArrayList<Room>();
+
+	public void addRoom(Room lec) {
+		if (this.rooms == null)
+			this.rooms = new ArrayList<Room>();
 		this.rooms.add(lec);
 	}
-	
+
 }

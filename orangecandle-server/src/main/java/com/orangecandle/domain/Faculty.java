@@ -13,31 +13,38 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="faculty")
-public class Faculty implements Serializable{
-	
+@Table(name = "faculty")
+public class Faculty implements Serializable {
+
 	private static final long serialVersionUID = 1020155658386277074L;
-	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="id") Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private @Id @Column(name = "id") Long id;
 	private @Column(name = "facultyname") String name;
-	private @OneToMany List<Department> departments;
-	
-	public Long getId(){
+	private transient @OneToMany List<Department> departments;
+
+	public Long getId() {
 		return this.id;
 	}
-	public void setId(Long id){
-		this.id=id;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public String getDepartmentName(){
+
+	public String getDepartmentName() {
 		return this.name;
 	}
-	public void setDepartmentName(String name){
-		this.name=name;
+
+	public void setDepartmentName(String name) {
+		this.name = name;
 	}
-	public void addDepartment(Department dep){
-		if(departments==null) departments=new ArrayList<Department>();
+
+	public void addDepartment(Department dep) {
+		if (departments == null)
+			departments = new ArrayList<Department>();
 		departments.add(dep);
 	}
-	public List<Department> getDepartments(){
+
+	public List<Department> getDepartments() {
 		return departments;
 	}
 }

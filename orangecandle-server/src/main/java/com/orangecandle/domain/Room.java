@@ -14,13 +14,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "room")
-public class Room implements Serializable{
-	
+public class Room implements Serializable {
+
 	private static final long serialVersionUID = -8319212016466507835L;
-	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="id") Long id;
-	private @Column String identifier;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private @Id @Column(name = "id") Long id;
+	private @Column String name;
 	private @Column(name = "sizeof") Long size;
-	private @ManyToMany List<Lecture> lecture;
+	private transient @ManyToMany List<Lecture> lecture;
 
 	public void setSize(Long size) {
 		this.size = size;
@@ -29,19 +30,21 @@ public class Room implements Serializable{
 	public Long getSize() {
 		return size;
 	}
-	public Long getId(){
+
+	public Long getId() {
 		return this.id;
 	}
-	public void setId(Long id){
-		this.id=id;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getIdentifier() {
-		return this.identifier;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setIdentifier(String ide) {
-		this.identifier = ide;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<Lecture> getLectures() {
@@ -49,7 +52,7 @@ public class Room implements Serializable{
 	}
 
 	public void addLecture(Lecture lec) {
-		if (this.lecture==null)
+		if (this.lecture == null)
 			this.lecture = new ArrayList<Lecture>();
 		this.lecture.add(lec);
 	}

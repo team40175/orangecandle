@@ -14,60 +14,71 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="department")
-public class Department implements Serializable{
-	
+@Table(name = "department")
+public class Department implements Serializable {
+
 	private static final long serialVersionUID = -8249245680207093049L;
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
-	private @Column(name="departmentName") String name;
-	private @ManyToMany List<User> users;
-	private @ManyToMany List<Lecture> lectures;
-	private @ManyToMany List<Group> groups;
-	private @OneToMany List<Room> rooms;
-	
-	public Long getId(){
+	private @Column(name = "departmentName") String name;
+	private transient @ManyToMany List<User> users;
+	private transient @ManyToMany List<Lecture> lectures;
+	private transient @ManyToMany List<Group> groups;
+	private transient @OneToMany List<Room> rooms;
+
+	public Long getId() {
 		return this.id;
 	}
-	public void setId(Long i){
-		this.id=i;
+
+	public void setId(Long i) {
+		this.id = i;
 	}
-	public String getDepartmentName(){
+
+	public String getDepartmentName() {
 		return this.name;
 	}
-	public void setDepartmentName(String name){
-		this.name=name;
+
+	public void setDepartmentName(String name) {
+		this.name = name;
 	}
-	public List<Lecture> getLectures(){
+
+	public List<Lecture> getLectures() {
 		return this.lectures;
 	}
-	public void addLecture(Lecture lec){
-		if(this.lectures.isEmpty()) this.lectures= new ArrayList<Lecture>();
+
+	public void addLecture(Lecture lec) {
+		if (this.lectures.isEmpty())
+			this.lectures = new ArrayList<Lecture>();
 		this.lectures.add(lec);
 	}
-	
-	public List<User> getUsers(){
+
+	public List<User> getUsers() {
 		return this.users;
 	}
-	public void addUser(User user){
-		if(this.users==null) this.users= new ArrayList<User>();
+
+	public void addUser(User user) {
+		if (this.users == null)
+			this.users = new ArrayList<User>();
 		this.users.add(user);
 	}
-	public List<Group> getGroup(){
+
+	public List<Group> getGroup() {
 		return this.groups;
 	}
-	public void addGroup(Group lec){
-		if(this.groups==null) this.groups= new ArrayList<Group>();
+
+	public void addGroup(Group lec) {
+		if (this.groups == null)
+			this.groups = new ArrayList<Group>();
 		this.groups.add(lec);
 	}
-	
-	public List<Room> getRoom(){
+
+	public List<Room> getRoom() {
 		return this.rooms;
 	}
-	public void addRoom(Room lec){
-		if(this.rooms==null) this.rooms= new ArrayList<Room>();
+
+	public void addRoom(Room lec) {
+		if (this.rooms == null)
+			this.rooms = new ArrayList<Room>();
 		this.rooms.add(lec);
 	}
-	
-	
-	
+
 }

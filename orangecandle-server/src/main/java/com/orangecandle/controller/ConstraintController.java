@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.google.gson.Gson;
 import com.orangecandle.domain.Constraint;
+import com.orangecandle.service.JsonService;
 
 @Controller
 @RequestMapping("/constraint")
@@ -25,22 +25,23 @@ public class ConstraintController {
 	private com.orangecandle.repository.User uRepo;
 	@Autowired
 	private com.orangecandle.repository.Lecture lRepo;
+	private @Autowired JsonService json;
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void addingUser(@RequestParam String roomName,
+	public void add(@RequestParam String roomName,
 			@RequestParam String userName, @RequestParam String lectureCode,
 			@RequestParam String text, HttpServletResponse response)
 			throws IOException {
 		Constraint c = new Constraint(text);
 		if (!"".equals(lectureCode)) {
-			c.setLecture(lRepo.findOne(lectureCode));
+			c.setLecture(lRepo.findByCode(lectureCode));
 		}
 		if (!"".equals(roomName)) {
-			c.addRoom(rRepo.findOne(roomName));
+			c.addRoom(rRepo.findByName(roomName));
 		}
 		if (!"".equals(userName)) {
-			c.addUser(uRepo.findOne(userName));
+			c.addUser(uRepo.findByUsername(userName));
 		}
 		repo.saveAndFlush(c);
 	}
@@ -54,7 +55,6 @@ public class ConstraintController {
 
 	@RequestMapping(value = "/findAll")
 	public void findAll(HttpServletResponse response) throws IOException {
-		response.getWriter().write(new Gson().toJson(repo.findAll()));
+		json.toExtJSON(response.getWriter(), true, "", repo.findAll());
 	}
-
 }
