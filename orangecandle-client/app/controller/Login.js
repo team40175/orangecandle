@@ -3,14 +3,14 @@ Ext.define('OrangeCandle.controller.Login', {
 	config : {
 		refs : {
 			loginView : 'loginview',
-			mainMenuView : 'mainmenuview'
+			mainMenuView : 'mainmenuview',
 		},
 		control : {
 			loginView : {
 				signInCommand : 'onSignInCommand'
 			},
-			'#logOff' : {
-				tap : 'logoff'
+			'#logOut' : {
+				tap : 'logOff'
 			}
 		}
 	},
@@ -43,7 +43,9 @@ Ext.define('OrangeCandle.controller.Login', {
 			}
 		});
 	},
-	logoff : function() {
-		// Ext.ViewPort.setActiveItem(this.getLoginView());
+	logOff : function() {
+		var login = this.getLoginView();
+		Ext.Viewport.setActiveItem(login);
+		Ext.Msg.alert("", "You are logged off.", Ext.emptyFn);
 	}
 });

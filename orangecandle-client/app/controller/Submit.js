@@ -25,7 +25,7 @@ Ext.define('OrangeCandle.controller.Submit', {
 			method : 'POST',
 			success : function(form, result) {
 				Ext.Msg.alert('', result.message, function() {
-					this.getMainView().pop();
+					this.pop();
 				});
 			},
 			failure : function(form, result) {
