@@ -84,6 +84,19 @@
                 "itemTpl": "{name}",
                 "store": "Role"
             }
+        },{
+            "xtype": "button",
+            "text": "Assign Lectures",
+            "ref": {
+                "xtype": "list",
+                "indelible": true,
+                "itemTpl": "{username}",
+                "store": "Teacher",
+                "extraStore": "Lecture"
+            },
+            "form": {
+                "xtype": "assignlecture"
+            }
         }
     ],
     "Advisor": [],

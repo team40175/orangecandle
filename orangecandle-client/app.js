@@ -1,14 +1,14 @@
 Ext.application({
 	name : 'OrangeCandle',
 	requires : [ 'OrangeCandle.util.Scalability', 'OrangeCandle.util.Auth',
-			'OrangeCandle.form.UserLecture' ],
+			'OrangeCandle.form.UserLecture' ,'OrangeCandle.form.AssignLecture'],
 	views : [ 'Login', 'Main', 'AddGroups', 'AddAccount', 'AddLesson',
 			'AddSchool', 'AddConstraints', 'AddClassroom' ],
 	controllers : [ 'Login', 'Button', 'Submit' ],
 	models : [ 'Group', 'Role', 'xUser', 'Lecture', 'Room', 'School',
 			'Constraint', 'Buttons' ],
 	stores : [ 'Group', 'Role', 'xUser', 'Lecture', 'Room', 'School',
-			'Constraint', 'UserLecture', 'Buttons' ],
+			'Constraint', 'UserLecture', 'Buttons','Teacher' ],
 	// forms : [ 'UserLecture' ],
 	icon : {
 		'57' : 'resources/icons/Icon.png',
