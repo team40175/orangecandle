@@ -49,7 +49,7 @@ Ext.define('OrangeCandle.controller.Login', {
 		Ext.Msg.alert("", "You are logged off.", Ext.emptyFn);
 	},
 	onShow : function() {
-		var me = this,s
+		var me = this, s
 		var main = this.getMainMenuView();
 		Ext.Ajax.request({
 			url : OrangeCandle.util.Scalability
@@ -63,9 +63,11 @@ Ext.define('OrangeCandle.controller.Login', {
 				main.down('panel').removeAll();
 				console.log("Spiffing, everything worked");
 				var data = JSON.parse(response.responseText).data;
-				if(data.length === 0){
-					Ext.Msg.alert("", "You have no role bound to your account.", Ext.emptyFn);
-					return 
+				if (data.length === 0) {
+					Ext.Msg.alert("",
+							"You have no role bound to your account.",
+							Ext.emptyFn);
+					return;
 				}
 				for ( var i in data) {
 					me.createButtons(data[i].id);
@@ -78,11 +80,11 @@ Ext.define('OrangeCandle.controller.Login', {
 			},
 		});
 	},
-	createButtons:function(role){
+	createButtons : function(role) {
 		var main = this.getMainMenuView();
-		var buttons =Ext.StoreManager.lookup('Buttons').data.items[0].data;
-		if(!buttons[role]){
+		var buttons = Ext.StoreManager.lookup('Buttons').data.items[0].data;
+		if (buttons[role]) {
 			main.down('panel').add(buttons[role]);
-	}
+		}
 	}
 });
