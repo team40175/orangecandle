@@ -11,34 +11,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.orangecandle.domain.Building;
+import com.orangecandle.domain.Faculty;
 import com.orangecandle.domain.School;
 import com.orangecandle.service.JsonService;
 
 @Controller
-@RequestMapping("/building")
-public class BuildingController {
-	private @Autowired com.orangecandle.repository.Building repo;
+@RequestMapping("/faculty")
+public class FacultyController {
+	private @Autowired com.orangecandle.repository.Faculty repo;
 	private @Autowired com.orangecandle.repository.School schoolRepo;
 	private @Autowired JsonService json;
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void addingUser(@RequestParam String name,
-			@RequestParam String schools, HttpServletResponse response)
-			throws IOException {
+	public void add(@RequestParam String name, @RequestParam String schools,
+			HttpServletResponse response) throws IOException {
 		Writer w = response.getWriter();
 		if ("[]".equals(schools)) {
-			json.toExtJSON(w, false, "You need to select a school.");
+			json.toExtJSON(w, false, "You need to select a school");
 		} else {
-			Building building = new Building(name);
+			Faculty faculty = new Faculty(name);
 			School school = schoolRepo.findOne(json.fromJson(schools,
 					Long[].class)[0]);
-			school.addBuilding(building);
+			school.addFaculty(faculty);
+			repo.save(faculty);
 			schoolRepo.save(school);
-			repo.save(building);
-			json.toExtJSON(w, true, "Building with name " + name + " added to "
-					+ school.getName());
+			json.toExtJSON(w, true, "Succesfully added a department with name "
+					+ name + " to " + school.getName());
 		}
 	}
 }

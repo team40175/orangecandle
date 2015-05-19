@@ -23,6 +23,13 @@ public class Room implements Serializable {
 	private @Column(name = "sizeof") Long size;
 	private transient @ManyToMany List<Lecture> lecture;
 
+	public Room() {
+	}
+
+	public Room(String name) {
+		this.name = name;
+	}
+
 	public void setSize(Long size) {
 		this.size = size;
 	}

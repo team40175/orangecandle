@@ -67,15 +67,6 @@ public class GroupController {
 		groupRep.save(g);
 	}
 
-	// @RequestMapping(value = "/findAll", method = { RequestMethod.GET,
-	// RequestMethod.OPTIONS })
-	public void findAll(HttpServletResponse response) throws IOException {
-		response.addHeader("Access-Control-Allow-Origin", "*");
-		response.addHeader("Access-Control-Allow-Headers",
-				"Origin, X-Requested-With, Content-Type, Accept");
-		json.toExtJSON(response.getWriter(), true, "", groupRep.findAll());
-	}
-
 	@RequestMapping(value = "/getRoles")
 	public void getRoles(HttpServletResponse response) throws IOException {
 		response.addHeader("Access-Control-Allow-Origin", "*");

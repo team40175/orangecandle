@@ -3,9 +3,11 @@ package com.orangecandle.controller;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
@@ -57,6 +59,8 @@ public class UserController {
 		Writer w = response.getWriter();
 		if (null == repo.findByUsername(username)) {
 			User user = new User(username);
+			String randomPassword = UUID.randomUUID().toString();
+			user.setPassword(randomPassword);
 			if ("[]".equals(groups)) {
 				json.toExtJSON(w, false,
 						"You need to select at least one group");
@@ -69,9 +73,36 @@ public class UserController {
 			repo.saveAndFlush(user);
 
 			json.toExtJSON(w, true, "User with username " + username
-					+ " is added");
+					+ " is created with password " + randomPassword);
 		} else {
 			json.toExtJSON(w, false, "User already exists");
+		}
+	}
+
+	@RequestMapping(value = "/findTeachers")
+	public void findTeachers(HttpServletResponse response) throws IOException {
+		List<User> users = repo.findAll();
+		List<User> teachers = new LinkedList<User>();
+		for (User user : users) {
+			for (Group group : user.getGroups()) {
+				if (group.getRoles() != null
+						&& group.getRoles().contains(Role.Lecturer)) {
+					teachers.add(user);
+				}
+			}
+		}
+		json.toExtJSON(response.getWriter(), true, "", teachers);
+	}
+
+	@RequestMapping(value = "/assignLectures")
+	public void assignLectures(@RequestParam String teachers,
+			@RequestParam String lectures, HttpServletResponse response)
+			throws IOException {
+		for (Long uid : json.fromJson(teachers, Long[].class)) {
+			User user = repo.findOne(uid);
+			for (Long lid : json.fromJson(lectures, Long[].class)) {
+				user.assignLecture(lectureRepo.findOne(lid));
+			}
 		}
 	}
 

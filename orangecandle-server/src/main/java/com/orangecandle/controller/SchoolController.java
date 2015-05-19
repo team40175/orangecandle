@@ -1,6 +1,7 @@
 package com.orangecandle.controller;
 
 import java.io.IOException;
+import java.io.Writer;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,30 +11,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.google.gson.Gson;
+import com.orangecandle.domain.School;
+import com.orangecandle.service.JsonService;
 
 @Controller
 @RequestMapping("/school")
 public class SchoolController {
-	@Autowired
-	private com.orangecandle.repository.School repo;
+	private @Autowired com.orangecandle.repository.School repo;
+	private @Autowired JsonService json;
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public void add(@RequestParam String name, HttpServletResponse response)
 			throws IOException {
-		// TODO: do stuff
-	}
-
-	@RequestMapping(value = "/add", method = RequestMethod.OPTIONS)
-	public void add(HttpServletResponse response) throws IOException {
-		response.addHeader("Access-Control-Allow-Origin", "*");
-		response.addHeader("Access-Control-Allow-Headers",
-				"Origin, X-Requested-With, Content-Type, Accept");
-	}
-
-	@RequestMapping(value = "/findAll")
-	public void findAll(HttpServletResponse response) throws IOException {
-		response.getWriter().write(new Gson().toJson(repo.findAll()));
+		Writer w = response.getWriter();
+		if (repo.findByName(name) == null) {
+			repo.save(new School(name));
+			json.toExtJSON(w, true, "School with name " + name + " is added");
+		} else {
+			json.toExtJSON(w, false, "School with name " + name
+					+ " already exists");
+		}
 	}
 }

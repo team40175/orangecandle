@@ -19,11 +19,18 @@ public class Department implements Serializable {
 
 	private static final long serialVersionUID = -8249245680207093049L;
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
-	private @Column(name = "departmentName") String name;
+	private @Column(name = "name") String name;
 	private transient @ManyToMany List<User> users;
 	private transient @ManyToMany List<Lecture> lectures;
 	private transient @ManyToMany List<Group> groups;
 	private transient @OneToMany List<Room> rooms;
+
+	public Department() {
+	}
+
+	public Department(String name) {
+		this.name = name;
+	}
 
 	public Long getId() {
 		return this.id;
@@ -33,11 +40,11 @@ public class Department implements Serializable {
 		this.id = i;
 	}
 
-	public String getDepartmentName() {
+	public String getName() {
 		return this.name;
 	}
 
-	public void setDepartmentName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 

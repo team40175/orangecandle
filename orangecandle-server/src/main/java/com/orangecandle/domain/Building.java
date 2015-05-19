@@ -20,10 +20,18 @@ public class Building implements Serializable {
 	private static final long serialVersionUID = -5374885970668422346L;
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private @Id @Column(name = "id") Long id;
-	private @Column(name = "buildingname") String buildingName;
+	private @Column(name = "name") String name;
 	private @ManyToMany List<Department> departments;
 	private @ManyToMany List<Lecture> lectures;
 	private @OneToMany List<Room> rooms;
+
+	public Building() {
+
+	}
+
+	public Building(String name) {
+		this.name = name;
+	}
 
 	public Long getId() {
 		return this.id;
@@ -33,12 +41,12 @@ public class Building implements Serializable {
 		this.id = i;
 	}
 
-	public String getBuildingName() {
-		return this.buildingName;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setBuildingName(String i) {
-		this.buildingName = i;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<Department> getDepartment() {

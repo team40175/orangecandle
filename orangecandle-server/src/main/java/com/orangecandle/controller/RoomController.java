@@ -23,27 +23,18 @@ public class RoomController {
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void addingUser(@RequestParam String roomName,
-			HttpServletResponse response) throws IOException {
+	public void addingUser(@RequestParam String name,
+			@RequestParam String buildings, HttpServletResponse response)
+			throws IOException {
 		Writer w = response.getWriter();
-		if (null == repo.findByName(roomName)) {
-			Room room = new Room();
+		if ("[]".equals(buildings)) {
+			json.toExtJSON(w, false, "You need to select a building.");
+		} else if (null == repo.findByName(name)) {
+			Room room = new Room(name);
 			repo.saveAndFlush(room);
-			w.write("Room with name " + roomName + " is added");
+			json.toExtJSON(w, false, "Room with name " + name + " is added");
 		} else {
-			w.write("Room already exists");
+			json.toExtJSON(w, false, "Room already exists");
 		}
-	}
-
-	@RequestMapping(value = "/add", method = RequestMethod.OPTIONS)
-	public void add(HttpServletResponse response) throws IOException {
-		response.addHeader("Access-Control-Allow-Origin", "*");
-		response.addHeader("Access-Control-Allow-Headers",
-				"Origin, X-Requested-With, Content-Type, Accept");
-	}
-
-	@RequestMapping(value = "/findAll")
-	public void findAllUsers(HttpServletResponse response) throws IOException {
-		json.toExtJSON(true, "", repo.findAll());
 	}
 }

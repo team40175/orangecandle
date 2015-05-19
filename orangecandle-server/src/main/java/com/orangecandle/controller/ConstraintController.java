@@ -45,16 +45,4 @@ public class ConstraintController {
 		}
 		repo.saveAndFlush(c);
 	}
-
-	@RequestMapping(value = "/add", method = RequestMethod.OPTIONS)
-	public void add(HttpServletResponse response) throws IOException {
-		response.addHeader("Access-Control-Allow-Origin", "*");
-		response.addHeader("Access-Control-Allow-Headers",
-				"Origin, X-Requested-With, Content-Type, Accept");
-	}
-
-	@RequestMapping(value = "/findAll")
-	public void findAll(HttpServletResponse response) throws IOException {
-		json.toExtJSON(response.getWriter(), true, "", repo.findAll());
-	}
 }

@@ -29,6 +29,7 @@ public class User implements UserDetails {
 	private @ManyToMany List<Group> groups;
 	private transient @ManyToMany List<Constraint> constraints;
 	private @ManyToMany List<Lecture> takenLectures;
+	private @ManyToMany List<Lecture> assignedLectures;
 
 	public User() {
 	}
@@ -116,5 +117,16 @@ public class User implements UserDetails {
 			takenLectures = new LinkedList<Lecture>();
 		}
 		takenLectures.addAll(Arrays.asList(lectures));
+	}
+
+	public void dropLecture(Lecture... lectures) {
+		takenLectures.removeAll(Arrays.asList(lectures));
+	}
+
+	public void assignLecture(Lecture... lectures) {
+		if (assignedLectures == null) {
+			assignedLectures = new LinkedList<Lecture>();
+		}
+		assignedLectures.addAll(Arrays.asList(lectures));
 	}
 }

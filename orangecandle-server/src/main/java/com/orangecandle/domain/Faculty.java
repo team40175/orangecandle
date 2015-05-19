@@ -19,8 +19,15 @@ public class Faculty implements Serializable {
 	private static final long serialVersionUID = 1020155658386277074L;
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private @Id @Column(name = "id") Long id;
-	private @Column(name = "facultyname") String name;
+	private @Column(name = "name") String name;
 	private transient @OneToMany List<Department> departments;
+
+	public Faculty() {
+	}
+
+	public Faculty(String name) {
+		this.name = name;
+	}
 
 	public Long getId() {
 		return this.id;
@@ -30,11 +37,11 @@ public class Faculty implements Serializable {
 		this.id = id;
 	}
 
-	public String getDepartmentName() {
+	public String getName() {
 		return this.name;
 	}
 
-	public void setDepartmentName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
