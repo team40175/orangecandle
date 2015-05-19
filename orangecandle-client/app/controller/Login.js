@@ -81,17 +81,6 @@ Ext.define('OrangeCandle.controller.Login', {
 	createButtons:function(role){
 		var main = this.getMainMenuView();
 		var buttons =Ext.StoreManager.lookup('Buttons').data.items[0].data
-		if(role==='Administrator'){
-			main.down('panel').add(buttons.Administrator)
-		}
-//		else if(role==='Advisor'){
-//			main.down('panel').add(buttons.Advisor)
-//		}
-//		else if(role==='Teacher'){
-//			main.down('panel').add(buttons.Teacher)
-//		}
-		else if(role==='Student'){
-			main.down('panel').add(buttons.Student)
-		}
+			main.down('panel').add(buttons[role]);
 	}
 });
