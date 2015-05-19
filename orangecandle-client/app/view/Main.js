@@ -14,7 +14,6 @@ Ext.define('OrangeCandle.view.Main', {
 		},
 		items : [ {
 			xtype : 'panel',
-//			items :
 		} ]
 
 	}

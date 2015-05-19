@@ -9,9 +9,6 @@ Ext.define('OrangeCandle.store.UserLecture', {
 			type : 'ajax',
 			url : OrangeCandle.util.Scalability
 					.getApplicationServer("lecture/findAll"),
-			params : {
-				username : OrangeCandle.util.Auth.getUsername()
-			},
 			reader : {
 				type : "json",
 				rootProperty : "data"
