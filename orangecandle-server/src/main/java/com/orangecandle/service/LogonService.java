@@ -1,4 +1,4 @@
-package com.orangecandle;
+package com.orangecandle.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +15,7 @@ public class LogonService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		return repo.findOne(username);
+		return repo.findByUsername(username);
 	}
 
 }

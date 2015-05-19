@@ -40,7 +40,7 @@ Ext.define('OrangeCandle.controller.Button', {
 					}
 				}, {
 					iconCls : 'compose',
-					hidden : !button.form,
+					hidden : !button.form || button.form.editable === false,
 					flex : 1,
 					handler : function() {
 						var list = this.up('panel').down('list');
@@ -62,8 +62,14 @@ Ext.define('OrangeCandle.controller.Button', {
 		});
 	},
 	loadStores : function(button) {// todo:ref
-		if (button.ref.store !== undefined)
-			Ext.data.StoreManager.lookup(button.ref.store).load();
+		if (button.ref.store !== undefined) {
+			var mainStore = Ext.data.StoreManager.lookup(button.ref.store);
+			var extraParams = mainStore.getProxy().getExtraParams();
+			for ( var i in button.ref.storeParams) {
+				extraParams[i] = button.ref.storeParams[i];
+			}
+			mainStore.load();
+		}
 		if (button.ref.extraStore !== undefined) {
 			if (button.ref.extraStore instanceof Array) {
 				button.ref.store.forEach(function(object) {

@@ -11,21 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.google.gson.Gson;
 import com.orangecandle.domain.Room;
+import com.orangecandle.service.JsonService;
 
 @Controller
 @RequestMapping("/room")
 public class RoomController {
-	@Autowired
-	private com.orangecandle.repository.Room repo;
+
+	private @Autowired com.orangecandle.repository.Room repo;
+	private @Autowired JsonService json;
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public void addingUser(@RequestParam String roomName,
 			HttpServletResponse response) throws IOException {
 		Writer w = response.getWriter();
-		if (null == repo.findOne(roomName)) {
+		if (null == repo.findByName(roomName)) {
 			Room room = new Room();
 			repo.saveAndFlush(room);
 			w.write("Room with name " + roomName + " is added");
@@ -43,6 +44,6 @@ public class RoomController {
 
 	@RequestMapping(value = "/findAll")
 	public void findAllUsers(HttpServletResponse response) throws IOException {
-		response.getWriter().write(new Gson().toJson(repo.findAll()));
+		json.toExtJSON(true, "", repo.findAll());
 	}
 }

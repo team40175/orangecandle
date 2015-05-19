@@ -16,22 +16,25 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "lecture")
 public class Lecture implements Serializable {
-	
+
 	private static final long serialVersionUID = 1490293234368020771L;
-	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="id") Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private @Id @Column(name = "id") Long id;
 	private @Column(name = "code") String code;
 	private @Column(name = "name") String name;
 	private @Column String description;
-	private @ManyToMany List<User> lecturers;
-	private @OneToMany List<Constraint> constraints;
+	private transient @ManyToMany List<User> lecturers;
+	private transient @OneToMany List<Constraint> constraints;
 
 	public Lecture() {
 	}
-	public Long getId(){
+
+	public Long getId() {
 		return this.id;
 	}
-	public void setId(Long id){
-		this.id=id;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Lecture(String code, String name) {
@@ -58,7 +61,7 @@ public class Lecture implements Serializable {
 	}
 
 	public void addLecturer(User lecturer) {
-		if (lecturers==null)
+		if (lecturers == null)
 			lecturers = new ArrayList<User>();
 		lecturers.add(lecturer);
 	}

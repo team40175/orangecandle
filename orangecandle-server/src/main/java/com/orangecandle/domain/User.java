@@ -1,13 +1,13 @@
 package com.orangecandle.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,12 +21,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "xuser")
 public class User implements UserDetails {
 	private static final long serialVersionUID = 7641630718022679710L;
-	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="id") Long id;
 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private @Id @Column(name = "id") Long id;
 	private @Column(name = "username") String username;
 	private @Column(name = "password") String password;
-	private @ManyToMany(fetch = FetchType.LAZY) List<Group> groups = new ArrayList<Group>();;
-	private @ManyToMany List<Constraint> constraints;
+	private @ManyToMany List<Group> groups;
+	private transient @ManyToMany List<Constraint> constraints;
+	private @ManyToMany List<Lecture> takenLectures;
 
 	public User() {
 	}
@@ -71,6 +73,10 @@ public class User implements UserDetails {
 		return auths;
 	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String getPassword() {
 		return password;
@@ -99,5 +105,16 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void pickLecture(Lecture... lectures) {
+		if (takenLectures == null) {
+			takenLectures = new LinkedList<Lecture>();
+		}
+		takenLectures.addAll(Arrays.asList(lectures));
 	}
 }

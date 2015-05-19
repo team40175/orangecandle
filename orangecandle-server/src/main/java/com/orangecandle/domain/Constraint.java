@@ -16,12 +16,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "xconstraint")
 public class Constraint implements Serializable {
-	
+
 	private static final long serialVersionUID = -6615851401951635459L;
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
 	private @ManyToOne Lecture lecture;
-	private @ManyToMany List<User> users;
-	private @ManyToMany List<Room> rooms;
+	private transient @ManyToMany List<User> users;
+	private transient @ManyToMany List<Room> rooms;
 	private @Column(name = "eval") String evaluationString;
 
 	public Constraint() {

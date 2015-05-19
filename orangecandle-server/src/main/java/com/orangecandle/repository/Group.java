@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface Group extends
 		JpaRepository<com.orangecandle.domain.Group, Long> {
+	public com.orangecandle.domain.Group findByName(String name);
 }

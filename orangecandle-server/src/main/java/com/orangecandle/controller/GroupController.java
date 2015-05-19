@@ -2,6 +2,8 @@ package com.orangecandle.controller;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.gson.JsonObject;
 import com.orangecandle.domain.Group;
 import com.orangecandle.domain.Role;
 import com.orangecandle.domain.User;
@@ -22,21 +25,27 @@ public class GroupController {
 	static final String URL = "/group";
 	private @Autowired com.orangecandle.repository.Group groupRep;
 	private @Autowired com.orangecandle.repository.User userRep;
+	private @Autowired JsonService json;
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void addGroup(@RequestParam String groupName,
+	public void addGroup(@RequestParam String name, @RequestParam String roles,
 			HttpServletResponse response) throws IOException {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Allow-Headers",
 				"Origin, X-Requested-With, Content-Type, Accept");
 		try (Writer w = response.getWriter()) {
-			if (null == groupRep.findOne(groupName)) {
-				groupRep.saveAndFlush(new Group(groupName));
-				w.write(JsonService.toExtJSON(true, "Group with name "
-						+ groupName + " is added"));
+			if (null == groupRep.findByName(name)) {
+				Group group = new Group(name);
+				if ("[]".equals(roles)) {
+					json.toExtJSON(w, false,
+							"You need to select at least one role");
+				}
+				group.setRoles(json.fromJson(roles, Role[].class));
+				groupRep.saveAndFlush(group);
+				json.toExtJSON(w, true, "Group with name " + name + " is added");
 			} else {
-				w.write(JsonService.toExtJSON(false, "Group already exists"));
+				json.toExtJSON(w, false, "Group already exists");
 			}
 		}
 	}
@@ -52,8 +61,8 @@ public class GroupController {
 	public void addUser(@RequestParam String userName,
 			@RequestParam String groupName, HttpServletResponse response)
 			throws IOException {
-		Group g = groupRep.findOne(groupName);
-		User u = userRep.findOne(userName);
+		Group g = groupRep.findByName(groupName);
+		User u = userRep.findByUsername(userName);
 		g.addUser(u);
 		groupRep.save(g);
 	}
@@ -64,8 +73,7 @@ public class GroupController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Allow-Headers",
 				"Origin, X-Requested-With, Content-Type, Accept");
-		response.getWriter().write(
-				JsonService.toExtJSON(true, "", groupRep.findAll()));
+		json.toExtJSON(response.getWriter(), true, "", groupRep.findAll());
 	}
 
 	@RequestMapping(value = "/getRoles")
@@ -73,7 +81,13 @@ public class GroupController {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Allow-Headers",
 				"Origin, X-Requested-With, Content-Type, Accept");
-		response.getWriter().write(
-				JsonService.toExtJSON(true, "", (Object[]) Role.values()));
+		List<JsonObject> roles = new ArrayList<JsonObject>();
+		for (Role role : Role.values()) {
+			JsonObject joe = new JsonObject();
+			joe.addProperty("id", role.toString());
+			joe.addProperty("name", role.toString());
+			roles.add(joe);
+		}
+		json.toExtJSON(response.getWriter(), true, "", roles);
 	}
 }

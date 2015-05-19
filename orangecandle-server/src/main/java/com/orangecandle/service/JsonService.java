@@ -1,73 +1,50 @@
 package com.orangecandle.service;
 
-import java.util.Arrays;
-import java.util.List;
+import java.io.IOException;
+import java.io.Writer;
 
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
+@Component
 public class JsonService {
-	static Gson gson;
+	Gson gson;
+	private static Logger logger = LoggerFactory.getLogger(JsonService.class);
 
-	private static class ExcludeLists implements ExclusionStrategy {
-		@Override
-		public boolean shouldSkipClass(Class<?> arg0) {
-			return arg0.isAssignableFrom(List.class);
-		}
-
-		@Override
-		public boolean shouldSkipField(FieldAttributes arg0) {
-			return false;
-		}
-	}
-
-	private static Gson getGson() {
+	private Gson getGson() {
 		if (null == gson)
-			gson = new GsonBuilder().serializeNulls()
-					.setExclusionStrategies(new ExcludeLists()).create();
+			gson = new Gson();
 		return gson;
 	}
 
-	public static String toJson(Object o) {
-		StringBuilder result = new StringBuilder();
-		if (o instanceof List || o instanceof Object[]) {
-			result.append("[");
-			List<?> l;
-			if (o instanceof List) {
-				l = (List<?>) o;
-			} else {
-				l = Arrays.asList((Object[]) o);
-			}
-			for (Object element : l) {
-				boolean isAtomic = element.getClass().isEnum()
-						|| element instanceof String;
-				result.append(",");
-				if (isAtomic)
-					result.append("{\"name\":\"");
-				result.append(element);
-				if (isAtomic)
-					result.append("\"}");
-			}
-			result.delete(1, 2);
-			if (o instanceof Object[]) {
-			}
-			result.append("]");
-		} else {
-			result.append(o);
-		}
-		return result.toString();
+	public String toJson(Object o) {
+		return getGson().toJson(o);
 	}
 
-	public static <T> T fromJson(String s, Class<T> c) {
+	public <T> T fromJson(String s, Class<T> c) {
 		return getGson().fromJson(s, c);
 	}
 
-	public static String toExtJSON(boolean success, String message,
+	public void toExtJSON(Writer w, boolean success, String message,
 			Object... data) {
+		try {
+			w.write(toExtJSON(success, message, data));
+		} catch (IOException e) {
+			logger.error("failed to write message:{}", message);
+			try {
+				w.write(toExtJSON(false, "Action Failed"));
+			} catch (IOException e1) {
+				logger.error("failed to write failure message for:{}", message);
+			}
+		}
+	}
+
+	public String toExtJSON(boolean success, String message, Object... data) {
 		return "{\"success\":" + success + ",\"message\":\"" + message
-				+ "\", \"data\":" + toJson(data.length > 1 ? data : data[0])
+				+ "\", \"data\":" + toJson(data.length == 1 ? data[0] : data)
 				+ "}";
 	}
 }

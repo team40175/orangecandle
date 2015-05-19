@@ -14,20 +14,23 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "school")
-public class School implements Serializable{
-	
+public class School implements Serializable {
+
 	private static final long serialVersionUID = 2003514288583381509L;
-	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="id") Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private @Id @Column(name = "id") Long id;
 	private @Column(name = "schoolname") String schoolName;
-	private @OneToMany List<Faculty> faculties;
+	private transient @OneToMany List<Faculty> faculties;
 
 	public School() {
 	}
-	public Long getId(){
+
+	public Long getId() {
 		return this.id;
 	}
-	public void setId(Long id){
-		this.id=id;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public School(String name) {
@@ -43,7 +46,7 @@ public class School implements Serializable{
 	}
 
 	public void addFaculty(Faculty fac) {
-		if (faculties==null)
+		if (faculties == null)
 			faculties = new ArrayList<Faculty>();
 		this.faculties.add(fac);
 	}
