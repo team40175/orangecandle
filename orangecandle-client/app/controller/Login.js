@@ -49,6 +49,7 @@ Ext.define('OrangeCandle.controller.Login', {
 		Ext.Msg.alert("", "You are logged off.", Ext.emptyFn);
 	},
 	onShow : function() {
+		var me = this,s
 		var main = this.getMainMenuView();
 		Ext.Ajax.request({
 			url : OrangeCandle.util.Scalability
@@ -67,87 +68,7 @@ Ext.define('OrangeCandle.controller.Login', {
 					return 
 				}
 				for ( var i in data) {
-					if (data[i].id === 'Administrator') {
-						main.down('panel').add([ {
-							xtype : 'button',
-							text : 'Lessons',
-							ref : {
-								xtype : 'list',
-								itemTpl : '{name}',
-								store : 'Lecture',
-							},
-							form : {
-								xtype : 'addlesson',
-							}
-						}, {
-							xtype : 'button',
-							text : 'Classrooms',
-							ref : {
-								xtype : 'list',
-								itemTpl : '{name}',
-								store : 'Room',
-							},
-							form : {
-								xtype : 'addclassroom',
-							}
-						}, {
-							xtype : 'button',
-							text : 'Constraints',
-							ref : {
-								xtype : 'list',
-								itemTpl : '{name}',
-								store : 'Constraint',
-							},
-							form : {
-								xtype : 'addconstraints',
-							}
-						}, {
-							xtype : 'button',
-							text : 'Schools',
-							ref : {
-								xtype : 'list',
-								itemTpl : '{name}',
-								store : 'School',
-							},
-							form : {
-								xtype : 'addschool',
-							}
-						}, {
-							xtype : 'button',
-							text : 'Users',
-							ref : {
-								xtype : 'list',
-								itemTpl : '{username}',
-								store : 'xUser',
-								alias : 'User',
-								extraStore : 'Group'
-							},
-							form : {
-								xtype : 'addaccount',
-							}
-						}, {
-							xtype : 'button',
-							text : 'Groups',
-							ref : {
-								xtype : 'list',
-								itemTpl : '{name}',
-								store : 'Group',
-								extraStore : 'Role'
-							},
-							form : {
-								xtype : 'addgroups',
-							}
-						}, {
-							xtype : 'button',
-							text : 'Roles',
-							ref : {
-								xtype : 'list',
-								indelible : true,
-								itemTpl : '{name}',
-								store : 'Role'
-							}
-						} ])
-					}
+					me.createButtons(data[i].id);
 				}
 				Ext.Viewport.setActiveItem(main);
 			},
@@ -156,5 +77,21 @@ Ext.define('OrangeCandle.controller.Login', {
 				Ext.Msg.alert("", "Sign in failed", Ext.emptyFn);
 			},
 		});
+	},
+	createButtons:function(role){
+		var main = this.getMainMenuView();
+		var buttons =Ext.StoreManager.lookup('Buttons').data.items[0].data
+		if(role==='Administrator'){
+			main.down('panel').add(buttons.Administrator)
+		}
+//		else if(role==='Advisor'){
+//			main.down('panel').add(buttons.Advisor)
+//		}
+//		else if(role==='Teacher'){
+//			main.down('panel').add(buttons.Teacher)
+//		}
+		else if(role==='Student'){
+			main.down('panel').add(buttons.Student)
+		}
 	}
 });
