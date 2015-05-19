@@ -6,6 +6,7 @@ Ext.define('OrangeCandle.view.AddLesson', {
 		scrollable : 'false',
 		title : 'Insert a new lecture',
 		instructions : 'Insert the details of the lecture:',
+		layout : 'vbox',
 		items : [ {
 			xtype : 'fieldset',
 			items : [ {
@@ -14,16 +15,22 @@ Ext.define('OrangeCandle.view.AddLesson', {
 			}, {
 				xtype : 'textfield',
 				placeHolder : 'Code of the lecture',
-				name : 'lectureCode',
+				name : 'lectureCode'
 			}, {
 				xtype : 'textfield',
 				placeHolder : 'Name of the lecture',
-				name : 'name',
+				name : 'name'
 			}, {
 				xtype : 'textfield',
 				placeHolder : 'Description',
-				name : 'description',
+				name : 'description'
 			} ]
+		}, {
+			xtype : 'list',
+			name : 'department',
+			flex : 1,
+			itemTpl : '{name}',
+			store : 'Department'
 		}, {
 			xtype : 'button',
 			text : 'submit',

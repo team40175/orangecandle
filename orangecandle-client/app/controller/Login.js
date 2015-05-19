@@ -4,6 +4,7 @@ Ext.define('OrangeCandle.controller.Login', {
 		refs : {
 			loginView : 'loginview',
 			mainMenuView : 'mainmenuview',
+			chgPass : 'changepassword'
 		},
 		control : {
 			loginView : {
@@ -11,6 +12,9 @@ Ext.define('OrangeCandle.controller.Login', {
 			},
 			'#logOut' : {
 				tap : 'logOff'
+			},
+			'#changePass' : {
+				tap : 'changePassword'
 			}
 		}
 	},
@@ -47,6 +51,11 @@ Ext.define('OrangeCandle.controller.Login', {
 		var login = this.getLoginView();
 		Ext.Viewport.setActiveItem(login);
 		Ext.Msg.alert("", "You are logged off.", Ext.emptyFn);
+	},
+	changePassword : function() {
+		var view = this.getChgPass();
+//		var main = this.getMainMenuView();
+		Ext.Viewport.setActiveItem(view);
 	},
 	onShow : function() {
 		var me = this, s

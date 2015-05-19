@@ -6,7 +6,8 @@
             "ref": {
                 "xtype": "list",
                 "itemTpl": "{name}",
-                "store": "Lecture"
+                "store": "Lecture",
+                "extraStore": "Department"
             },
             "form": {
                 "xtype": "addlesson"
@@ -18,7 +19,8 @@
             "ref": {
                 "xtype": "list",
                 "itemTpl": "{name}",
-                "store": "Room"
+                "store": "Room",
+                "extraStore": "Building"
             },
             "form": {
                 "xtype": "addclassroom"
@@ -83,6 +85,54 @@
                 "indelible": true,
                 "itemTpl": "{name}",
                 "store": "Role"
+            }
+        },{
+            "xtype": "button",
+            "text": "Assign Lectures",
+            "ref": {
+                "xtype": "list",
+                "itemTpl": "{username}",
+                "store": "Teacher",
+                "extraStore": "Lecture"
+            },
+            "form": {
+                "xtype": "assignlecture"
+            }
+        },{
+            "xtype": "button",
+            "text": "Faculties",
+            "ref": {
+                "xtype": "list",
+                "itemTpl": "{name}",
+                "store": "Faculty",
+                "extraStore": "School"
+            },
+            "form": {
+                "xtype": "facultyform"
+            }
+        },{
+            "xtype": "button",
+            "text": "Departments",
+            "ref": {
+                "xtype": "list",
+                "itemTpl": "{name}",
+                "store": "Department",
+                "extraStore": "Faculty"
+            },
+            "form": {
+                "xtype": "departmentform"
+            }
+        },{
+            "xtype": "button",
+            "text": "Buildings",
+            "ref": {
+                "xtype": "list",
+                "itemTpl": "{name}",
+                "store": "Building",
+                "extraStore": "School"
+            },
+            "form": {
+                "xtype": "buildingform"
             }
         }
     ],

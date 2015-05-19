@@ -1,10 +1,11 @@
-Ext.define('OrangeCandle.view.AddClassroom', {
+Ext.define('OrangeCandle.form.Department', {
 	extend : 'Ext.form.Panel',
-	alias : "widget.addclassroom",
+	alias : "widget.departmentform",
 	requires : [ 'Ext.form.FieldSet' ],
 	config : {
 		layout : 'vbox',
-		scrollable : 'false',
+		title : 'Insert Account',
+		scrollable : false,
 		items : [ {
 			xtype : 'fieldset',
 			items : [ {
@@ -12,19 +13,21 @@ Ext.define('OrangeCandle.view.AddClassroom', {
 				name : 'id'
 			}, {
 				xtype : 'textfield',
-				placeHolder : 'Name of the Classroom',
+				placeHolder : 'Name of the Department',
 				name : 'name',
-			}, ]
+				required : true
+			} ]
 		}, {
 			xtype : 'list',
-			name : 'buildings',
+			name : 'faculties',
 			flex : 1,
 			itemTpl : '{name}',
-			store : 'Building'
+			store : 'Faculty'
 		}, {
 			xtype : 'button',
 			text : 'submit',
-			target : "room/add"
+			target : "department/add"
 		} ]
 	}
+
 })
