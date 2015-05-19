@@ -10,7 +10,12 @@ Ext.define('OrangeCandle.view.Main', {
 				text : 'Log Off',
 				id : 'logOut',
 				align : 'right'
-			} ]
+			} ,{
+				xtype : 'button',
+				text : 'ChangePassword',
+				id : 'changePass',
+				align : 'right'
+			}]
 		},
 		items : [ {
 			xtype : 'panel'
