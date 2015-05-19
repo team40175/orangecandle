@@ -15,7 +15,7 @@ import com.orangecandle.service.JsonService;
 import com.orangecandle.service.RepositoryService;
 
 @Controller
-public class LinkController {
+public class MainController {
 
 	private @Autowired RepositoryService repos;
 	private @Autowired JsonService json;

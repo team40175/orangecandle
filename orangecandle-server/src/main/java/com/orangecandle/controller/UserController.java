@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,21 +23,23 @@ import com.orangecandle.domain.User;
 import com.orangecandle.service.JsonService;
 
 @Controller
-@Transactional
 @RequestMapping("/user")
 public class UserController {
 	private @Autowired com.orangecandle.repository.User repo;
 	private @Autowired com.orangecandle.repository.Group groupRepo;
+	private @Autowired com.orangecandle.repository.Lecture lectureRepo;
 	private @Autowired JsonService json;
 
 	@PostConstruct
 	public void createDefaults() {
+		// can we externalize these?
 		if (groupRepo.findByName("admins") == null) {
 			Group g = new Group("admins");
 			g.setRoles(Role.Administrator);
 			groupRepo.save(g);
 			if (repo.findByUsername("admin") == null) {
 				User u = new User("admin");
+				u.setPassword("pass");
 				u.addGroup(g);
 				repo.save(u);
 			}
@@ -72,6 +73,19 @@ public class UserController {
 		} else {
 			json.toExtJSON(w, false, "User already exists");
 		}
+	}
+
+	@RequestMapping(value = "/pickLectures")
+	public void pickLectures(@RequestParam String lectures,
+			@RequestParam String username, HttpServletResponse response)
+			throws IOException {
+		User user = repo.findByUsername(username);
+		for (Long id : json.fromJson(lectures, Long[].class)) {
+			user.pickLecture(lectureRepo.findOne(id));
+		}
+		repo.save(user);
+		json.toExtJSON(response.getWriter(), true,
+				"You have successfully picked lectures.");
 	}
 
 	@RequestMapping(value = "/findRoles", method = RequestMethod.GET)

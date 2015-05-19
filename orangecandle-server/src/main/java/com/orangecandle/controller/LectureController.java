@@ -2,6 +2,7 @@ package com.orangecandle.controller;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -50,7 +51,14 @@ public class LectureController {
 	}
 
 	@RequestMapping(value = "/findAll")
-	public void findAll(HttpServletResponse response) throws IOException {
-		json.toExtJSON(response.getWriter(), true, "", repo.findAll());
+	public void findAll(@RequestParam(required = false) String username,
+			HttpServletResponse response) throws IOException {
+		List<Lecture> all = repo.findAll();
+		if (username == null) {
+			json.toExtJSON(response.getWriter(), true, "", all);
+		} else {
+			json.toExtJSON(response.getWriter(), true, "",
+					repo.findTakenLecturesOf(username));
+		}
 	}
 }

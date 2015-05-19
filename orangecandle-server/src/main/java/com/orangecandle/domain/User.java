@@ -1,6 +1,7 @@
 package com.orangecandle.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -72,6 +73,10 @@ public class User implements UserDetails {
 		return auths;
 	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String getPassword() {
 		return password;
@@ -104,5 +109,12 @@ public class User implements UserDetails {
 
 	public Long getId() {
 		return id;
+	}
+
+	public void pickLecture(Lecture... lectures) {
+		if (takenLectures == null) {
+			takenLectures = new LinkedList<Lecture>();
+		}
+		takenLectures.addAll(Arrays.asList(lectures));
 	}
 }
