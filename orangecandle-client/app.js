@@ -6,11 +6,11 @@ Ext
 			views : [ 'Login', 'Main', 'AddGroups', 'AddAccount', 'AddLesson',
 					'AddSchool', 'AddConstraints', 'AddClassroom',
 					'template.ListPanel' ],
-			controllers : [ 'Login', 'Button', 'Submit', 'Main' ],
+			controllers : [ 'Login', 'Button', 'Submit'],
 			models : [ 'Group', 'Role', 'xUser', 'Lecture', 'Room', 'School',
 					'Constraint' ],
 			stores : [ 'Group', 'Role', 'xUser', 'Lecture', 'Room', 'School',
-					'Constraint' ],
+					'Constraint', 'UserLecture' ],
 			icon : {
 				'57' : 'resources/icons/Icon.png',
 				'72' : 'resources/icons/Icon~ipad.png',

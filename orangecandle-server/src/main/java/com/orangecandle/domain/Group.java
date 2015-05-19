@@ -68,14 +68,18 @@ public class Group implements Serializable {
 	}
 
 	public List<Role> getRoles() {
-		return Arrays.asList(json.fromJson(roles, Role[].class) );
+		Role[] roleArray = json.fromJson(roles, Role[].class);
+		if (roleArray == null) {
+			return null;
+		}
+		return Arrays.asList(roleArray);
 	}
 
 	public void setRoles(List<Role> roles) {
 		this.roles = json.toJson(roles);
 	}
 
-	public void setRoles(Role[] roles) {
+	public void setRoles(Role... roles) {
 		this.roles = json.toJson(roles);
 	}
 }

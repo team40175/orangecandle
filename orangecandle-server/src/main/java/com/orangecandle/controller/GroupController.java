@@ -37,6 +37,10 @@ public class GroupController {
 		try (Writer w = response.getWriter()) {
 			if (null == groupRep.findByName(name)) {
 				Group group = new Group(name);
+				if ("[]".equals(roles)) {
+					json.toExtJSON(w, false,
+							"You need to select at least one role");
+				}
 				group.setRoles(json.fromJson(roles, Role[].class));
 				groupRep.saveAndFlush(group);
 				json.toExtJSON(w, true, "Group with name " + name + " is added");

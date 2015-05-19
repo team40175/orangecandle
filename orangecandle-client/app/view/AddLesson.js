@@ -22,7 +22,7 @@ Ext.define('OrangeCandle.view.AddLesson', {
 			}, {
 				xtype : 'textfield',
 				placeHolder : 'Description',
-				name : 'desc',
+				name : 'description',
 			} ]
 		}, {
 			xtype : 'button',
