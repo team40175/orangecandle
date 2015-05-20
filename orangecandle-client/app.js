@@ -4,8 +4,8 @@ Ext.application({
 			'OrangeCandle.form.UserLecture', 'OrangeCandle.form.AssignLecture',
 			'OrangeCandle.form.Department', 'OrangeCandle.form.Faculty',
 			'OrangeCandle.form.Building' ],
-	views : [ 'Login', 'Main', 'AddGroups', 'AddAccount', 'AddLesson',
-			'AddSchool', 'AddConstraints', 'AddClassroom','ChangePassword' ],
+	views : [ 'Login', 'Main', 'ChangePassword', 'AddGroups', 'AddAccount',
+			'AddLesson', 'AddSchool', 'AddConstraints', 'AddClassroom' ],
 	controllers : [ 'Login', 'Button', 'Submit' ],
 	models : [ 'Group', 'Role', 'xUser', 'Lecture', 'Room', 'School',
 			'Constraint', 'Buttons', 'Department', 'Faculty', 'Building' ],
@@ -33,8 +33,6 @@ Ext.application({
 			xtype : 'loginview',
 			fullscreen : true,
 			scrollable : false
-		}, {
-			xtype : 'mainmenuview',
 		} ]);
 	}
 });

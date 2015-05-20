@@ -56,7 +56,17 @@ Ext.define('OrangeCandle.controller.Button', {
 				}, {
 					iconCls : 'delete',
 					hidden : button.ref.indelible,
-					flex : 1
+					flex : 1,
+					handler : function() {
+						var list = this.up('panel').down('list');
+						if (list.hasSelection() === false)
+							Ext.Msg.alert("Please select a record to delete.");
+						else {
+							mainView.push(generateEditForm(button));
+							var id = list.getSelection()[0].data.id;
+							deleteRecord(id);
+						}
+					}
 				} ]
 			} ]
 		});
@@ -78,6 +88,23 @@ Ext.define('OrangeCandle.controller.Button', {
 			} else
 				Ext.data.StoreManager.lookup(button.ref.extraStore).load();
 		}
+	},
+	deleteRecord : function(id) {
+		var mainView = this.getMainView();
+		Ext.Ajax.request({
+			url : OrangeCandle.util.Scalability.getApplicationServer('delete'),
+			params : {
+				id : id
+			},
+			success : function(form, result) {
+				Ext.Msg.alert('', result.message, function() {
+					main.pop();
+				});
+			},
+			failure : function(form, result) {
+				Ext.Msg.alert('', result.message, Ext.emptyFn);
+			}
+		});
 	},
 	generateInsertForm : function(button) {
 		var ref = button.ref;

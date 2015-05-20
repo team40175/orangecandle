@@ -3,8 +3,7 @@ Ext.define('OrangeCandle.controller.Login', {
 	config : {
 		refs : {
 			loginView : 'loginview',
-			mainMenuView : 'mainmenuview',
-			chgPass : 'changepassword'
+			mainMenuView : 'mainmenuview'
 		},
 		control : {
 			loginView : {
@@ -49,17 +48,17 @@ Ext.define('OrangeCandle.controller.Login', {
 	},
 	logOff : function() {
 		var login = this.getLoginView();
-		Ext.Viewport.setActiveItem(login);
+		Ext.Viewport.pop();
 		Ext.Msg.alert("", "You are logged off.", Ext.emptyFn);
 	},
 	changePassword : function() {
-		var view = this.getChgPass();
-//		var main = this.getMainMenuView();
-		Ext.Viewport.setActiveItem(view);
+		var main = this.getMainMenuView();
+		main.push({
+			xtype : 'changepassword'
+		});
 	},
 	onShow : function() {
-		var me = this, s
-		var main = this.getMainMenuView();
+		var me = this
 		Ext.Ajax.request({
 			url : OrangeCandle.util.Scalability
 					.getApplicationServer('user/findRoles'),
@@ -69,7 +68,6 @@ Ext.define('OrangeCandle.controller.Login', {
 			},
 
 			success : function(response) {
-				main.down('panel').removeAll();
 				console.log("Spiffing, everything worked");
 				var data = JSON.parse(response.responseText).data;
 				if (data.length === 0) {
@@ -81,7 +79,10 @@ Ext.define('OrangeCandle.controller.Login', {
 				for ( var i in data) {
 					me.createButtons(data[i].id);
 				}
-				Ext.Viewport.setActiveItem(main);
+				Ext.Viewport.add({
+					xtype : 'mainmenuview'
+				});
+				Ext.Viewport.setActiveItem(1);
 			},
 
 			failure : function(response) {

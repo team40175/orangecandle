@@ -1,12 +1,13 @@
 Ext.define('OrangeCandle.view.ChangePassword', {
 	extend : 'Ext.form.Panel',
-	xtype : "changePassword",
+	xtype : "changepassword",
 	requires : [ 'Ext.form.FieldSet', 'Ext.form.Password', 'Ext.MessageBox' ],
 	config : {
-		title : 'Login',
+		scrollable : 'false',
+		layout : 'vbox',
+		title : 'Change Password',
 		items : [ {
 			xtype : 'fieldset',
-			title : 'Change Password',
 			items : [ {
 				xtype : 'textfield',
 				placeHolder : 'Username',
@@ -24,7 +25,8 @@ Ext.define('OrangeCandle.view.ChangePassword', {
 			xtype : 'button',
 			text : 'Change Password',
 			padding : '10px',
+			docked : 'bottom',
 			target : "user/changePassword"
-		}]
+		} ]
 	},
 });
