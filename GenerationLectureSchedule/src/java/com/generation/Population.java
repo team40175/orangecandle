@@ -10,7 +10,7 @@ public class Population {
 	private static final Logger log = Logger.getLogger( Individual.class.getName() );
 
 	ArrayList <Individual> population=new ArrayList <Individual>();
-	static ArrayList <Individual> elitPopulationPart;
+	ArrayList <Individual> newJeneration=new ArrayList <Individual>();
 	
 	final static int MAX_JENERATION=Integer.MAX_VALUE;
 	
@@ -91,6 +91,8 @@ public class Population {
 
 			//repair();
 			log.info("after running repair function");
+			
+			Collections.copy(newJeneration, population);
 
 		}
 	}
@@ -104,16 +106,19 @@ public class Population {
 			
 			population.add(individual);
 		}
-		sortByFitness();
 	}
-	//elitism
+	
+	//elit population
 	void elitism(){
 		log.info("elitism function in population class");
 		
-		elitPopulationPart=new ArrayList<Individual>();
+		//all population copy new jeneration
+		//So, after crossover and elitism, new jeneration size is equal to population
+		//and non-crossovered individuals are moved new jeneration
+		Collections.copy(population, newJeneration);
 
 		for(int i=0;i<elitismSize;i++){
-			elitPopulationPart.add(i,population.get(i));
+			newJeneration.add(i,population.get(i));
 		}
 	}
 	
@@ -131,12 +136,13 @@ public class Population {
 			
 			log.info("end of crossover function in individual class");
 
-			population.get(firstNumberForTournament).gen=newIndividuals.get(0).gen;
-			population.get(secondNumberForTournament).gen=newIndividuals.get(1).gen;	
+			newJeneration.get(firstNumberForTournament).setGen(newIndividuals.get(0).gen);
+			newJeneration.get(secondNumberForTournament).setGen(newIndividuals.get(1).gen);	
 		}
 	
 		log.info("end of crossover function in population class");
 	}
+	
 	//mutation but random size 
 	void mutation(){
 		log.info("mutation function in population class");
@@ -147,9 +153,8 @@ public class Population {
 		for(int i=0;i<mutantSize;i++ ){
 			random=(int) (Math.random()*population_size);
 			
-			population.get(random).mutation();
-		}
-		
+			newJeneration.get(random).mutation();
+		}		
 	}
 	
 	//Random Tournament for genetic algorithm

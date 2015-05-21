@@ -17,16 +17,16 @@ public class Individual  {
 	int fitness;
 	
 	private static final Logger log = LoggerFactory.getLogger( Individual.class );
-
-	public static void main(String[] args){
-		Individual i=new Individual();
-		System.out.println(i.toString());
-	}
 	
 	public Individual(){
 		log.info("Individual class");
 		
 		evolve();
+	}
+	
+	public void setGen(ArrayList<Gen> gen){
+		this.gen=gen;
+		//this.fitness=calculatedFitness();
 	}
 	
 	//cromosome of Individual is created
