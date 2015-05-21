@@ -68,6 +68,9 @@ Ext.define('OrangeCandle.controller.Login', {
 			},
 
 			success : function(response) {
+				var view = {
+					xtype : 'mainmenuview'
+				};
 				console.log("Spiffing, everything worked");
 				var data = JSON.parse(response.responseText).data;
 				if (data.length === 0) {
@@ -76,13 +79,12 @@ Ext.define('OrangeCandle.controller.Login', {
 							Ext.emptyFn);
 					return;
 				}
+				Ext.Viewport.add(view);
+				Ext.Viewport.setActiveItem(1);
 				for ( var i in data) {
 					me.createButtons(data[i].id);
 				}
-				Ext.Viewport.add({
-					xtype : 'mainmenuview'
-				});
-				Ext.Viewport.setActiveItem(1);
+
 			},
 
 			failure : function(response) {
@@ -91,10 +93,9 @@ Ext.define('OrangeCandle.controller.Login', {
 		});
 	},
 	createButtons : function(role) {
-		var main = this.getMainMenuView();
 		var buttons = Ext.StoreManager.lookup('Buttons').data.items[0].data;
 		if (buttons[role]) {
-			main.down('panel').add(buttons[role]);
+			Ext.Viewport.getActiveItem().down('panel').add(buttons[role]);
 		}
 	}
 });
