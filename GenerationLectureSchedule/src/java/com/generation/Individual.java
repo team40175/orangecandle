@@ -34,8 +34,7 @@ public class Individual  {
 		log.info("evolve function in Individual class");
 		
 		//created static data from com.data
-		
-		//creation();
+		creation();
 		
 		//random create gen class from data
 		for(int i=0;i<GenerationClass.genUzunluðu;i++){

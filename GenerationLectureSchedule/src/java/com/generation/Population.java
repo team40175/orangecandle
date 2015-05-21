@@ -13,31 +13,89 @@ public class Population {
 	static ArrayList <Individual> elitPopulationPart;
 	
 	final static int MAX_JENERATION=Integer.MAX_VALUE;
-	static int population_size=150;
+	
 	static float elitismRatio;
 	static float mutationalRatio;
 	static float crossoverRatio;
+	
 	static float elitismSize;
 	static float mutationSize;
 	static float crossoverSize;
+	static int population_size=150;
 
 	public Population(float elitsm, float mutation, float crossover){
-		log.info("population class");
+		log.info("population class without population size");
 		
+		initializing(elitsm,  mutation,  crossover);
+		
+		calculation();
+		
+		//otomation();
+		
+	}
+	
+	public Population(float elitsm, float mutation, float crossover,int population_size){
+		log.info("population class with population size");
+
+		Population.population_size=population_size;	
+		
+		initializing(elitsm,  mutation,  crossover);
+		
+		calculation();
+		
+		//otomation();
+	}
+	
+	//description ratio in popuation
+	void initializing(float elitsm, float mutation, float crossover){
+		log.info("initializing population class");
+
 		Population.elitismRatio=elitsm;
 		Population.crossoverRatio=crossover;
 		Population.mutationalRatio=mutation;
 		
+	}
+	
+	//calculation size according to the ratios
+	void calculation(){
+		log.info("calculating some sizes in population class");
+
 		elitismSize=population_size*elitismRatio;
 		mutationSize=population_size*mutationalRatio;
 		crossoverSize=population_size*crossoverRatio;
 	}
 	
-	public void setPopulationSize(int size){
-		Population.population_size=size;
+	void otomation(){
+		log.info("otomating to run genetic algoritm for population class");
+
+		evolve();
+		log.info("after create individuals in population");
+
+		for(int i=0;i<MAX_JENERATION;i++){
+			log.info("jeneration");
+
+			//fitness();
+			log.info("after runnning fitness function");
+			
+			sortByFitness();
+			log.info("after runnning sortByFitness function");
+			
+			elitism();
+			log.info("after running elitism function");
+
+			crossover();
+			log.info("after running crossover function");
+
+			mutation();
+			log.info("after running mutation function");
+
+			//repair();
+			log.info("after running repair function");
+
+		}
 	}
-	
-	//created first jeneration of population
+
+	//created first jeneration of population and sorting according to fitness
 	void evolve(){
 		log.info("evolve function in population class");
 
@@ -48,7 +106,7 @@ public class Population {
 		}
 		sortByFitness();
 	}
-	
+	//elitism
 	void elitism(){
 		log.info("elitism function in population class");
 		
@@ -79,7 +137,7 @@ public class Population {
 	
 		log.info("end of crossover function in population class");
 	}
-	
+	//mutation but random size 
 	void mutation(){
 		log.info("mutation function in population class");
 
@@ -94,6 +152,7 @@ public class Population {
 		
 	}
 	
+	//Random Tournament for genetic algorithm
 	int selectNumberForTournament(){
 		log.info("start selectNumberForTournament");
 
@@ -107,6 +166,7 @@ public class Population {
 		return first;
 	}
 	
+	//after generation or creation, sorting by descending fitness value
 	void sortByFitness(){
 		log.info("descending sortByFitness function in population class");
 		
