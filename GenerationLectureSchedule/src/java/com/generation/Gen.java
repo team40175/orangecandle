@@ -1,26 +1,27 @@
 package java.com.generation;
 
+import java.com.generationdomain.Building;
+import java.com.generationdomain.Department;
+import java.com.generationdomain.Lecture;
+import java.com.generationdomain.Lecturer;
+import java.com.generationdomain.Room;
+import java.com.generationdomain.Student;
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.domain.Department;
-import com.domain.Lecture;
-import com.domain.Lecturer;
-import com.domain.Room;
-import com.domain.Student;
 
 public class Gen {
 
 	private static final Logger log = LoggerFactory.getLogger( Gen.class );
 
 	 Department department;
+	 Building build;
 	 Lecture lecture;
 	 Lecturer lecturer;
 	 Room room;
 	 ArrayList<Student> students;
-	
+
 	public Gen(){
 		log.info("Gen function");
 		

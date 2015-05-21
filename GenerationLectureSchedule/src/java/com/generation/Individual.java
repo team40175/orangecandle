@@ -1,17 +1,15 @@
 package java.com.generation;
 
+import java.com.generationdata.LectureData;
+import java.com.generationdata.LecturerData;
+import java.com.generationdata.RoomData;
+import java.com.generationdata.StudentData;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.data.LectureData;
-import com.data.LecturerData;
-import com.data.RoomData;
-import com.data.StudentData;
 
 public class Individual  {
 	
@@ -36,7 +34,8 @@ public class Individual  {
 		log.info("evolve function in Individual class");
 		
 		//created static data from com.data
-		creation();
+		
+		//creation();
 		
 		//random create gen class from data
 		for(int i=0;i<GenerationClass.genUzunluðu;i++){
@@ -146,7 +145,7 @@ public class Individual  {
 	
 	public void repair(){
 		log.info("repair function in Individual class");
-		
+		//
 	}
 	
 }
