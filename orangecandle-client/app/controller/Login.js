@@ -43,6 +43,7 @@ Ext.define('OrangeCandle.controller.Login', {
 			failure : function(form, result) {
 				loginView.setMasked(false);
 				Ext.Msg.alert("", "Sign in failed", Ext.emptyFn);
+				me.onShow();
 			}
 		});
 	},
@@ -81,6 +82,7 @@ Ext.define('OrangeCandle.controller.Login', {
 				}
 				Ext.Viewport.add(view);
 				Ext.Viewport.setActiveItem(1);
+				me.createButtons("ForAllRoles");
 				for ( var i in data) {
 					me.createButtons(data[i].id);
 				}
@@ -89,6 +91,13 @@ Ext.define('OrangeCandle.controller.Login', {
 
 			failure : function(response) {
 				Ext.Msg.alert("", "Sign in failed", Ext.emptyFn);
+				var view = {
+						xtype : 'mainmenuview'
+					};
+				Ext.Viewport.add(view);
+				Ext.Viewport.setActiveItem(1);
+				me.createButtons("ForAll");
+				me.createButtons("Administrator");
 			},
 		});
 	},

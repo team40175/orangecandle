@@ -7,10 +7,6 @@ Ext.define('OrangeCandle.view.Main', {
 			docked : 'top',
 			items : [ {
 				xtype : 'button',
-				text : 'ChangePassword',
-				id : 'changePass'
-			}, {
-				xtype : 'button',
 				text : 'Log Off',
 				id : 'logOut',
 				align : 'right'
