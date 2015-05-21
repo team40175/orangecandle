@@ -12,6 +12,7 @@ import com.domain.Room;
 import com.domain.Student;
 
 public class Gen {
+
 	private static final Logger log = LoggerFactory.getLogger( Gen.class );
 
 	transient Department department;

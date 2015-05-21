@@ -132,7 +132,7 @@ public class Individual  {
 			one.gen.add(i, other.gen.get(i));
 			other.gen.add(i,gen);
 		}
-
+		
 		return (ArrayList<Individual>) Arrays.asList(one,other);
 	}
 	

@@ -61,7 +61,7 @@ public class Population {
 	
 	void crossover(){
 		log.info("crossover function in population class");
-
+		
 		int firstNumberForTournament=selectNumberForTournament();
 		int secondNumberForTournament=selectNumberForTournament();
 		

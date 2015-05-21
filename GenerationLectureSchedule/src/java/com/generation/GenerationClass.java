@@ -6,7 +6,7 @@ public class GenerationClass {
 	public static final int CLASS=4;
 	static final int MAX_DEPARTMENT=1;
 	public static final int genUzunluðu=calculationGenLength();
-
+	
 	static int calculationGenLength(){
 		return GenerationClass.DAY_NUMBER
 				*GenerationClass.MAX_DEPARTMENT
