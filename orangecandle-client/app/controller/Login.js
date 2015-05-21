@@ -3,13 +3,14 @@ Ext.define('OrangeCandle.controller.Login', {
 	config : {
 		refs : {
 			loginView : 'loginview',
-			mainMenuView : 'mainmenuview'
+			mainMenuView : 'mainmenuview',
+			logOff : 'navigationview button[action="logOff"]'
 		},
 		control : {
 			loginView : {
 				signInCommand : 'onSignInCommand'
 			},
-			'#logOut' : {
+			'logOff' : {
 				tap : 'logOff'
 			},
 			'#changePass' : {
@@ -43,13 +44,12 @@ Ext.define('OrangeCandle.controller.Login', {
 			failure : function(form, result) {
 				loginView.setMasked(false);
 				Ext.Msg.alert("", "Sign in failed", Ext.emptyFn);
-				me.onShow();
 			}
 		});
 	},
 	logOff : function() {
 		var login = this.getLoginView();
-		Ext.Viewport.pop();
+		Ext.Viewport.removeAt(1);
 		Ext.Msg.alert("", "You are logged off.", Ext.emptyFn);
 	},
 	changePassword : function() {
@@ -81,30 +81,23 @@ Ext.define('OrangeCandle.controller.Login', {
 					return;
 				}
 				Ext.Viewport.add(view);
-				Ext.Viewport.setActiveItem(1);
-				me.createButtons("ForAllRoles");
+				var mainView = Ext.Viewport.down('mainmenuview');
+				Ext.Viewport.setActiveItem(mainView);
+				mainView.getLayout().setAnimation(false);
 				for ( var i in data) {
-					me.createButtons(data[i].id);
+					me.createButtons(mainView, data[i].id);
 				}
-
+				me.createButtons("ForAll");
 			},
-
 			failure : function(response) {
 				Ext.Msg.alert("", "Sign in failed", Ext.emptyFn);
-				var view = {
-						xtype : 'mainmenuview'
-					};
-				Ext.Viewport.add(view);
-				Ext.Viewport.setActiveItem(1);
-				me.createButtons("ForAll");
-				me.createButtons("Administrator");
-			},
+			}
 		});
 	},
-	createButtons : function(role) {
+	createButtons : function(view, role) {
 		var buttons = Ext.StoreManager.lookup('Buttons').data.items[0].data;
 		if (buttons[role]) {
-			Ext.Viewport.getActiveItem().down('panel').add(buttons[role]);
+			view.down('panel').add(buttons[role]);
 		}
 	}
 });

@@ -11,6 +11,7 @@ Ext.define('OrangeCandle.controller.Button', {
 		}
 	},
 	onClick : function(button, event, opts) {
+		var me = this;
 		var ref = button.ref;
 		if (ref.flex === undefined)
 			ref.flex = 1;
@@ -62,9 +63,9 @@ Ext.define('OrangeCandle.controller.Button', {
 						if (list.hasSelection() === false)
 							Ext.Msg.alert("Please select a record to delete.");
 						else {
-							mainView.push(generateEditForm(button));
 							var id = list.getSelection()[0].data.id;
-							deleteRecord(id);
+							var url = ref.store.toLowerCase() + '/remove';
+							me.deleteRecord(id, url);
 						}
 					}
 				} ]
@@ -89,20 +90,20 @@ Ext.define('OrangeCandle.controller.Button', {
 				Ext.data.StoreManager.lookup(button.ref.extraStore).load();
 		}
 	},
-	deleteRecord : function(id) {
+	deleteRecord : function(id, url) {
 		var mainView = this.getMainView();
 		Ext.Ajax.request({
-			url : OrangeCandle.util.Scalability.getApplicationServer('delete'),
+			url : OrangeCandle.util.Scalability.getApplicationServer(url),
 			params : {
 				id : id
 			},
-			success : function(form, result) {
-				Ext.Msg.alert('', result.message, function() {
-					main.pop();
-				});
+			success : function(response) {
+				var message = Ext.JSON.decode(response.responseText).message;
+				Ext.Msg.alert('', message, Ext.emptyFn);
 			},
-			failure : function(form, result) {
-				Ext.Msg.alert('', result.message, Ext.emptyFn);
+			failure : function(form, response) {
+				var message = Ext.JSON.decode(response.responseText).message;
+				Ext.Msg.alert('', message, Ext.emptyFn);
 			}
 		});
 	},
