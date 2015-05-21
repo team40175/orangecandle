@@ -14,23 +14,23 @@ import org.slf4j.LoggerFactory;
 public class Individual  {
 	
 	ArrayList<Gen> gen=new ArrayList<Gen>();
-	int fitness;
+	int fitness=0;
 	
 	private static final Logger log = LoggerFactory.getLogger( Individual.class );
 	
 	public Individual(){
 		log.info("Individual class");
 		
-		evolve();
+		generateIndividual();
 	}
 	
 	public void setGen(ArrayList<Gen> gen){
 		this.gen=gen;
-		//this.fitness=calculatedFitness();
+		this.fitness=calculateFitness();
 	}
 	
 	//cromosome of Individual is created
-	void evolve(){
+	void generateIndividual(){
 		log.info("evolve function in Individual class");
 		
 		//created static data from com.data
@@ -147,4 +147,7 @@ public class Individual  {
 		//
 	}
 	
+	int calculateFitness(){
+		return Fitness.getFitness(this);
+	}
 }

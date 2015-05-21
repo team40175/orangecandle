@@ -23,18 +23,18 @@ public class Population {
 	static float crossoverSize;
 	static int population_size=150;
 
-	public Population(float elitsm, float mutation, float crossover){
+	public Population(float elitsm, float mutation, float crossover,boolean isOtomation){
 		log.info("population class without population size");
 		
 		initializing(elitsm,  mutation,  crossover);
 		
 		calculation();
 		
-		//otomation();
-		
+		if(isOtomation)
+			otomation();
 	}
 	
-	public Population(float elitsm, float mutation, float crossover,int population_size){
+	public Population(float elitsm, float mutation, float crossover,int population_size,boolean isOtomation){
 		log.info("population class with population size");
 
 		Population.population_size=population_size;	
@@ -43,11 +43,12 @@ public class Population {
 		
 		calculation();
 		
-		//otomation();
+		if(isOtomation)
+			otomation();
 	}
 	
 	//description ratio in popuation
-	void initializing(float elitsm, float mutation, float crossover){
+	private void initializing(float elitsm, float mutation, float crossover){
 		log.info("initializing population class");
 
 		Population.elitismRatio=elitsm;
@@ -57,7 +58,7 @@ public class Population {
 	}
 	
 	//calculation size according to the ratios
-	void calculation(){
+	private void calculation(){
 		log.info("calculating some sizes in population class");
 
 		elitismSize=population_size*elitismRatio;
@@ -65,16 +66,16 @@ public class Population {
 		crossoverSize=population_size*crossoverRatio;
 	}
 	
-	void otomation(){
+	private void otomation(){
 		log.info("otomating to run genetic algoritm for population class");
 
-		evolve();
+		generateIndividual();
 		log.info("after create individuals in population");
 
 		for(int i=0;i<MAX_JENERATION;i++){
 			log.info("jeneration");
 
-			//fitness();
+			fitness();
 			log.info("after runnning fitness function");
 			
 			sortByFitness();
@@ -89,16 +90,32 @@ public class Population {
 			mutation();
 			log.info("after running mutation function");
 
-			//repair();
-			log.info("after running repair function");
+//			if(!isSuitable()) 
+//				repair();
+//			log.info("after running repair function");
 			
-			Collections.copy(newJeneration, population);
+			Collections.copy(population,newJeneration);
 
 		}
 	}
 
+	private boolean isSuitable() {
+		//
+		return false;
+	}
+
+	public void repair() {
+		//
+	}
+
+	public void fitness() {
+		for(int i=0;i<population_size;i++){
+			population.get(i).fitness=population.get(i).calculateFitness();
+		}
+	}
+
 	//created first jeneration of population and sorting according to fitness
-	void evolve(){
+	public void generateIndividual(){
 		log.info("evolve function in population class");
 
 		for(int i=0;i<population_size;i++){
@@ -109,13 +126,13 @@ public class Population {
 	}
 	
 	//elit population
-	void elitism(){
+	public void elitism(){
 		log.info("elitism function in population class");
 		
 		//all population copy new jeneration
 		//So, after crossover and elitism, new jeneration size is equal to population
 		//and non-crossovered individuals are moved new jeneration
-		Collections.copy(population, newJeneration);
+		Collections.copy(newJeneration,population);
 
 		for(int i=0;i<elitismSize;i++){
 			newJeneration.add(i,population.get(i));
@@ -126,13 +143,20 @@ public class Population {
 	void crossover(){
 		log.info("crossover function in population class");
 		
+		int firstNumberForTournament;
+		int secondNumberForTournament;
+		ArrayList <Individual> newIndividuals;
+		
 		for(int i=0;i<crossoverSize;i++){
 			
-			int firstNumberForTournament=selectNumberForTournament();
-			int secondNumberForTournament=selectNumberForTournament();
+			firstNumberForTournament=selectNumberForTournament();
+			secondNumberForTournament=selectNumberForTournament();
 			
-			ArrayList <Individual> newIndividuals=(ArrayList<Individual>) population.get(firstNumberForTournament)
-				.crossover(population.get(secondNumberForTournament));
+			newIndividuals= new ArrayList <Individual>();
+			
+			Collections.copy(newIndividuals,
+					population.get(firstNumberForTournament)
+														.crossover(population.get(secondNumberForTournament)));
 			
 			log.info("end of crossover function in individual class");
 
@@ -158,6 +182,7 @@ public class Population {
 	}
 	
 	//Random Tournament for genetic algorithm
+	//individual that has larger fitness value is selected for Random Tournament
 	int selectNumberForTournament(){
 		log.info("start selectNumberForTournament");
 
