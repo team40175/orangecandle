@@ -15,11 +15,11 @@ public class Gen {
 
 	private static final Logger log = LoggerFactory.getLogger( Gen.class );
 
-	transient Department department;
-	transient Lecture lecture;
-	transient Lecturer lecturer;
-	transient Room room;
-	transient ArrayList<Student> students;
+	 Department department;
+	 Lecture lecture;
+	 Lecturer lecturer;
+	 Room room;
+	 ArrayList<Student> students;
 	
 	public Gen(){
 		log.info("Gen function");
