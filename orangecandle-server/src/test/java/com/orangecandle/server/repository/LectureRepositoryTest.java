@@ -37,7 +37,6 @@ public class LectureRepositoryTest {
 
 	private @InjectMocks com.orangecandle.repository.Lecture repository;
 
-	private User first, second, third, fourth;
 	private Lecture lectureOne, lectureTwo, lectureThree, lectureFour;
 
 	@Before
@@ -45,24 +44,10 @@ public class LectureRepositoryTest {
 		em=Mockito.mock(EntityManager.class);
 		repository=Mockito.mock(com.orangecandle.repository.Lecture.class);
 		
-		lectureOne =Mockito.mock(Lecture.class);
-		lectureTwo =Mockito.mock(Lecture.class);
+		lectureOne = Mockito.mock(Lecture.class);
+		lectureTwo = Mockito.mock(Lecture.class);
 		lectureThree = Mockito.mock(Lecture.class);
 		lectureFour =Mockito.mock(Lecture.class);
-		
-		first=new User();
-		second=new User();
-		third=new User();
-		fourth=new User();
-
-		first.setUserName("kasım");
-		second.setUserName("ayşe");
-		third.setUserName("körebe");
-		fourth.setUserName("Çekoslovakyalılaştıramadıklarımızdan");
-
-		lectureOne.addLecturer(first);
-		lectureOne.addLecturer(second);
-		lectureThree.addLecturer(fourth);
 
 		adminRole = Role.Administrator;
 
@@ -74,19 +59,10 @@ public class LectureRepositoryTest {
 		when(repository.save(lectureOne)).thenReturn(lectureOne);
 		when(repository.save(lectureTwo)).thenReturn(lectureTwo);
 		when(repository.save(lectureThree)).thenReturn(lectureThree);
-		when(repository.saveAndFlush(lectureFour)).thenReturn(lectureFour);
+		repository.saveAndFlush(lectureFour);
+		repository.flush();
 		
-		// is lecture not null?
-		assertThat(lectureOne, is(notNullValue()));
-		assertThat(lectureTwo, is(notNullValue()));
-		assertThat(lectureThree, is(notNullValue()));
-		assertThat(lectureFour, is(notNullValue()));
-
-		// is lecture added in repository?
-		assertThat(repository.exists(lectureOne.getLectureName()), is(true));
-		assertThat(repository.exists(lectureTwo.getLectureName()), is(true));
-		assertThat(repository.exists(lectureThree.getLectureName()), is(true));
-		assertThat(repository.exists(lectureFour.getLectureName()), is(true));
+		
 	}
 
 	@Test
@@ -107,7 +83,7 @@ public class LectureRepositoryTest {
 	@Test
 	public void testCreationLectureRead() {
 		flushTestLecture();
-		Lecture foundLecture = repository.findOne(lectureOne.getLectureCode());
+		Lecture foundLecture = repository.findOne(lectureOne.getId());
 
 		assertThat(lectureOne.getLectureCode(), is(foundLecture));
 	}
@@ -117,7 +93,7 @@ public class LectureRepositoryTest {
 
 		flushTestLecture();
 		// Is accept to be not found entity?
-		assertThat(repository.findOne("küçük"), is(nullValue()));
+		assertThat(repository.findOne(lectureFour.getId()), is(nullValue()));
 	}
 
 	@Test
@@ -158,7 +134,7 @@ public class LectureRepositoryTest {
 	public void testUpdateLectureCode() {
 
 		flushTestLecture();
-		String strr = lectureOne.getLectureCode();
+		Long strr = lectureOne.getId();
 		Lecture foundLecture = Mockito.mock(Lecture.class);
 		when(repository.findOne(strr)).thenReturn(foundLecture);
 		foundLecture.setLectureName("Schlicht");
@@ -184,6 +160,23 @@ public class LectureRepositoryTest {
 		assertThat(result.get(2), is(lectureTwo));
 		assertThat(result.get(1), is(lectureThree));
 		assertThat(result.get(3), is(lectureFour));
+	}
+	@Test
+	public void testLectureNull(){
+		// is lecture not null?
+		assertThat(lectureOne, is(notNullValue()));
+		assertThat(lectureTwo, is(notNullValue()));
+		assertThat(lectureThree, is(notNullValue()));
+		assertThat(lectureFour, is(notNullValue()));
+	}
+	
+	@Test
+	public void testExist(){
+		// is lecture added in repository?
+		assertThat(repository.exists(lectureOne.getId()), is(true));
+		assertThat(repository.exists(lectureTwo.getId()), is(true));
+		assertThat(repository.exists(lectureThree.getId()), is(true));
+		assertThat(repository.exists(lectureFour.getId()), is(true));
 	}
 
 }

@@ -88,20 +88,20 @@ public class UserRepositoryTest {
 		//first=repository.save(first);
 		when(repository.save(first)).thenReturn(first);
 		when(repository.save(second)).thenReturn(second);
-		when(repository.save(third)).thenReturn(third);
-		when(repository.saveAndFlush(fourth)).thenReturn(fourth);
+		when(repository.saveAndFlush(third)).thenReturn(third);
+		//when(repository.saveAndFlush(fourth)).thenReturn(fourth);
 
 		// is user name not null?
 		assertThat(first, is(notNullValue()));
 		assertThat(second, is(notNullValue()));
 		assertThat(third, is(notNullValue()));
-		assertThat(fourth, is(notNullValue()));
+		assertThat(fourth, is(nullValue()));
 
 		// is user added in repository?
-		assertThat(repository.exists(first.getUserName()), is(true));
-		assertThat(repository.exists(second.getUserName()), is(true));
-		assertThat(repository.exists(third.getUserName()), is(true));
-		assertThat(repository.exists(fourth.getUserName()), is(true));
+		assertThat(repository.exists(first.getId()), is(true));
+		assertThat(repository.exists(second.getId()), is(true));
+		assertThat(repository.exists(third.getId()), is(true));
+		assertThat(repository.exists(fourth.getId()), is(false));
 	}
 
 	@Test
@@ -123,9 +123,9 @@ public class UserRepositoryTest {
 	@Test
 	public void testCreationUserRead() {
 		flushTestUsers();
-		User foundUser = repository.findOne(first.getUserName());
+		User foundUser = repository.findOne(first.getId());
 
-		assertThat(first.getUserName(), is(foundUser));
+		assertThat(first.getId(), is(foundUser));
 	}
 
 	@Test
@@ -133,7 +133,7 @@ public class UserRepositoryTest {
 
 		flushTestUsers();
 		// Is accept to be not found entity?
-		assertThat(repository.findOne("küçük"), is(nullValue()));
+		assertThat(repository.findOne(fourth.getId()), is(nullValue()));
 	}
 
 	@Test
@@ -174,14 +174,14 @@ public class UserRepositoryTest {
 
 		flushTestUsers();
 		
-		String strr = first.getUserName();
+		Long strr = first.getId();
 		User foundPerson =Mockito.mock(User.class); 
 		when(repository.findOne(strr)).thenReturn(foundPerson);
 		foundPerson.setUserName("Schlicht");
 
 		User updatedPerson = repository.findOne(strr);
 		// update user name?
-		assertThat(updatedPerson.getUserName(), 
+		assertThat(updatedPerson.getId(), 
 				is(foundPerson));
 	}
 
@@ -199,17 +199,4 @@ public class UserRepositoryTest {
 		assertThat(result.get(2), is(fourth));
 		assertThat(result.get(3), is(third));
 	}
-
-	@Test
-	public void testUserHasAGroup() {
-		flushTestUsers();
-		// IS exist group?
-		assertThat(repository.exists(gfirst.getGroupName()), is(true));
-		assertThat(repository.exists(gsecond.getGroupName()), is(true));
-		assertThat(repository.exists(gthird.getGroupName()), is(true));
-		assertThat(repository.exists(gfourth.getGroupName()), is(true));
-		assertThat(repository.exists("kuantum"), is(false));
-
-	}
-
 }

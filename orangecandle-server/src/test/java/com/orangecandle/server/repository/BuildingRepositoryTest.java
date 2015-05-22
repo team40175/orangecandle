@@ -32,14 +32,14 @@ public class BuildingRepositoryTest {
 	@Test
 	public void updateTest(){
 		Building b=Mockito.mock(Building.class);
-		b.setBuildingName("building1");
+		b.setId(new Long(30));
 		when(repository.saveAndFlush(b)).thenReturn(b);
-		b.setBuildingName("delirdi");
+		b.setId(new Long(40));
 		
-		Building updatedBuilding = repository.findOne("delirdi");
+		Building updatedBuilding = repository.findOne(new Long(40));
 		// update user name?
 		assertThat(updatedBuilding, 
-				is(b.getBuildingName()));
+				is(b.getId()));
 	}
 		
 	

@@ -6,9 +6,7 @@ import org.junit.runners.Suite;
 
 import com.orangecandle.server.controller.LinkControllerTest;
 import com.orangecandle.server.controller.UserControllerTest;
-import com.orangecandle.server.filter.CorsFilterTest;
 import com.orangecandle.server.repository.BuildingRepositoryTest;
-import com.orangecandle.server.repository.ConstraintRepositoryTest;
 import com.orangecandle.server.repository.DepartmentRepositoryTest;
 import com.orangecandle.server.repository.FacultyRepositoryTest;
 import com.orangecandle.server.repository.GroupRepositoryTest;
@@ -23,10 +21,8 @@ import com.orangecandle.server.repository.UserRepositoryTest;
 @Suite.SuiteClasses({
 	LinkControllerTest.class,
 	UserControllerTest.class,
-	CorsFilterTest.class,
 	BuildingRepositoryTest.class,
 	DepartmentRepositoryTest.class,
-	ConstraintRepositoryTest.class,
 	FacultyRepositoryTest.class,
 	GroupRepositoryTest.class,
 	LectureRepositoryTest.class,
