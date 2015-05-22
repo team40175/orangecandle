@@ -5,7 +5,7 @@ Ext.application({
 			'OrangeCandle.form.Department', 'OrangeCandle.form.Faculty',
 			'OrangeCandle.form.Building' ],
 	views : [ 'Login', 'Main', 'ChangePassword', 'AddGroups', 'AddAccount',
-			'AddLesson', 'AddSchool', 'AddConstraints', 'AddClassroom' ],
+			'AddLesson', 'AddSchool', 'AddConstraints', 'AddClassroom','ViewLessons' ],
 	controllers : [ 'Login', 'Button', 'Submit' ],
 	models : [ 'Group', 'Role', 'xUser', 'Lecture', 'Room', 'School',
 			'Constraint', 'Buttons', 'Department', 'Faculty', 'Building',

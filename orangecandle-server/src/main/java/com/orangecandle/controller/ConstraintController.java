@@ -33,9 +33,10 @@ public class ConstraintController {
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public void add(@RequestParam(required = false) Long id,
-			@RequestParam String rooms, @RequestParam String users,
-			@RequestParam String lectures, @RequestParam String text,
-			HttpServletResponse response) throws IOException {
+			@RequestParam String name, @RequestParam String rooms,
+			@RequestParam String users, @RequestParam String lectures,
+			@RequestParam String text, HttpServletResponse response)
+			throws IOException {
 		Constraint c = new Constraint(text);
 		Constraint xconstraint = repo.findOne(id);
 		Writer w = response.getWriter();
@@ -46,6 +47,9 @@ public class ConstraintController {
 				&& (id == null || !id.equals(xconstraint.getId()))) {
 			json.toExtJSON(w, false, "Constraint already exists");
 		} else if (id == null) {
+			if (!"".equals(name)) {
+				c.addName(name);
+			}
 			if (!"".equals(lectures)) {
 				c.setLecture(lRepo.findOne(lecture));
 			}
@@ -59,6 +63,7 @@ public class ConstraintController {
 			json.toExtJSON(w, true, ".");
 		} else {
 			Constraint constraint = repo.getOne(id);
+			constraint.addName(name);
 			constraint.setLecture(lRepo.findOne(lecture));
 			constraint.setEvaluationString(text);
 			constraint.setUser(uRepo.findOne(user));

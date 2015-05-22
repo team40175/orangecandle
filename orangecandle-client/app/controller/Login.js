@@ -4,7 +4,8 @@ Ext.define('OrangeCandle.controller.Login', {
 		refs : {
 			loginView : 'loginview',
 			mainMenuView : 'mainmenuview',
-			logOff : 'navigationview button[action="logOff"]'
+			logOff : 'navigationview button[action="logOff"]',
+			showLessons : 'mainmenuview button[action="showSchedule"]'
 		},
 		control : {
 			loginView : {
@@ -15,7 +16,11 @@ Ext.define('OrangeCandle.controller.Login', {
 			},
 			'#changePass' : {
 				tap : 'changePassword'
+			},
+			'showLessons' : {
+				tap : 'scheduleShow'
 			}
+
 		}
 	},
 	onSignInCommand : function(view, username, password) {
@@ -56,6 +61,12 @@ Ext.define('OrangeCandle.controller.Login', {
 		var main = this.getMainMenuView();
 		main.push({
 			xtype : 'changepassword'
+		});
+	},
+	scheduleShow : function() {
+		var main = this.getMainMenuView();
+		main.push({
+			xtype : 'viewlessons'
 		});
 	},
 	onShow : function() {

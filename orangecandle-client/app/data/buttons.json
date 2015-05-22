@@ -160,14 +160,7 @@
         },{
             "xtype": "button",
             "text": "View Schedule",
-            "ref": {
-                "xtype": "list",
-                "itemTpl": "{schoolname} - {name}",
-                "store": "LessonSchedule"
-            },
-            "form": {
-                "xtype": "viewlessons"
-            }
+            "action":"showSchedule"
         }
     ],
     "All": [
