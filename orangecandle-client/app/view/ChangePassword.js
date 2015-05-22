@@ -9,16 +9,23 @@ Ext.define('OrangeCandle.view.ChangePassword', {
 		items : [ {
 			xtype : 'fieldset',
 			items : [ {
+				xtype : 'hiddenfield',
+				name : 'username',
+				getValue : function() {
+					return OrangeCandle.util.Auth.username;
+				}
+			}, {
 				xtype : 'passwordfield',
 				placeHolder : 'Old Password',
-				name : 'old'
+				name : 'oldPw'
 			}, {
 				xtype : 'passwordfield',
 				placeHolder : 'Enter New Password',
-				name : 'new'
+				name : 'newPw1'
 			}, {
 				xtype : 'passwordfield',
-				placeHolder : 'Re-enter New Password'
+				placeHolder : 'Re-enter New Password',
+				name : 'newPw2'
 			} ]
 		}, {
 			xtype : 'button',
@@ -28,21 +35,6 @@ Ext.define('OrangeCandle.view.ChangePassword', {
 			target : "user/changePassword",
 			itemId : "passwordSubmit"
 		} ]
-//,
-//		listeners : {
-//			beforesubmit : function() {
-//				var pass1 = Ext.ComponentQuery
-//						.query('changepassword passwordfield[name="new"]')[0]
-//						.getValue();
-//				var pass2 = Ext.ComponentQuery
-//						.query('changepassword passwordfield[name=null]')[0]
-//						.getValue();
-//				if (pass1 !== pass2) {
-//					Ext.Msg.alert('', 'Passwords do not match.', Ext.emptyFn);
-//				}
-//				return pass1 === pass2;
-//			}
-//		}
 	}
 
 });
