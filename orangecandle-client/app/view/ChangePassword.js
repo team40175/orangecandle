@@ -27,21 +27,22 @@ Ext.define('OrangeCandle.view.ChangePassword', {
 			docked : 'bottom',
 			target : "user/changePassword",
 			itemId : "passwordSubmit"
-		} ],
-		listeners : {
-			beforesubmit : function() {
-				var pass1 = Ext.ComponentQuery
-						.query('changepassword passwordfield[name="new"]')[0]
-						.getValue();
-				var pass2 = Ext.ComponentQuery
-						.query('changepassword passwordfield[name=null]')[0]
-						.getValue();
-				if (pass1 !== pass2) {
-					Ext.Msg.alert('', 'Passwords do not match.', Ext.emptyFn);
-				}
-				return pass1 === pass2;
-			}
-		}
+		} ]
+//,
+//		listeners : {
+//			beforesubmit : function() {
+//				var pass1 = Ext.ComponentQuery
+//						.query('changepassword passwordfield[name="new"]')[0]
+//						.getValue();
+//				var pass2 = Ext.ComponentQuery
+//						.query('changepassword passwordfield[name=null]')[0]
+//						.getValue();
+//				if (pass1 !== pass2) {
+//					Ext.Msg.alert('', 'Passwords do not match.', Ext.emptyFn);
+//				}
+//				return pass1 === pass2;
+//			}
+//		}
 	}
 
 });

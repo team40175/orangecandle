@@ -49,7 +49,7 @@ Ext.define('OrangeCandle.controller.Login', {
 	},
 	logOff : function() {
 		var login = this.getLoginView();
-		Ext.Viewport.removeAt(1);
+		Ext.Viewport.setActiveItem(0);
 		Ext.Msg.alert("", "You are logged off.", Ext.emptyFn);
 	},
 	changePassword : function() {
@@ -84,6 +84,7 @@ Ext.define('OrangeCandle.controller.Login', {
 				var mainView = Ext.Viewport.down('mainmenuview');
 				Ext.Viewport.setActiveItem(mainView);
 				mainView.getLayout().setAnimation(false);
+				mainView.down('panel').removeAll();
 				for ( var i in data) {
 					me.createButtons(mainView, data[i].id);
 				}
