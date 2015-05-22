@@ -17,7 +17,7 @@ Ext.define('OrangeCandle.view.AddSchool', {
 			} ]
 		}, {
 			xtype : 'button',
-			text : 'submit',
+			text : 'Save',
 			target : "school/add"
 		} ]
 	}

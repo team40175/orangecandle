@@ -33,7 +33,7 @@ Ext.define('OrangeCandle.view.AddLesson', {
 			store : 'Department'
 		}, {
 			xtype : 'button',
-			text : 'submit',
+			text : 'Save',
 			target : 'lecture/add'
 		} ]
 	}

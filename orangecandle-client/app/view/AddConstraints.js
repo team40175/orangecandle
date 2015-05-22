@@ -28,7 +28,7 @@ Ext.define('OrangeCandle.view.AddConstraints', {
 			} ]
 		}, {
 			xtype : 'button',
-			text : 'submit',
+			text : 'Save',
 			target : "constraint/add"
 		} ]
 	}

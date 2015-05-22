@@ -24,7 +24,7 @@ Ext.define('OrangeCandle.form.UserLecture', {
 			} ]
 		}, {
 			xtype : 'button',
-			text : 'submit',
+			text : 'Save',
 			target : "user/pickLectures"
 		} ]
 	}

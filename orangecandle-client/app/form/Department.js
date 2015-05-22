@@ -25,7 +25,7 @@ Ext.define('OrangeCandle.form.Department', {
 			store : 'Faculty'
 		}, {
 			xtype : 'button',
-			text : 'submit',
+			text : 'Save',
 			target : "department/add"
 		} ]
 	}

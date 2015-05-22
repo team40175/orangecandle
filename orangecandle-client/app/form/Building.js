@@ -24,7 +24,7 @@ Ext.define('OrangeCandle.form.Building', {
 			store : 'School'
 		}, {
 			xtype : 'button',
-			text : 'submit',
+			text : 'Save',
 			target : "building/add"
 		} ]
 	}

@@ -28,7 +28,7 @@ Ext.define('OrangeCandle.view.AddAccount', {
 			store : 'Group'
 		}, {
 			xtype : 'button',
-			text : 'submit',
+			text : 'Save',
 			target : "user/add"
 		} ]
 	}

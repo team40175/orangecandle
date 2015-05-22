@@ -20,7 +20,7 @@ Ext.define('OrangeCandle.form.AssignLecture', {
 			store : 'Lecture'
 		}, {
 			xtype : 'button',
-			text : 'submit',
+			text : 'Save',
 			target : "user/assignLectures"
 		} ]
 	}

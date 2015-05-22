@@ -26,7 +26,7 @@ Ext.define('OrangeCandle.view.AddGroups', {
 
 		}, {
 			xtype : 'button',
-			text : 'Submit',
+			text : 'Save',
 			target : "group/add"
 		} ]
 	}
