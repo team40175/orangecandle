@@ -19,13 +19,11 @@ public class Constraint implements Serializable {
 
 	private static final long serialVersionUID = -6615851401951635459L;
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
+	private @Column(name = "name") String name;
 	private @ManyToOne Lecture lecture;
 	private transient @ManyToMany List<User> users;
 	private transient @ManyToMany List<Room> rooms;
 	private @Column(name = "eval") String evaluationString;
-
-	public Constraint() {
-	}
 
 	public Constraint(String text) {
 		evaluationString = text;
@@ -47,8 +45,20 @@ public class Constraint implements Serializable {
 		this.evaluationString = ide;
 	}
 
+	public void setUser(User user) {
+		this.users.add(user);
+	}
+
 	public Lecture getLectures() {
 		return this.lecture;
+	}
+	
+	public void addName(String name) {
+		this.name = name;
+	}
+
+	public void setRoom(Room room) {
+		this.rooms.add(room);
 	}
 
 	public void setLecture(Lecture lec) {
