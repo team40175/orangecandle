@@ -3,7 +3,6 @@ package com.orangecandle.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -23,7 +22,6 @@ public class School implements Serializable {
 	private @Id @Column(name = "id") Long id;
 	private @Column(name = "name") String name;
 	private transient @OneToMany List<Faculty> faculties;
-	private @OneToMany List<Building> buildings;
 
 	public School() {
 	}
@@ -58,10 +56,4 @@ public class School implements Serializable {
 		return this.faculties;
 	}
 
-	public void addBuilding(Building... building) {
-		if (buildings == null) {
-			buildings = new LinkedList<Building>();
-		}
-		this.buildings.addAll(Arrays.asList(building));
-	}
 }

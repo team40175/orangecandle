@@ -15,7 +15,7 @@ Ext.define('OrangeCandle.view.AddLesson', {
 			}, {
 				xtype : 'textfield',
 				placeHolder : 'Code of the lecture',
-				name : 'lectureCode'
+				name : 'code'
 			}, {
 				xtype : 'textfield',
 				placeHolder : 'Name of the lecture',

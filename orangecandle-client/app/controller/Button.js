@@ -65,7 +65,9 @@ Ext.define('OrangeCandle.controller.Button', {
 						else {
 							var id = list.getSelection()[0].data.id;
 							var url = ref.store.toLowerCase() + '/remove';
-							me.deleteRecord(id, url);
+							me.deleteRecord(id, url, function() {
+								loadStores(button);
+							});
 						}
 					}
 				} ]
@@ -90,7 +92,7 @@ Ext.define('OrangeCandle.controller.Button', {
 				Ext.data.StoreManager.lookup(button.ref.extraStore).load();
 		}
 	},
-	deleteRecord : function(id, url) {
+	deleteRecord : function(id, url, callback) {
 		var mainView = this.getMainView();
 		Ext.Ajax.request({
 			url : OrangeCandle.util.Scalability.getApplicationServer(url),
@@ -100,6 +102,9 @@ Ext.define('OrangeCandle.controller.Button', {
 			success : function(response) {
 				var message = Ext.JSON.decode(response.responseText).message;
 				Ext.Msg.alert('', message, Ext.emptyFn);
+				if (callback) {
+					callback();
+				}
 			},
 			failure : function(form, response) {
 				var message = Ext.JSON.decode(response.responseText).message;

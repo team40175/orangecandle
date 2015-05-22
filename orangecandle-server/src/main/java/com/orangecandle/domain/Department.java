@@ -21,7 +21,6 @@ public class Department implements Serializable {
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
 	private @Column(name = "name") String name;
 	private transient @ManyToMany List<User> users;
-	private transient @ManyToMany List<Lecture> lectures;
 	private transient @ManyToMany List<Group> groups;
 	private transient @OneToMany List<Room> rooms;
 
@@ -46,16 +45,6 @@ public class Department implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<Lecture> getLectures() {
-		return this.lectures;
-	}
-
-	public void addLecture(Lecture lec) {
-		if (this.lectures.isEmpty())
-			this.lectures = new ArrayList<Lecture>();
-		this.lectures.add(lec);
 	}
 
 	public List<User> getUsers() {

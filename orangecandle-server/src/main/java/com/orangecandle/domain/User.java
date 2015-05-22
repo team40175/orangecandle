@@ -54,6 +54,10 @@ public class User implements UserDetails {
 		groups.add(g);
 	}
 
+	public void removeAllGroups() {
+		groups = new ArrayList<Group>();
+	}
+
 	public List<Group> getGroups() {
 		return groups;
 	}

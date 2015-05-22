@@ -8,7 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface Lecture extends
 		JpaRepository<com.orangecandle.domain.Lecture, Long> {
-	public com.orangecandle.domain.Lecture findByCode(String code);
+	public com.orangecandle.domain.Lecture findByCodeAndDepartment(String code,
+			com.orangecandle.domain.Department department);
 
 	@Query("select u.takenLectures from User u where u.username = :username")
 	public List<com.orangecandle.domain.Lecture> findTakenLecturesOf(

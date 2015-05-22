@@ -2,7 +2,6 @@ package com.orangecandle.controller;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,37 +20,46 @@ public class LectureController {
 	private @Autowired com.orangecandle.repository.Lecture repo;
 	private @Autowired com.orangecandle.repository.Department departmentRepo;
 	private @Autowired JsonService json;
+	private @Autowired MainController mainController;
 
 	@RequestMapping(value = "/add")
-	public void add(@RequestParam String lectureCode,
+	public void add(@RequestParam Long id, @RequestParam String code,
 			@RequestParam String name, @RequestParam String description,
 			@RequestParam String department, HttpServletResponse response)
 			throws IOException {
 		try (Writer w = response.getWriter()) {
 			if ("[]".equals(department)) {
 				json.toExtJSON(w, false, "You need to select a department");
-			} else if (null == repo.findByCode(lectureCode)) {
-				Lecture lecture = new Lecture(lectureCode, name, description);
-				Department dept = departmentRepo.findOne(json.fromJson(
-						department, Long[].class)[0]);
-				dept.addLecture(lecture);
-				departmentRepo.save(dept);
+				return;
+			}
+			Department dept = departmentRepo.findOne(json.fromJson(department,
+					Long[].class)[0]);
+			Lecture xLecture = repo.findByCodeAndDepartment(code, dept);
+			if (xLecture != null
+					&& (id == null || !id.equals(xLecture.getId()))) {
+				json.toExtJSON(w, false, "Lecture with code " + code
+						+ " already exists in department " + dept.getName());
+			} else if (id == null) {
+				Lecture lecture = new Lecture(code, name, description);
+				lecture.setDepartment(dept);
 				repo.save(lecture);
-				json.toExtJSON(w, true, "Lecture with code " + lectureCode
+				json.toExtJSON(w, true, "Lecture with code " + code
 						+ " and name " + name + " is added");
 			} else {
-				json.toExtJSON(w, false, "Lecture with code " + lectureCode
-						+ " already exists");
+				Lecture lecture = repo.findOne(id);
+				lecture.setDepartment(dept);
+				repo.save(lecture);
+				json.toExtJSON(w, true, "Lecture edited successfully");
 			}
 		}
 	}
 
 	@RequestMapping(value = "/findAll")
-	public void findAll(@RequestParam(required = false) String username,
+	public void findAll(@RequestParam(required = false) Long id,
+			@RequestParam(required = false) String username,
 			HttpServletResponse response) throws IOException {
-		List<Lecture> all = repo.findAll();
 		if (username == null) {
-			json.toExtJSON(response.getWriter(), true, "", all);
+			mainController.findAll(id, "lecture", response);
 		} else {
 			json.toExtJSON(response.getWriter(), true, "",
 					repo.findTakenLecturesOf(username));

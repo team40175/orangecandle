@@ -24,21 +24,28 @@ public class BuildingController {
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void addingUser(@RequestParam String name,
+	public void addingUser(@RequestParam Long id, @RequestParam String name,
 			@RequestParam String schools, HttpServletResponse response)
 			throws IOException {
 		Writer w = response.getWriter();
 		if ("[]".equals(schools)) {
 			json.toExtJSON(w, false, "You need to select a school.");
-		} else {
+		} else if (id == null) {
 			Building building = new Building(name);
 			School school = schoolRepo.findOne(json.fromJson(schools,
 					Long[].class)[0]);
-			school.addBuilding(building);
-			schoolRepo.save(school);
+			building.setSchool(school);
 			repo.save(building);
 			json.toExtJSON(w, true, "Building with name " + name + " added to "
 					+ school.getName());
+		} else {
+			Building building = repo.findOne(id);
+			building.setName(name);
+			School school = schoolRepo.findOne(json.fromJson(schools,
+					Long[].class)[0]);
+			building.setSchool(school);
+			repo.save(building);
+			json.toExtJSON(w, true, "Building edited successfully.");
 		}
 	}
 }

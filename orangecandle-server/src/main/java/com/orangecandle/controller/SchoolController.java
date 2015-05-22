@@ -22,15 +22,21 @@ public class SchoolController {
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void add(@RequestParam String name, HttpServletResponse response)
-			throws IOException {
+	public void add(@RequestParam Long id, @RequestParam String name,
+			HttpServletResponse response) throws IOException {
 		Writer w = response.getWriter();
-		if (repo.findByName(name) == null) {
-			repo.save(new School(name));
-			json.toExtJSON(w, true, "School with name " + name + " is added");
-		} else {
+		School xSchool = repo.findByName(name);
+		if (null != xSchool && (id == null || !id.equals(xSchool.getId()))) {
 			json.toExtJSON(w, false, "School with name " + name
-					+ " already exists");
+					+ " already exists.");
+		} else if (id == null) {
+			repo.save(new School(name));
+			json.toExtJSON(w, true, "School with name " + name + " is added.");
+		} else {
+			School school = repo.findOne(id);
+			school.setName(name);
+			repo.save(school);
+			json.toExtJSON(w, true, "School edited successfully.");
 		}
 	}
 }

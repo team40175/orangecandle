@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,6 +24,7 @@ public class Lecture implements Serializable {
 	private @Column(name = "code") String code;
 	private @Column(name = "name") String name;
 	private @Column String description;
+	private @ManyToOne Department department;
 	private transient @ManyToMany List<User> lecturers;
 	private transient @OneToMany List<Constraint> constraints;
 
@@ -68,5 +70,13 @@ public class Lecture implements Serializable {
 
 	public List<User> getLecturers() {
 		return lecturers;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 }

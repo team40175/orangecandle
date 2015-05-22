@@ -51,30 +51,39 @@ public class UserController {
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void add(@RequestParam String username, @RequestParam String groups,
-			HttpServletResponse response) throws IOException {
+	public void add(@RequestParam Long id, @RequestParam String username,
+			@RequestParam String groups, HttpServletResponse response)
+			throws IOException {
 		Writer w = response.getWriter();
-		if (null == repo.findByUsername(username)) {
+		User xuser = repo.findByUsername(username);
+		if (null != xuser && (id == null || !id.equals(xuser.getId()))) {
+			json.toExtJSON(w, false, "User already exists");
+		} else if ("[]".equals(groups)) {
+			json.toExtJSON(w, false, "You need to select at least one group");
+		} else if (id == null) {
 			User user = new User(username);
 			String randomPassword = UUID.randomUUID().toString()
 					.substring(0, 8);
 			user.setPassword(randomPassword);
-			if ("[]".equals(groups)) {
-				json.toExtJSON(w, false,
-						"You need to select at least one group");
-			} else {
-				for (Long groupName : json.fromJson(groups, Long[].class)) {
-					Group group = groupRepo.findOne(groupName);
-					group.addUser(user);
-					user.addGroup(group);
-				}
-				repo.saveAndFlush(user);
-
-				json.toExtJSON(w, true, "User with username " + username
-						+ " is created with password " + randomPassword);
+			for (Long groupName : json.fromJson(groups, Long[].class)) {
+				Group group = groupRepo.findOne(groupName);
+				group.addUser(user);
+				user.addGroup(group);
 			}
+			repo.saveAndFlush(user);
+			json.toExtJSON(w, true, "User with username " + username
+					+ " is created with password " + randomPassword);
 		} else {
-			json.toExtJSON(w, false, "User already exists");
+			User user = repo.getOne(id);
+			user.setUserName(username);
+			user.removeAllGroups();
+			for (Long groupName : json.fromJson(groups, Long[].class)) {
+				Group group = groupRepo.findOne(groupName);
+				group.addUser(user);
+				user.addGroup(group);
+			}
+			repo.save(user);
+			json.toExtJSON(w, true, "User edited successfully.");
 		}
 	}
 
