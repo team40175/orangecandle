@@ -4,6 +4,7 @@ Ext.define('OrangeCandle.view.AddConstraints', {
 	requires : [ 'Ext.form.FieldSet' ],
 	config : {
 		scrollable : 'false',
+		layout : 'vbox',
 		items : [ {
 			xtype : 'fieldset',
 			items : [ {
@@ -13,12 +14,22 @@ Ext.define('OrangeCandle.view.AddConstraints', {
 				xtype : 'textfield',
 				placeHolder : 'Constraints:',
 				name : 'text',
+			}, {
+				xtype : 'textfield',
+				placeHolder : 'Name of the Constraint:',
+				name : 'name',
+			}, {
+				xtype : 'hiddenfield',
+				name : 'username',
+				getValue : function() {
+					return OrangeCandle.util.Auth.username;
+				}
 			}, ]
 		}, {
 			xtype : 'list',
 			name : 'users',
 			flex : 1,
-			itemTpl : '{name}',
+			itemTpl : '{username}',
 			store : 'xUser'
 		}, {
 			xtype : 'list',

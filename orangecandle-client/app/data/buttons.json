@@ -157,6 +157,10 @@
                 "xtype": "userlecture",
                 "editable": false
             }
+        },{
+            "xtype": "button",
+            "text": "View Schedule",
+            "action":"showSchedule"
         }
     ],
     "All": [

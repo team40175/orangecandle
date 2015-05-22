@@ -1,6 +1,6 @@
 Ext.define('OrangeCandle.view.ViewLessons', {
 	extend : 'Ext.form.Panel',
-	xtype : "viewlessons",
+	alias : 'widget.viewlessons',
 	requires : [ 'Ext.form.Panel', 'Ext.form.FieldSet' ],
 	config : {
 		layout : 'card',
