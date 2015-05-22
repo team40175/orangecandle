@@ -29,7 +29,7 @@ Ext.define('OrangeCandle.controller.Submit', {
 				});
 			},
 			failure : function(form, result) {
-				Ext.Msg.alert('',result.message,Ext.emptyFn);
+				Ext.Msg.alert('', result.message, Ext.emptyFn);
 			}
 		};
 
