@@ -10,6 +10,7 @@ import java.util.TreeSet;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,10 +53,6 @@ public class UserController {
 			RequestMethod.POST })
 	public void add(@RequestParam String username, @RequestParam String groups,
 			HttpServletResponse response) throws IOException {
-		response.addHeader("Access-Control-Allow-Origin", "*");
-		response.addHeader("Access-Control-Allow-Headers",
-				"Origin, X-Requested-With, Content-Type, Accept");
-
 		Writer w = response.getWriter();
 		if (null == repo.findByUsername(username)) {
 			User user = new User(username);
@@ -143,10 +140,24 @@ public class UserController {
 				"Fetching of roles is successful", result);
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.OPTIONS)
-	public void add(HttpServletResponse response) throws IOException {
-		response.addHeader("Access-Control-Allow-Origin", "*");
-		response.addHeader("Access-Control-Allow-Headers",
-				"Origin, X-Requested-With, Content-Type, Accept");
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	public void changePassword(@RequestParam String oldPw,
+			@RequestParam String newPw1, @RequestParam String newPw2,
+			@RequestParam String username, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		Writer w = response.getWriter();
+		if (newPw1 == null || !newPw1.equals(newPw2)) {
+			json.toExtJSON(w, false, "New passwords are not equal");
+		} else {
+			User user = repo.findByUsername(username);
+			String pw = user.getPassword();
+			if (!pw.equals(oldPw)) {
+				json.toExtJSON(w, false, "Your password isn't correct");
+			} else {
+				user.setPassword(newPw1);
+				repo.save(user);
+				json.toExtJSON(w, true, "Your password is changed successfully");
+			}
+		}
 	}
 }
