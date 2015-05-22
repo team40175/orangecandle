@@ -3,6 +3,7 @@ Ext.define('OrangeCandle.view.Main', {
 	alias : 'widget.mainmenuview',
 	requires : [ 'Ext.TitleBar' ],
 	config : {
+		ui : 'plain',
 		navigationBar : {
 			docked : 'top',
 			items : [ {

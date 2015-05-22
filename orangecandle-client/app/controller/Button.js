@@ -34,6 +34,7 @@ Ext.define('OrangeCandle.controller.Button', {
 				docked : 'bottom',
 				items : [ {
 					iconCls : 'add',
+					ui : 'plain',
 					hidden : !button.form,
 					flex : 1,
 					handler : function() {
@@ -41,6 +42,7 @@ Ext.define('OrangeCandle.controller.Button', {
 					}
 				}, {
 					iconCls : 'compose',
+					ui : 'plain',
 					hidden : !button.form || button.form.editable === false,
 					flex : 1,
 					handler : function() {
@@ -56,6 +58,7 @@ Ext.define('OrangeCandle.controller.Button', {
 					}
 				}, {
 					iconCls : 'delete',
+					ui : 'plain',
 					hidden : button.ref.indelible,
 					flex : 1,
 					handler : function() {

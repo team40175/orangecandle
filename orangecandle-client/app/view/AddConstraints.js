@@ -39,7 +39,7 @@ Ext.define('OrangeCandle.view.AddConstraints', {
 			store : 'Lecture'
 		}, {
 			xtype : 'list',
-			name : 'classrooms',
+			name : 'rooms',
 			flex : 1,
 			itemTpl : '{name}',
 			store : 'Room'
