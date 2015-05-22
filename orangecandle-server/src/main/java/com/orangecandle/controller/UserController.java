@@ -59,21 +59,23 @@ public class UserController {
 		Writer w = response.getWriter();
 		if (null == repo.findByUsername(username)) {
 			User user = new User(username);
-			String randomPassword = UUID.randomUUID().toString();
+			String randomPassword = UUID.randomUUID().toString()
+					.substring(0, 8);
 			user.setPassword(randomPassword);
 			if ("[]".equals(groups)) {
 				json.toExtJSON(w, false,
 						"You need to select at least one group");
-			}
-			for (Long groupName : json.fromJson(groups, Long[].class)) {
-				Group group = groupRepo.findOne(groupName);
-				group.addUser(user);
-				user.addGroup(group);
-			}
-			repo.saveAndFlush(user);
+			} else {
+				for (Long groupName : json.fromJson(groups, Long[].class)) {
+					Group group = groupRepo.findOne(groupName);
+					group.addUser(user);
+					user.addGroup(group);
+				}
+				repo.saveAndFlush(user);
 
-			json.toExtJSON(w, true, "User with username " + username
-					+ " is created with password " + randomPassword);
+				json.toExtJSON(w, true, "User with username " + username
+						+ " is created with password " + randomPassword);
+			}
 		} else {
 			json.toExtJSON(w, false, "User already exists");
 		}

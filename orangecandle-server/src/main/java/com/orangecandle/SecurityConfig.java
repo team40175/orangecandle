@@ -19,8 +19,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configureGlobal(AuthenticationManagerBuilder auth)
 			throws Exception {
 		auth.userDetailsService(logonService);
-		// auth.inMemoryAuthentication().withUser("a").password("a")
-		// .authorities("USER");
 	}
 
 	@Override
@@ -32,5 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().anyRequest().authenticated().and().httpBasic()
 				.and().csrf().disable();
+		// .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 }

@@ -43,6 +43,12 @@ public class JsonService {
 	}
 
 	public String toExtJSON(boolean success, String message, Object... data) {
+		// JsonObject result = new JsonObject();
+		// result.addProperty("success", success);
+		// result.addProperty("message", message);
+		// result.addProperty("data", toJson(data.length == 1 ? data[0] :
+		// data));
+		// return result.toString();
 		return "{\"success\":" + success + ",\"message\":\"" + message
 				+ "\", \"data\":" + toJson(data.length == 1 ? data[0] : data)
 				+ "}";

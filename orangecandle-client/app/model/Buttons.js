@@ -14,7 +14,7 @@ Ext.define('OrangeCandle.model.Buttons', {
 			name : 'Student',
 			type : 'auto'
 		}, {
-			name : 'ForAll',
+			name : 'All',
 			type : 'auto'
 		} ]
 	}

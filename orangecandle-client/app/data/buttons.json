@@ -158,7 +158,7 @@
             }
         }
     ],
-    "ForAll": [
+    "All": [
 		{
 				"xtype" : "button",
 				"text" : "ChangePassword",
