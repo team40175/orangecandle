@@ -21,7 +21,7 @@ public class Room implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private @Id @Column(name = "id") Long id;
 	private @Column String name;
-	private @Column(name = "sizeof") Long size;
+	private @Column Integer size;
 	private transient @ManyToMany List<Lecture> lecture;
 	private @ManyToOne Building building;
 
@@ -32,11 +32,16 @@ public class Room implements Serializable {
 		this.name = name;
 	}
 
-	public void setSize(Long size) {
+	public Room(Integer size, String name) {
+		this.size = size;
+		this.name = name;
+	}
+
+	public void setSize(Integer size) {
 		this.size = size;
 	}
 
-	public Long getSize() {
+	public Integer getSize() {
 		return size;
 	}
 

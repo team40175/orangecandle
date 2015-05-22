@@ -1,4 +1,4 @@
-package java.com.generation;
+package com.orangecandle.generation;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -110,7 +110,7 @@ public class Population {
 
 	public void fitness() {
 		for(int i=0;i<population_size;i++){
-			population.get(i).fitness=population.get(i).calculateFitness();
+			population.get(i).fitnessValue=population.get(i).calculateFitness();
 		}
 	}
 
@@ -177,7 +177,7 @@ public class Population {
 		for(int i=0;i<mutantSize;i++ ){
 			random=(int) (Math.random()*population_size);
 			
-			newJeneration.get(random).mutation();
+			newJeneration.get(random).mutate();
 		}		
 	}
 	
@@ -203,7 +203,7 @@ public class Population {
 		//descending sort
 		Collections.sort(population,new Comparator<Individual>(){
             public int compare(Individual s1,Individual s2){
-				return s2.fitness-s1.fitness;
+				return s2.fitnessValue-s1.fitnessValue;
             }});
 		
 	}

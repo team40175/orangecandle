@@ -26,6 +26,7 @@ public class User implements UserDetails {
 	private @Id @Column(name = "id") Long id;
 	private @Column(name = "username") String username;
 	private @Column(name = "password") String password;
+	private @Column boolean isPartTime = false;
 	private @ManyToMany List<Group> groups;
 	private transient @ManyToMany List<Constraint> constraints;
 	private @ManyToMany List<Lecture> takenLectures;
@@ -34,8 +35,14 @@ public class User implements UserDetails {
 	public User() {
 	}
 
-	public User(String userName) {
-		this.username = userName;
+	public User(String username) {
+		this.username = username;
+	}
+
+	public User(String username, ArrayList<Lecture> lectures, boolean isPartTime) {
+		this.username = username;
+		this.isPartTime = isPartTime;
+		assignLectures(lectures);
 	}
 
 	public void addConstraint(Constraint c) {
@@ -132,5 +139,20 @@ public class User implements UserDetails {
 			assignedLectures = new LinkedList<Lecture>();
 		}
 		assignedLectures.addAll(Arrays.asList(lectures));
+	}
+
+	public void assignLectures(List<Lecture> lectures) {
+		if (assignedLectures == null) {
+			assignedLectures = new LinkedList<Lecture>();
+		}
+		assignedLectures.addAll(lectures);
+	}
+
+	public boolean isPartTime() {
+		return isPartTime;
+	}
+
+	public void setPartTime(boolean isPartTime) {
+		this.isPartTime = isPartTime;
 	}
 }

@@ -25,6 +25,9 @@ public class Lecture implements Serializable {
 	private @Column(name = "name") String name;
 	private @Column String description;
 	private @ManyToOne Department department;
+	private @Column Boolean mandatory;
+	private @Column Integer year;
+	private @Column Integer credit;
 	private transient @ManyToMany List<User> lecturers;
 	private transient @OneToMany List<Constraint> constraints;
 
@@ -48,6 +51,15 @@ public class Lecture implements Serializable {
 		this.code = code;
 		this.name = name;
 		this.description = description;
+	}
+
+	public Lecture(String code, String name, boolean mandatory, int year,
+			int credit) {
+		this.code = code;
+		this.name = name;
+		this.mandatory = mandatory;
+		this.year = year;
+		this.credit = credit;
 	}
 
 	public String getLectureName() {
