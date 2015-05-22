@@ -8,10 +8,11 @@ Ext.application({
 			'AddLesson', 'AddSchool', 'AddConstraints', 'AddClassroom' ],
 	controllers : [ 'Login', 'Button', 'Submit' ],
 	models : [ 'Group', 'Role', 'xUser', 'Lecture', 'Room', 'School',
-			'Constraint', 'Buttons', 'Department', 'Faculty', 'Building' ],
+			'Constraint', 'Buttons', 'Department', 'Faculty', 'Building',
+			'LessonSchedule' ],
 	stores : [ 'Group', 'Role', 'xUser', 'Lecture', 'Room', 'School',
 			'Constraint', 'UserLecture', 'Buttons', 'Teacher', 'Department',
-			'Faculty', 'Building' ],
+			'Faculty', 'Building', 'LessonSchedule' ],
 	// forms : [ 'UserLecture' ],
 	icon : {
 		'57' : 'resources/icons/Icon.png',
