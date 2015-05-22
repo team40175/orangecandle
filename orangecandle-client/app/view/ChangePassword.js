@@ -16,15 +16,15 @@ Ext.define('OrangeCandle.view.ChangePassword', {
 				}
 			}, {
 				xtype : 'passwordfield',
-				placeHolder : 'Old Password',
+				placeHolder : 'Old password',
 				name : 'oldPw'
 			}, {
 				xtype : 'passwordfield',
-				placeHolder : 'Enter New Password',
+				placeHolder : 'Enter new password',
 				name : 'newPw1'
 			}, {
 				xtype : 'passwordfield',
-				placeHolder : 'Re-enter New Password',
+				placeHolder : 'Re-enter new password',
 				name : 'newPw2'
 			} ]
 		}, {

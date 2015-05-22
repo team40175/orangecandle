@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 @Table(name = "xuser")
@@ -85,8 +86,8 @@ public class User implements UserDetails {
 		return auths;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(PasswordEncoder encoder, String password) {
+		this.password = encoder.encode(password);
 	}
 
 	@Override
@@ -154,5 +155,9 @@ public class User implements UserDetails {
 
 	public void setPartTime(boolean isPartTime) {
 		this.isPartTime = isPartTime;
+	}
+
+	public List<Lecture> getTakenLectures() {
+		return takenLectures;
 	}
 }

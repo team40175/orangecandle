@@ -19,7 +19,7 @@ Ext.define('OrangeCandle.form.UserLecture', {
 				xtype : 'hiddenfield',
 				name : 'username',
 				getValue : function() {
-					return OrangeCandle.util.Auth.username;
+					return OrangeCandle.util.Auth.getUsername();
 				}
 			} ]
 		}, {

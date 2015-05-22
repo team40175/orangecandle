@@ -4,6 +4,12 @@ Ext.define('OrangeCandle.model.Department', {
 		fields : [ {
 			name : 'name',
 			type : 'string'
+		}, {
+			name : 'facultyname',
+			mapping : 'faculty.name'
+		}, {
+			name : 'schoolname',
+			mapping : 'faculty.school.name'
 		} ]
 	}
 });

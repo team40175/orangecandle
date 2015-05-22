@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,10 +29,11 @@ import com.orangecandle.service.JsonService;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	private @Autowired JsonService json;
+	private @Autowired BCryptPasswordEncoder encoder;
 	private @Autowired com.orangecandle.repository.User repo;
 	private @Autowired com.orangecandle.repository.Group groupRepo;
 	private @Autowired com.orangecandle.repository.Lecture lectureRepo;
-	private @Autowired JsonService json;
 
 	@PostConstruct
 	public void createDefaults() {
@@ -42,7 +44,7 @@ public class UserController {
 			groupRepo.save(g);
 			if (repo.findByUsername("admin") == null) {
 				User u = new User("admin");
-				u.setPassword("pass");
+				u.setPassword(encoder, "pass");
 				u.addGroup(g);
 				repo.save(u);
 			}
@@ -64,7 +66,7 @@ public class UserController {
 			User user = new User(username);
 			String randomPassword = UUID.randomUUID().toString()
 					.substring(0, 8);
-			user.setPassword(randomPassword);
+			user.setPassword(encoder, randomPassword);
 			for (Long groupName : json.fromJson(groups, Long[].class)) {
 				Group group = groupRepo.findOne(groupName);
 				group.addUser(user);
@@ -166,7 +168,7 @@ public class UserController {
 			if (!pw.equals(oldPw)) {
 				json.toExtJSON(w, false, "Your password isn't correct");
 			} else {
-				user.setPassword(newPw1);
+				user.setPassword(encoder, newPw1);
 				repo.save(user);
 				json.toExtJSON(w, true, "Your password is changed successfully");
 			}

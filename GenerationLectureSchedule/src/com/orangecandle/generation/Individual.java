@@ -9,31 +9,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.orangecandle.generationdata.LectureData;
-import com.orangecandle.generationdata.LecturerData;
-import com.orangecandle.generationdata.RoomData;
-import com.orangecandle.generationdata.StudentData;
+import com.orangecandle.domain.Lecture;
+import com.orangecandle.domain.User;
 
 public class Individual {
 	private @Autowired Fitness fitness;
 	private @Autowired GenerationConstants constants;
-	private @Autowired LectureData lData;
-	private @Autowired LecturerData lrData;
-	private @Autowired StudentData sData;
-	private @Autowired RoomData rData;
+	private @Autowired com.orangecandle.repository.User users;
 	ArrayList<Gene> genePool = new ArrayList<Gene>();
 	int fitnessValue = 0;
 
 	private static final Logger log = LoggerFactory.getLogger(Individual.class);
 
 	public Individual() {
-		sData.generate();
-		lData.generate();
-		rData.generate();
-		lrData.generate();
-		for (int i = 0; i < constants.geneLength(); i++) {
-			Gene genetic = new Gene();
-			genePool.add(i, genetic);
+		for (User u : users.findAll()) {
+			for (Lecture l : u.getTakenLectures()) {
+				Gene genetic = new Gene(l, u);
+				genePool.add(genetic);
+			}
 		}
 	}
 

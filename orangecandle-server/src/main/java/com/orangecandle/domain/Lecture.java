@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,10 +25,11 @@ public class Lecture implements Serializable {
 	private @Column(name = "code") String code;
 	private @Column(name = "name") String name;
 	private @Column String description;
-	private @ManyToOne Department department;
+	private @ManyToOne(cascade = CascadeType.ALL) Department department;
 	private @Column Boolean mandatory;
 	private @Column Integer year;
 	private @Column Integer credit;
+	private @Column Integer sections;
 	private transient @ManyToMany List<User> lecturers;
 	private transient @OneToMany List<Constraint> constraints;
 
@@ -90,5 +92,13 @@ public class Lecture implements Serializable {
 
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+
+	public Integer getSections() {
+		return sections;
+	}
+
+	public void setSections(Integer sections) {
+		this.sections = sections;
 	}
 }

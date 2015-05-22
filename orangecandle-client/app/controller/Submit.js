@@ -43,8 +43,7 @@ Ext.define('OrangeCandle.controller.Submit', {
 					continue;
 				values[j++] = selections[k].data.id;
 			}
-			eval('submitOpts.params.' + key
-					+ ' = \'[\'+values.toString()+\']\'');
+			submitOpts.params[key] = '[' + values + ']';
 		}
 
 		button.up('panel').submit(submitOpts);

@@ -5,7 +5,7 @@
             "text": "Lessons",
             "ref": {
                 "xtype": "list",
-                "itemTpl": "{name}",
+                "itemTpl": "{name}({schoolname})",
                 "store": "Lecture",
                 "extraStore": "Department"
             },
@@ -80,15 +80,6 @@
         },
         {
             "xtype": "button",
-            "text": "Roles",
-            "ref": {
-                "xtype": "list",
-                "indelible": true,
-                "itemTpl": "{name}",
-                "store": "Role"
-            }
-        },{
-            "xtype": "button",
             "text": "Assign Lectures",
             "ref": {
                 "xtype": "list",
@@ -104,7 +95,7 @@
             "text": "Faculties",
             "ref": {
                 "xtype": "list",
-                "itemTpl": "{name}",
+                "itemTpl": "{schoolname} - {name}",
                 "store": "Faculty",
                 "extraStore": "School"
             },
@@ -116,7 +107,7 @@
             "text": "Departments",
             "ref": {
                 "xtype": "list",
-                "itemTpl": "{name}",
+                "itemTpl": "{schoolname} - {facultyname} : {name}",
                 "store": "Department",
                 "extraStore": "Faculty"
             },
@@ -149,9 +140,7 @@
                 "store": "UserLecture",
                 "extraStore": "Lecture",
                 "alias": "Lecture",
-                "storeParams": {
-                    "username": "OrangeCandle.util.Auth.username"
-                }
+                "storeParams": {  }
             },
             "form": {
                 "xtype": "userlecture",

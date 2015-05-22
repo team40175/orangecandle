@@ -4,6 +4,9 @@ Ext.define('OrangeCandle.model.Lecture', {
 		fields : [ {
 			name : 'name',
 			type : 'string'
+		}, {
+			name : 'schoolname',
+			mapping : 'department.faculty.school.name'
 		} ]
 	}
 });

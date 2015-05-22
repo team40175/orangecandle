@@ -75,7 +75,11 @@ Ext.define('OrangeCandle.controller.Button', {
 		});
 	},
 	loadStores : function(button) {// todo:ref
+		var ref = button.ref
 		if (button.ref.store !== undefined) {
+			if (button.ref.storeParams) {
+				ref.storeParams.username = OrangeCandle.util.Auth.username
+			}
 			var mainStore = Ext.data.StoreManager.lookup(button.ref.store);
 			var extraParams = mainStore.getProxy().getExtraParams();
 			for ( var i in button.ref.storeParams) {
@@ -106,7 +110,7 @@ Ext.define('OrangeCandle.controller.Button', {
 					callback();
 				}
 			},
-			failure : function(form, response) {
+			failure : function(response) {
 				var message = Ext.JSON.decode(response.responseText).message;
 				Ext.Msg.alert('', message, Ext.emptyFn);
 			}

@@ -23,10 +23,13 @@ public class Constraint implements Serializable {
 	private @ManyToOne Lecture lecture;
 	private transient @ManyToMany List<User> users;
 	private transient @ManyToMany List<Room> rooms;
-	private @Column(name = "eval") String evaluationString;
+	private @Column(name = "eval") String text;
+
+	public Constraint() {
+	}
 
 	public Constraint(String text) {
-		evaluationString = text;
+		this.text = text;
 	}
 
 	public Long getId() {
@@ -38,26 +41,28 @@ public class Constraint implements Serializable {
 	}
 
 	public String getEvaluationString() {
-		return this.evaluationString;
+		return this.text;
 	}
 
 	public void setEvaluationString(String ide) {
-		this.evaluationString = ide;
+		this.text = ide;
 	}
 
 	public void setUser(User user) {
+		this.users = new ArrayList<User>();
 		this.users.add(user);
 	}
 
 	public Lecture getLectures() {
 		return this.lecture;
 	}
-	
-	public void addName(String name) {
+
+	public void setName(String name) {
 		this.name = name;
 	}
 
 	public void setRoom(Room room) {
+		this.rooms = new ArrayList<Room>();
 		this.rooms.add(room);
 	}
 
