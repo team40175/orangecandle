@@ -22,8 +22,9 @@ public class SchoolController {
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void add(@RequestParam Long id, @RequestParam String name,
-			HttpServletResponse response) throws IOException {
+	public void add(@RequestParam(required = false) Long id,
+			@RequestParam String name, HttpServletResponse response)
+			throws IOException {
 		Writer w = response.getWriter();
 		School xSchool = repo.findByName(name);
 		if (null != xSchool && (id == null || !id.equals(xSchool.getId()))) {

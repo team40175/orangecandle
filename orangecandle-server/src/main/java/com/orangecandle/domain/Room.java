@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +23,7 @@ public class Room implements Serializable {
 	private @Column String name;
 	private @Column(name = "sizeof") Long size;
 	private transient @ManyToMany List<Lecture> lecture;
+	private @ManyToOne Building building;
 
 	public Room() {
 	}
@@ -62,5 +64,13 @@ public class Room implements Serializable {
 		if (this.lecture == null)
 			this.lecture = new ArrayList<Lecture>();
 		this.lecture.add(lec);
+	}
+
+	public Building getBuilding() {
+		return building;
+	}
+
+	public void setBuilding(Building building) {
+		this.building = building;
 	}
 }

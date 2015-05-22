@@ -23,29 +23,34 @@ import com.orangecandle.service.JsonService;
 @Controller
 public class GroupController {
 	static final String URL = "/group";
-	private @Autowired com.orangecandle.repository.Group groupRep;
+	private @Autowired com.orangecandle.repository.Group repo;
 	private @Autowired com.orangecandle.repository.User userRep;
 	private @Autowired JsonService json;
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void addGroup(@RequestParam String name, @RequestParam String roles,
+	public void addGroup(@RequestParam(required = false) Long id,
+			@RequestParam String name, @RequestParam String roles,
 			HttpServletResponse response) throws IOException {
-		response.addHeader("Access-Control-Allow-Origin", "*");
-		response.addHeader("Access-Control-Allow-Headers",
-				"Origin, X-Requested-With, Content-Type, Accept");
 		try (Writer w = response.getWriter()) {
-			if (null == groupRep.findByName(name)) {
+			Group xGroup = repo.findByName(name);
+			if (null != xGroup && (id == null || !id.equals(xGroup.getId()))) {
+				json.toExtJSON(w, false, "Group already exists.");
+			} else if ("[]".equals(roles)) {
+				json.toExtJSON(w, false,
+						"You need to select at least one role.");
+			} else if (id == null) {
 				Group group = new Group(name);
-				if ("[]".equals(roles)) {
-					json.toExtJSON(w, false,
-							"You need to select at least one role");
-				}
 				group.setRoles(json.fromJson(roles, Role[].class));
-				groupRep.saveAndFlush(group);
-				json.toExtJSON(w, true, "Group with name " + name + " is added");
+				repo.saveAndFlush(group);
+				json.toExtJSON(w, true, "Group with name " + name
+						+ " is added.");
 			} else {
-				json.toExtJSON(w, false, "Group already exists");
+				Group group = repo.findOne(id);
+				group.setGroupName(name);
+				group.setRoles(json.fromJson(roles, Role[].class));
+				repo.saveAndFlush(group);
+				json.toExtJSON(w, true, "Group edited successfully.");
 			}
 		}
 	}
@@ -61,10 +66,10 @@ public class GroupController {
 	public void addUser(@RequestParam String userName,
 			@RequestParam String groupName, HttpServletResponse response)
 			throws IOException {
-		Group g = groupRep.findByName(groupName);
+		Group g = repo.findByName(groupName);
 		User u = userRep.findByUsername(userName);
 		g.addUser(u);
-		groupRep.save(g);
+		repo.save(g);
 	}
 
 	@RequestMapping(value = "/getRoles")

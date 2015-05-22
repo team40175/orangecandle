@@ -32,7 +32,8 @@
             "ref": {
                 "xtype": "list",
                 "itemTpl": "{name}",
-                "store": "Constraint"
+                "store": "Constraint",
+                "extraStore" :["xUser","Lecture","Room"]
             },
             "form": {
                 "xtype": "addconstraints"

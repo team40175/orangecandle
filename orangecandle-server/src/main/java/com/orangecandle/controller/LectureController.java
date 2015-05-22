@@ -23,10 +23,10 @@ public class LectureController {
 	private @Autowired MainController mainController;
 
 	@RequestMapping(value = "/add")
-	public void add(@RequestParam Long id, @RequestParam String code,
-			@RequestParam String name, @RequestParam String description,
-			@RequestParam String department, HttpServletResponse response)
-			throws IOException {
+	public void add(@RequestParam(required = false) Long id,
+			@RequestParam String code, @RequestParam String name,
+			@RequestParam String description, @RequestParam String department,
+			HttpServletResponse response) throws IOException {
 		try (Writer w = response.getWriter()) {
 			if ("[]".equals(department)) {
 				json.toExtJSON(w, false, "You need to select a department");

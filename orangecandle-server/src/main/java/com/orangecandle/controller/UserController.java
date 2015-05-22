@@ -51,9 +51,9 @@ public class UserController {
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void add(@RequestParam Long id, @RequestParam String username,
-			@RequestParam String groups, HttpServletResponse response)
-			throws IOException {
+	public void add(@RequestParam(required = false) Long id,
+			@RequestParam String username, @RequestParam String groups,
+			HttpServletResponse response) throws IOException {
 		Writer w = response.getWriter();
 		User xuser = repo.findByUsername(username);
 		if (null != xuser && (id == null || !id.equals(xuser.getId()))) {

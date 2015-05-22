@@ -13,19 +13,25 @@ Ext.define('OrangeCandle.view.AddConstraints', {
 				xtype : 'textfield',
 				placeHolder : 'Constraints:',
 				name : 'text',
-			}, {
-				xtype : 'textfield',
-				placeHolder : 'User',
-				name : 'userName',
-			}, {
-				xtype : 'textfield',
-				placeHolder : 'Lecture',
-				name : 'lectureCode',
-			}, {
-				xtype : 'textfield',
-				placeHolder : 'Classroom',
-				name : 'roomName',
-			} ]
+			}, ]
+		}, {
+			xtype : 'list',
+			name : 'users',
+			flex : 1,
+			itemTpl : '{name}',
+			store : 'xUser'
+		}, {
+			xtype : 'list',
+			name : 'lectures',
+			flex : 1,
+			itemTpl : '{name}',
+			store : 'Lecture'
+		}, {
+			xtype : 'list',
+			name : 'classrooms',
+			flex : 1,
+			itemTpl : '{name}',
+			store : 'Room'
 		}, {
 			xtype : 'button',
 			text : 'Save',

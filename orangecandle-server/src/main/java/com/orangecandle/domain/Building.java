@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,7 +23,6 @@ public class Building implements Serializable {
 	private @Column(name = "name") String name;
 	private @ManyToMany List<Department> departments;
 	private @ManyToMany List<Lecture> lectures;
-	private @OneToMany List<Room> rooms;
 	private @ManyToOne School school;
 
 	public Building() {
@@ -69,16 +67,6 @@ public class Building implements Serializable {
 		if (this.lectures == null)
 			this.lectures = new ArrayList<Lecture>();
 		this.lectures.add(lec);
-	}
-
-	public List<Room> getRoom() {
-		return this.rooms;
-	}
-
-	public void addRoom(Room lec) {
-		if (this.rooms == null)
-			this.rooms = new ArrayList<Room>();
-		this.rooms.add(lec);
 	}
 
 	public School getSchool() {

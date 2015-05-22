@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,6 +22,7 @@ public class Faculty implements Serializable {
 	private @Id @Column(name = "id") Long id;
 	private @Column(name = "name") String name;
 	private transient @OneToMany List<Department> departments;
+	private @ManyToOne School school;
 
 	public Faculty() {
 	}
@@ -53,5 +55,9 @@ public class Faculty implements Serializable {
 
 	public List<Department> getDepartments() {
 		return departments;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
 	}
 }

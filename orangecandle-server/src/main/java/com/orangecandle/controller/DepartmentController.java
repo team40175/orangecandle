@@ -24,20 +24,33 @@ public class DepartmentController {
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void add(@RequestParam String name, @RequestParam String faculties,
+	public void add(@RequestParam(required = false) Long id,
+			@RequestParam String name, @RequestParam String faculties,
 			HttpServletResponse response) throws IOException {
 		Writer w = response.getWriter();
 		if ("[]".equals(faculties)) {
 			json.toExtJSON(w, false, "You need to select a faculty");
-		} else {
+			return;
+		}
+		Faculty faculty = facultyRepo.findOne(json.fromJson(faculties,
+				Long[].class)[0]);
+		Department xDepartment = repo.findByNameAndFaculty(name, faculty);
+		if (null != xDepartment
+				&& (id == null || !id.equals(xDepartment.getId()))) {
+			json.toExtJSON(w, false, "Department with name " + name
+					+ " already exists in " + faculty.getName());
+		} else if (id == null) {
 			Department department = new Department(name);
-			Faculty faculty = facultyRepo.findOne(json.fromJson(faculties,
-					Long[].class)[0]);
-			faculty.addDepartment(department);
+			department.setFaculty(faculty);
 			repo.save(department);
-			facultyRepo.save(faculty);
 			json.toExtJSON(w, true, "Succesfully added a department with name "
 					+ name + " to " + faculty.getName());
+		} else {
+			Department department = repo.findOne(id);
+			department.setName(name);
+			department.setFaculty(faculty);
+			repo.save(department);
+			json.toExtJSON(w, true, "Department successfully edited.");
 		}
 	}
 }

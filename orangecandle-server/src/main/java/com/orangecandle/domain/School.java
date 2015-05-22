@@ -1,16 +1,12 @@
 package com.orangecandle.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +17,6 @@ public class School implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private @Id @Column(name = "id") Long id;
 	private @Column(name = "name") String name;
-	private transient @OneToMany List<Faculty> faculties;
 
 	public School() {
 	}
@@ -44,16 +39,6 @@ public class School implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public void addFaculty(Faculty... faculty) {
-		if (faculties == null)
-			faculties = new ArrayList<Faculty>();
-		this.faculties.addAll(Arrays.asList(faculty));
-	}
-
-	public List<Faculty> listFaculty() {
-		return this.faculties;
 	}
 
 }

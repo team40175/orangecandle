@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,6 +24,7 @@ public class Department implements Serializable {
 	private transient @ManyToMany List<User> users;
 	private transient @ManyToMany List<Group> groups;
 	private transient @OneToMany List<Room> rooms;
+	private @ManyToOne Faculty faculty;
 
 	public Department() {
 	}
@@ -75,6 +77,10 @@ public class Department implements Serializable {
 		if (this.rooms == null)
 			this.rooms = new ArrayList<Room>();
 		this.rooms.add(lec);
+	}
+
+	public void setFaculty(Faculty faculty) {
+		this.faculty = faculty;
 	}
 
 }

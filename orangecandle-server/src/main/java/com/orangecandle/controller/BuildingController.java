@@ -24,9 +24,9 @@ public class BuildingController {
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void addingUser(@RequestParam Long id, @RequestParam String name,
-			@RequestParam String schools, HttpServletResponse response)
-			throws IOException {
+	public void addingUser(@RequestParam(required = false) Long id,
+			@RequestParam String name, @RequestParam String schools,
+			HttpServletResponse response) throws IOException {
 		Writer w = response.getWriter();
 		if ("[]".equals(schools)) {
 			json.toExtJSON(w, false, "You need to select a school.");

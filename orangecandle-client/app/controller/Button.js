@@ -85,7 +85,7 @@ Ext.define('OrangeCandle.controller.Button', {
 		}
 		if (button.ref.extraStore !== undefined) {
 			if (button.ref.extraStore instanceof Array) {
-				button.ref.store.forEach(function(object) {
+				button.ref.extraStore.forEach(function(object) {
 					Ext.data.StoreManager.lookup(object).load();
 				});
 			} else
