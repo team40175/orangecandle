@@ -17,7 +17,7 @@ Ext.define('OrangeCandle.view.AddConstraints', {
 			}, {
 				xtype : 'textfield',
 				placeHolder : 'Name of the Constraint:',
-				name : 'consName',
+				name : 'name',
 			}, {
 				xtype : 'hiddenfield',
 				name : 'username',
