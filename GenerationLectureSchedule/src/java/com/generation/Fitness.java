@@ -1,5 +1,6 @@
 package java.com.generation;
 
+import java.com.generationdomain.Lecturer;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -12,7 +13,7 @@ public class Fitness {
 	public static int getFitness(Individual individual){
 		int fitness=0;
 		
-		fitness=calculatedFitness();
+		fitness=calculatedFitness(individual);
 		
 		if(fitness>85&&fitness<100)
 			lessCompatibleLectureSchedule.add(individual);
@@ -21,7 +22,10 @@ public class Fitness {
 		return fitness;			
 	}
 	
-	private static int calculatedFitness() {
+	private static int calculatedFitness(Individual individual) {
+		for(int i=0;i<GenerationClass.genUzunluğu;i++){
+			others(individual.gen.get(i));
+		}
 		return 0;	
 	}
 
@@ -30,9 +34,14 @@ public class Fitness {
 		int fitness = 0;
 		return fitness;			
 	}
-	private static int others(){
+	private static int others(Gen gen){
 		//zorunlu olmayanlar
 		int fitness = 0;
+		if(gen.lecturer.type==Lecturer.Type.PARTTIME){
+			
+		}else{
+			
+		}
 		return fitness;	
 	}
 
