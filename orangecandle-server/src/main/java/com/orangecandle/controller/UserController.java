@@ -111,7 +111,10 @@ public class UserController {
 			for (Long lid : json.fromJson(lectures, Long[].class)) {
 				user.assignLecture(lectureRepo.findOne(lid));
 			}
+			repo.save(user);
 		}
+		json.toExtJSON(response.getWriter(), true,
+				"Lecture is assigned to lecturer");
 	}
 
 	@RequestMapping(value = "/pickLectures")

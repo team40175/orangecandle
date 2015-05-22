@@ -26,7 +26,7 @@ public class User implements UserDetails {
 	private @Id @Column(name = "id") Long id;
 	private @Column(name = "username") String username;
 	private @Column(name = "password") String password;
-	private @Column boolean isPartTime = false;
+	private @Column Boolean isPartTime = false;
 	private @ManyToMany List<Group> groups;
 	private transient @ManyToMany List<Constraint> constraints;
 	private @ManyToMany List<Lecture> takenLectures;

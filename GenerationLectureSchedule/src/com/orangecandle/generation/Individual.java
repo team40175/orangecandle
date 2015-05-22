@@ -3,6 +3,7 @@ package com.orangecandle.generation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,87 +21,72 @@ public class Individual {
 	private @Autowired LecturerData lrData;
 	private @Autowired StudentData sData;
 	private @Autowired RoomData rData;
-	ArrayList<Gene> gen = new ArrayList<Gene>();
+	ArrayList<Gene> genePool = new ArrayList<Gene>();
 	int fitnessValue = 0;
 
 	private static final Logger log = LoggerFactory.getLogger(Individual.class);
 
 	public Individual() {
-		log.info("Individual class");
-
-		generateIndividual();
-	}
-
-	public void setGen(ArrayList<Gene> gen) {
-		this.gen = gen;
-		this.fitnessValue = calculateFitness();
-	}
-
-	/** creation of chromosome of an individual */
-	void generateIndividual() {
-		log.info("evolve function in Individual class");
-
-		generateAll();
-
+		sData.generate();
+		lData.generate();
+		rData.generate();
+		lrData.generate();
 		for (int i = 0; i < constants.geneLength(); i++) {
 			Gene genetic = new Gene();
-			gen.add(i, genetic);
+			genePool.add(i, genetic);
 		}
 	}
 
-	private void generateAll() {
-		try {
-			sData.generate();
-			lData.generate();
-			rData.generate();
-			lrData.generate();
-		} catch (Exception e) {
-			log.error("generateAll could not generate all", e);
-		}
+	public void replaceGenepool(ArrayList<Gene> genes) {
+		this.genePool = genes;
+		this.fitnessValue = calculateFitness();
 	}
 
 	public void mutate() {
 		swapDays(constants.radiationValue(), constants.radiationValue());
 	}
 
-	void swapDays(int arg0, int arg1) {
-		log.info("changeGenInADay function in Individual class");
+	void swapDays(int day0, int day1) {
 		Individual one = this.clone();
 		for (int i = 0; i < constants.getLectureCount(); i++) {
-			Gene gen = one.gen.get(arg0 + i);
-			one.gen.add(arg0 + i, one.gen.get(arg1 + i));
-			one.gen.add(arg1 + i, gen);
+			Gene gen = one.genePool.get(day0 + i);
+			one.genePool.add(day0 + i, one.genePool.get(day1 + i));
+			one.genePool.add(day1 + i, gen);
 		}
 	}
 
-	ArrayList<Individual> crossover(Individual otherIndividual) {
+	List<Individual> crossover(Individual partner) {
 		log.info("crossover function in Individual class");
-
 		int number = (int) (Math.random() * constants.geneLength());
 		Individual one = this.clone();
-		Individual other = otherIndividual.clone();
-
+		Individual other = partner.clone();
 		for (int i = number; i < constants.geneLength(); i++) {
-			Gene gen = one.gen.get(i);
-			one.gen.add(i, other.gen.get(i));
-			other.gen.add(i, gen);
+			Gene gen = one.genePool.get(i);
+			one.inject(other.genePool.get(i));
+			other.inject(gen);
 		}
-
-		return (ArrayList<Individual>) Arrays.asList(one, other);
+		return Arrays.asList(one, other);
 	}
 
 	@Override
 	protected Individual clone() {
-		Individual nowInd = new Individual();
-		Collections.copy(this.gen, nowInd.gen);
-		return nowInd;
+		Individual clone = new Individual();
+		Collections.copy(this.genePool, clone.genePool);
+		return clone;
 	}
 
 	public void repair() {
-		//
 	}
 
 	int calculateFitness() {
 		return fitness.getFitness(this);
+	}
+
+	public void inject(Gene gene) {
+		genePool.add(gene);
+	}
+
+	public Gene extract(int i) {
+		return genePool.get(i);
 	}
 }
