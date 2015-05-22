@@ -108,6 +108,9 @@ Ext.define('OrangeCandle.controller.Login', {
 	createButtons : function(view, role) {
 		var buttons = Ext.StoreManager.lookup('Buttons').data.items[0].data;
 		if (buttons[role]) {
+			for ( var i in buttons[role]) {
+				buttons[role][i].ui = "plain";
+			}
 			view.down('panel').add(buttons[role]);
 		}
 	}

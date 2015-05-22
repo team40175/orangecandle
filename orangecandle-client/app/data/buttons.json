@@ -166,7 +166,7 @@
     "All": [
 		{
 				"xtype" : "button",
-				"text" : "ChangePassword",
+				"text" : "Change Password",
 				"id" : "changePass"
 		}    
     ]
