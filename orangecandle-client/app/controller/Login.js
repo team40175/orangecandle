@@ -72,7 +72,6 @@ Ext.define('OrangeCandle.controller.Login', {
 				var view = {
 					xtype : 'mainmenuview'
 				};
-				console.log("Spiffing, everything worked");
 				var data = JSON.parse(response.responseText).data;
 				if (data.length === 0) {
 					Ext.Msg.alert("",
@@ -85,10 +84,11 @@ Ext.define('OrangeCandle.controller.Login', {
 				Ext.Viewport.setActiveItem(mainView);
 				mainView.getLayout().setAnimation(false);
 				mainView.down('panel').removeAll();
+				me.createButtons(mainView, "All");
 				for ( var i in data) {
 					me.createButtons(mainView, data[i].id);
 				}
-				me.createButtons("ForAll");
+
 			},
 			failure : function(response) {
 				Ext.Msg.alert("", "Sign in failed", Ext.emptyFn);
