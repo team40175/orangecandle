@@ -85,7 +85,8 @@
                 "xtype": "list",
                 "itemTpl": "{username}",
                 "store": "Teacher",
-                "extraStore": "Lecture"
+                "extraStore": "Lecture",
+                "alias": "Lecture Assignment"
             },
             "form": {
                 "xtype": "assignlecture"
@@ -154,9 +155,9 @@
     ],
     "All": [
 		{
-				"xtype" : "button",
-				"text" : "Change Password",
-				"id" : "changePass"
+			"xtype" : "button",
+			"text" : "Change Password",
+			"id" : "changePass"
 		}    
     ]
 }
