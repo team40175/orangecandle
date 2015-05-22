@@ -157,6 +157,17 @@
                 "xtype": "userlecture",
                 "editable": false
             }
+        },{
+            "xtype": "button",
+            "text": "View Schedule",
+            "ref": {
+                "xtype": "list",
+                "itemTpl": "{schoolname} - {name}",
+                "store": "LessonSchedule"
+            },
+            "form": {
+                "xtype": "viewlessons"
+            }
         }
     ],
     "All": [

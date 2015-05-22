@@ -46,11 +46,18 @@ public class Constraint implements Serializable {
 	public void setEvaluationString(String ide) {
 		this.evaluationString = ide;
 	}
+	public void setUser(User user) {
+		this.users.add(user);
+	}
 
 	public Lecture getLectures() {
 		return this.lecture;
 	}
 
+	public void setRoom(Room room) {
+		 this.rooms.add(room);
+	}
+	
 	public void setLecture(Lecture lec) {
 		this.lecture = lec;
 	}
